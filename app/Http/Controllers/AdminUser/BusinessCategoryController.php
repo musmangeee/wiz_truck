@@ -22,7 +22,6 @@ class BusinessCategoryController extends Controller
     public function index()
     {
         $businessCategory = Category::all();
-
         return view('admin.category.index', compact('businessCategory'));
     }
 
