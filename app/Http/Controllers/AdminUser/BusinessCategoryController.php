@@ -43,7 +43,6 @@ class BusinessCategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         $businessCategory = new Category();
 
         $validator = validator::make($request->all(), [
