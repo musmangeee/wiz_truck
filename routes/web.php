@@ -87,6 +87,11 @@ Route::group(['middleware' => ['check_business_role', 'check_admin_role']], func
  * Business Routes
  */
 
+    
+
+
+
+
 
 
 Route::prefix('business')->group(function () {
@@ -94,6 +99,7 @@ Route::prefix('business')->group(function () {
         Route::get('/', 'BusinessUser\BusinessController@index')->name('individual.business.index');
         Route::get('setting', 'BusinessUser\BusinessController@setting');
         Route::get('business/reviews', 'BusinessUser\BusinessController@index');
+        
     });
 });
 
@@ -141,7 +147,7 @@ Route::prefix('admin')->group(function () {
 // });
 
 
-
+Route::get('restaurant_reviews/{id}', 'Api\RestaurantReviewController@index');
 
 /**
  * Testing

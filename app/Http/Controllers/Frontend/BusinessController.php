@@ -7,6 +7,7 @@ use App\BusinessCategory;
 use App\City;
 use App\Menu;
 use App\Product;
+use App\Review;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\HelperController;
 use Illuminate\Http\Request;
@@ -16,17 +17,13 @@ use Illuminate\Support\Facades\Session;
 class BusinessController extends Controller
 {
     public function index($slug, Request $request)
-    {
-
-       
-       
-       
+    { 
         $helper = new HelperController();
         $data = [];
-        $business = Business::where('id', $slug)->with('images')->first();
+        $business = Business::where('id', $slug)->with('images','reviews')->first();
        
         $menus = Menu::where('business_id',$business->id)->with('products')->get(); 
-        
+      
         $products = [];
         foreach($menus as $menu)    {
             foreach(Product::where('menu_id', $menu->id)->get() as $p)    {

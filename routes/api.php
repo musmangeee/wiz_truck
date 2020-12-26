@@ -23,6 +23,7 @@ Route::group([
 ], function () {
     Route::post('login', 'Api\AuthController@login');
     Route::post('signup', 'Api\AuthController@signup');
+    Route::get('change_password/{id}', 'Api\PasswordResetController@change_password'); 
 
     Route::group([
         'middleware' => 'auth:api'
@@ -38,9 +39,14 @@ Route::apiResource('categories', 'Api\CategoryController');
 Route::apiResource('businesses', 'Api\BusinessController');
 Route::apiResource('business_category', 'Api\BusinessCategoryController');
 Route::get('restaurant/{id}', 'Api\RestaurantController@index');
+Route::get('restaurant_reviews/{id}', 'Api\RestaurantReviewController@index');
 Route::get('business_order/{id}', 'Api\OrderController@business_order');
 Route::get('user_order/{id}', 'Api\OrderController@user_order');
 
 Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_category_restaurant');
 
 Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
+
+
+// change password
+

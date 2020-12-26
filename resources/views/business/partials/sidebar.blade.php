@@ -58,7 +58,7 @@
 
 
 
-            
+
             <!-- Navigation -->
             <ul class="navbar-nav mb-3">
 
@@ -67,12 +67,29 @@
                         <i class="fe fe-home"></i> Dashboard
                     </a>
                 </li>
-                
-                <li class="nav-item">
+                  
+
+
+                <li>
+                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pie-chart"></i><span>Charts</span></a>
+                    <ul class="collapse">
+                        <li><a href="barchart.html">bar chart</a></li>
+                        <li><a href="linechart.html">line Chart</a></li>
+                        <li><a href="piechart.html">pie chart</a></li>
+                    </ul>
+                </li>
+
+
+
+                  <li class="nav-item">
                     <a class="nav-link" href="{{ route('products.index') }}">
                         <i class="fe fe-briefcase"></i> Products
                     </a>
                 </li>
+
+
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('menu.index') }}">
                         <i class="fe fe-star"></i> Menu

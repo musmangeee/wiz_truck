@@ -22,8 +22,8 @@ class FrontEndController extends Controller
     {
            
         $helper = new HelperController();
-        $restaurants = Business::take(3)->with('images','categories')->get();
-                
+        $restaurants = Business::take(3)->with('images','categories','reviews')->get();
+               
            
         $pref_wallpaper = $helper->get_prefer_wallpaper();
         $data = [];

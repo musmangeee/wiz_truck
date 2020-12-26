@@ -5,30 +5,14 @@
 
 <section>
 <div class="container text-center py-5 mt-5">
-        <h2 class="h1">FoodTruck Near Me!</h2>
-        <div class="row mt-5">
+       
 
 @for($a = 0; $a<3; $a++)
-    <div class="col-lg-4 col-sm-6">
-        <a href="{{ url('search?find='.urlencode($data['random_categories'][$a]['name'])) }}"
-           class="card cat-card lift">
-            <!-- Image -->
-            <img src="{{ asset('public/images/img2.jpg'.$data['random_categories'][$a]['']) }}" alt="..."
-                 class="card-img-top">
-            <!-- Body -->
-            <div class="card-body py-3 text-left">
-                <!-- Heading -->
-                <h4 class="card-title text-dark">
-                     McDonald's® (609 Market St) <span class="badge badge-secondary float-right">4.5</span>
-                </h4>
-                <p class="text-dark">$1.49 Delivery Fee. 20–30 Min</p>
-            </div>
-        </a>
-    </div>
+   
 @endfor
 
 
-</div>
+
 <div class="container text-center py-5 mt-5">
     <h2 class="h1">New on Wiz Truck</h2>
     <div class="row mt-5">
@@ -36,19 +20,37 @@
  @foreach ($restaurants as $key =>  $item)
 
 <div class="col-lg-4 col-sm-6" >
-    <a href="{{url('list-business') . '/' . $item->id}}"
+    <div 
        class="card cat-card lift">
         <!-- Image -->
         <img  height="230px" width="300px" src="{{asset('public/business_images/'.$item->images[0]['name']) }}  " alt="..."
-
+  
              class="card-img-top">
              
         <!-- Body -->
         <div class="card-body py-3 text-left">
             <!-- Heading -->
-            <h4 class="card-title text-dark">
-                {{$item->name}} <span class="badge badge-secondary float-right">4.5</span>
-            </h4>
+           
+                <div class="row">
+                   
+                  <div class="col-sm-7">
+                    <a href="{{ url('write_a_review/'. $item->id) }}">
+                        <div class="rating text-primary "
+                             data-rate-value="@if(sizeof($item->reviews) > 1){{ floor((($item->reviews->sum('stars')/sizeof($item->reviews))*2)/2 ) }} @else 0 @endif"></div>
+                    </a>
+                  </div>
+                  <div class="col-sm-5">
+                    <span class="badge badge-secondary mt-3">
+                        {{ sizeof($item->reviews) }} Reviews Total
+                    </span>
+                  </div>
+                  
+                </div>
+
+                <a href="{{url('list-business') . '/' .$item->id}}" class="card-title h3">{{ $item->name }}</a>
+          
+        
+       
             <p class="text-dark">{{$item->address}}</p>
             @foreach($item->categories as $category)
             {{$category->name}},
@@ -56,7 +58,7 @@
         
             
         </div>
-    </a>
+    </div>
 </div>
 @endforeach
 
