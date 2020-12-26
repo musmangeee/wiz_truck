@@ -39,9 +39,7 @@
     <a href="{{url('list-business') . '/' . $item->id}}"
        class="card cat-card lift">
         <!-- Image -->
-        <img  height="230px" width="300px" src="{{asset('public/business_images/'.$item->images[0]['name']) }}  " alt="..."
-
-             class="card-img-top">
+       
              
         <!-- Body -->
         <div class="card-body py-3 text-left">
