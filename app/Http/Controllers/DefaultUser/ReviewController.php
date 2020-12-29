@@ -29,7 +29,7 @@ class ReviewController extends Controller
     public function index()
     {
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
+        $data = [];
         $reviews = Review::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->take(20)->get();
         return view('backend.review.index', compact('reviews', 'data'));
     }
@@ -41,7 +41,7 @@ class ReviewController extends Controller
         else
             $business = Business::where('slug', $slug)->first();
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
+        $data = [];
         return view('backend.review.write_a_review_form', compact('business', 'data'));
     }
 
@@ -83,7 +83,7 @@ class ReviewController extends Controller
     public function writeareview()
     {
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
+        $data = [];
         $city_business = Business::where('city_id', 1)->get();
         $reviews = Review::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->take(20)->get();
         return view('backend.review.write_a_review', compact('reviews', 'data', 'city_business'));

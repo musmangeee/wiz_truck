@@ -14,14 +14,16 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(RoleTableSeeder::class);
         $this->call(UserTableSeeder::class);
-       
+        $this->call(BusinessImageSeeder::class);
         $this->call(BusinessTableSeeder::class);
         $this->call(BusinessCategorySeeder::class);
         $this->call(CategorySeeder::class);
+        $this->call(ImageSeeder::class);
        
         $this->call(MenuSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(OrderSeeder::class);
+       
         /*
          * Factories
          */
