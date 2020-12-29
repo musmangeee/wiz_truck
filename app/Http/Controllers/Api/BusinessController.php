@@ -62,15 +62,13 @@ class BusinessController extends Controller
         ]);
 
 
-
+// Add Categories
         $response = [
             "status" => "200",
             "message" => "Your business have register successfuly",
             "user" => $user,
             "business" => $business, 
             'access_token' =>$success['token']
-           
-
         ];
 
         return response()->json($response);
