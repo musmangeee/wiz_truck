@@ -23,7 +23,7 @@ Route::group([
 ], function () {
     Route::post('login', 'Api\AuthController@login');
     Route::post('signup', 'Api\AuthController@signup');
-    Route::get('change_password/{id}', 'Api\PasswordResetController@change_password'); 
+    Route::post('change_password/{id}', 'Api\PasswordResetController@change_password'); 
 
     Route::group([
         'middleware' => 'auth:api'
@@ -46,6 +46,7 @@ Route::get('user_order/{id}', 'Api\OrderController@user_order');
 Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_category_restaurant');
 
 Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
+
 
 
 // change password

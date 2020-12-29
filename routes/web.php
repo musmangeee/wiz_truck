@@ -147,7 +147,7 @@ Route::prefix('admin')->group(function () {
 // });
 
 
-Route::get('restaurant_reviews/{id}', 'Api\RestaurantReviewController@index');
+
 
 /**
  * Testing

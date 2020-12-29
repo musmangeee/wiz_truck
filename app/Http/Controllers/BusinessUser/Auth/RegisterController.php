@@ -63,7 +63,6 @@ class RegisterController extends Controller
         
         $business = Business::create([
             'user_id' => $user ->id,  
-  
             'name' => $request -> business_name,
             'url' => $request -> url, 
             'phone' => $request -> phone, 
@@ -87,8 +86,6 @@ class RegisterController extends Controller
 
         foreach($request->categories as $category)
         {
-         
-            
             $bc= new BusinessCategory();
             $bc->business_id = $business->id;
             $bc->category_id = $category;

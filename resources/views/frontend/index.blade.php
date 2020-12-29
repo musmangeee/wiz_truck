@@ -69,11 +69,11 @@
         <div class="row mt-5">
 
 
-    <div class="col-lg-4 col-sm-6">
+      <div class="col-lg-4 col-sm-6">
         <a href="{{ url('search?find='.urlencode($data['random_categories'][$a]['name']).'&location=') }}"
            class="card cat-card lift">
             <!-- Image -->
-            <img src="{{ asset('storage/1.svg') }}" alt="..."
+            <img src="{{ asset('public/frontend_image/1.svg') }}" alt="..."
                  class="card-img-top">
             <!-- Body -->
             <div class="card-body py-3 text-left">
@@ -91,7 +91,7 @@
         <a
            class="card cat-card lift">
             <!-- Image -->
-            <img src="{{ asset('storage/2.svg') }}" alt="..."
+            <img src="{{ asset('public/frontend_image/2.svg') }}" alt="..."
                  class="card-img-top">
             <!-- Body -->
             <div class="card-body py-3 text-left">
@@ -109,7 +109,7 @@
         <a href="{{ url('search?find='.urlencode($data['random_categories'][$a]['name']).'&location=') }}"
            class="card cat-card lift">
             <!-- Image -->
-            <img src="{{ asset('storage/3.svg') }}" alt="..."
+            <img src="{{ asset('public/frontend_image/3.svg') }}" alt="..."
                  class="card-img-top">
             <!-- Body -->
             <div class="card-body py-3 text-left">

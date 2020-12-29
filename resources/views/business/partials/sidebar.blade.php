@@ -69,13 +69,12 @@
                 </li>
                   
 
-
                 <li>
-                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pie-chart"></i><span>Charts</span></a>
-                    <ul class="collapse">
-                        <li><a href="barchart.html">bar chart</a></li>
-                        <li><a href="linechart.html">line Chart</a></li>
-                        <li><a href="piechart.html">pie chart</a></li>
+                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pencil-alt2"></i><span>Test Products
+                            </span></a>
+                    <ul data-toggle="collapse" data-target="#product" role="button" aria-expanded="false" aria-controls="product">
+                        <li class="collapse"><a href="" id="product">List Products</a></li>
+                        <li><a href="">Add Products</a></li>
                     </ul>
                 </li>
 
