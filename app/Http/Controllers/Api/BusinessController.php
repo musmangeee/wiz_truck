@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use App\Business;
+use App\BusinessCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -19,9 +20,10 @@ class BusinessController extends Controller
     public function ApiRegister(Request $request)
     {
        
-
+      
         $validator = Validator::make($request->all(), [
-            'name'    => 'required|string',
+            'first_name'    => 'required',
+            'last_name' => 'required',
             'email'   => 'required|string|email|unique:users',
             'password'=> 'required',
             'business_name' => 'required',
@@ -29,7 +31,8 @@ class BusinessController extends Controller
             'phone'   => 'required',
             'business_email' => 'required|string|email|unique:businesses',
             'description' => 'required',
-            'role' => 'required|integer'
+            'role' => 'required|integer',
+            'categories' => 'required|array|min:1'
         ]);
 
         if ($validator->fails()) {
@@ -39,9 +42,13 @@ class BusinessController extends Controller
         // unset($input['role']);
         $input = $request->all();
         $role = $input['role'];
+        $input['name'] = $input['first_name'].' '.$input['last_name'];
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $user->assignRole($role);
+ 
+   
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
         
         $business = Business::create([
             'user_id' => $user ->id,  
@@ -52,15 +59,23 @@ class BusinessController extends Controller
             'description' => $request -> description , 
         ]);
 
+        foreach($request->categories as $category)
+        {
+
+            $bc= new BusinessCategory();
+            $bc->business_id = $business->id;
+            $bc->category_id = $category;
+            $bc->save();
+        }
 
 
+        // Add Categories
         $response = [
             "status" => "200",
             "message" => "Your business have register successfuly",
             "user" => $user,
             "business" => $business, 
-           
-
+            'access_token' =>$success['token']
         ];
 
         return response()->json($response);

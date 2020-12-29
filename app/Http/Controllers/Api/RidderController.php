@@ -14,7 +14,8 @@ class RidderController extends Controller
     public function ridderRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
+            'first_name'    => 'required',
+            'last_name' => 'required',
             'email' => 'required|string|email|unique:users',
             'password' => 'required', 
             'role' => 'required|integer'
@@ -27,23 +28,19 @@ class RidderController extends Controller
         // unset($input['role']);
         $input = $request->all();
         $role = $input['role'];
+        $input['name'] = $input['first_name'].' '.$input['last_name'];
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $user->assignRole($role);
+
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
         
-        // $ridder = Business::create([
-        //     'user_id' => $user ->id,  
-        //     'name'    => $request ->rider_name,
-        //     'phone'   => $request ->phone, 
-        //     'business_email' => $request ->business_email,
-        // ]);
-
-
 
         $response = [
             "status" => "200",
             "message" => "Your ridder have register successfuly",
             "user" => $user,
+            'access_token' =>$success['token']
             
            
 
