@@ -33,11 +33,16 @@ Route::group([
     ], function () {
         Route::get('logout', 'Api\AuthController@logout');
         Route::get('user', 'Api\AuthController@user');
+        Route::apiResource('restaurant_menu', 'Api\Restaurant\RestaurantMenuController');
+
     });
 });
 
 Route::apiResource('products', 'Api\ProductController');
 Route::apiResource('menus', 'Api\MenuController');
+
+
+
 Route::apiResource('categories', 'Api\CategoryController');
 Route::apiResource('businesses', 'Api\BusinessController');
 Route::apiResource('business_category', 'Api\BusinessCategoryController');
@@ -50,6 +55,10 @@ Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_cat
 
 Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
  
+
+
+
+
 // Google login response
 Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
 // RegiseterAPI

@@ -51,7 +51,6 @@ class ProductOrderController extends Controller
              ]);
            
              
-             dd($request->products);
              foreach($request->product as $product)
              {
                 $pc = new ProductOrder();

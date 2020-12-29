@@ -51,6 +51,7 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'menu_id'=>'required',
         ];
 
         $this->validate($request, $rules);
