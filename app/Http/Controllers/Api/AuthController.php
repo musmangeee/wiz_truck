@@ -105,11 +105,7 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Logout user (Revoke the token)
-     *
-     * @return [string] message
-     */
+  
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
