@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+Route::post('for', 'Api\ProductOrderController@change_password');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -44,3 +47,8 @@ Route::get('user_order/{id}', 'Api\OrderController@user_order');
 Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_category_restaurant');
 
 Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
+// Google login response
+Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
+// RegiseterAPI
+Route::post('apiregister', 'Api\BusinessController@ApiRegister');
+Route::post('ridderregister', 'Api\RidderController@ridderRegister');

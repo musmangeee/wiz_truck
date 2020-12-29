@@ -73,6 +73,8 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
+
+            
         $user = $request->user();
 
         $tokenResult = $user->createToken('Personal Access Token');
@@ -115,4 +117,31 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
+
+    public function change_password(Request $request, $id)
+    {
+       
+            $user = User::where('id',$id)-> first();
+            //$request->old_password = bcrypt($request->old_password);
+            if($user)
+            {
+                if(\Hash::check($request->old_password, $user->password))
+                {
+                        $user->password = bcrypt($request->new_password);
+                        $user->save();
+                        return response()->json(['message'=>'Password changed successfully','status' => 'true'], 201);
+                }
+                else
+                {
+                    return response()->json(['message'=>'Incorrect old password','status'=>'false'], 400);
+                }
+            }
+            else
+            {
+                return response()->json(['message'=>'user not found','status' => 'false'], 400);
+            }
+        
+
+    }
+    
 }

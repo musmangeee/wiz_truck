@@ -117,11 +117,11 @@
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <form action="{{route('search')}}" method="GET" class="col-12">
-                    <div class="input-group mb-3 mt-5">
-                        
-                        <input type="text" id="location" class="autocomplete_locations form-control" name="location" placeholder="Enter Your Address" autocomplete="off" >
+                    <div class="input-group mb-3 mt-5"  id="locator-input-section">
+                        <input type="text" id="autocomplete" class="autocomplete_locations form-control" name="location" placeholder="Enter Your Address" autocomplete="off">
                         
                         <div class="input-group-prepend">
+                            <i aria-hidden="true" class="dot circle outline link icon" id="locator-button" style="margin-top:10%"></i>
                             <button class="btn btn-primary rounded-right" type="submit"><i class="fe fe-search mx-3"></i></button>
                         </div>
                     </div>

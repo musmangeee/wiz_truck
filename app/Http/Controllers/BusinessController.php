@@ -45,7 +45,7 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+       
         $business = new Business();
 
         $validator = validator::make($request->all(), [

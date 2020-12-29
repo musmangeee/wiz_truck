@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="{{ URL::asset('backend/assets/css/theme-dark.min.css') }}" id="stylesheetDark">
     <link rel="stylesheet" href="{{ URL::asset('backend/assets/css/custom.css') }}" id="stylesheetDark">
 
-
+{{-- Location --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" />
     <style>
         body {
             display: none;
