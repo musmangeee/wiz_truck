@@ -47,11 +47,7 @@ class BusinessController extends Controller
         $user = User::create($input);
         $user->assignRole($role);
  
-        // $user = $request->user();
-        // $tokenResult = $user->createToken('Personal Access Token');
-        // $token = $tokenResult->token;
-        // $token->save();
-
+   
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         
         $business = Business::create([
@@ -73,15 +69,13 @@ class BusinessController extends Controller
         }
 
 
-
+        // Add Categories
         $response = [
             "status" => "200",
             "message" => "Your business have register successfuly",
             "user" => $user,
             "business" => $business, 
             'access_token' =>$success['token']
-           
-
         ];
 
         return response()->json($response);
