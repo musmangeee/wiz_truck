@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use Validator;
+use App\Business;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -83,11 +84,20 @@ class AuthController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
 
+        
+        $business = [];
+        if($user->hasRole('restaurant'))
+        {
+            $business = Business::where('user_id',$user->id)->first();
+            // $menu = Menu::where('business_id',$business->id)->with('products')->get(); 
+        }
+
         return response()->json([
             'name' => $user->name,
             'email' => $user->email,
             'role' => $user->getRoleNames(),
             'access_token' => $tokenResult->accessToken,
+            'business' => $business,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at

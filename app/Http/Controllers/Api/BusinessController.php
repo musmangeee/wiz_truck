@@ -21,7 +21,8 @@ class BusinessController extends Controller
        
 
         $validator = Validator::make($request->all(), [
-            'name'    => 'required|string',
+            'first_name'    => 'required',
+            'last_name' => 'required',
             'email'   => 'required|string|email|unique:users',
             'password'=> 'required',
             'business_name' => 'required',
@@ -39,9 +40,17 @@ class BusinessController extends Controller
         // unset($input['role']);
         $input = $request->all();
         $role = $input['role'];
+        $input['name'] = $input['first_name'].' '.$input['last_name'];
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $user->assignRole($role);
+ 
+        // $user = $request->user();
+        // $tokenResult = $user->createToken('Personal Access Token');
+        // $token = $tokenResult->token;
+        // $token->save();
+
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
         
         $business = Business::create([
             'user_id' => $user ->id,  
@@ -59,6 +68,7 @@ class BusinessController extends Controller
             "message" => "Your business have register successfuly",
             "user" => $user,
             "business" => $business, 
+            'access_token' =>$success['token']
            
 
         ];
