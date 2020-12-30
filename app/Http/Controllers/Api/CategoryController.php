@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -38,13 +39,16 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $rules = [
+    { 
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-        ];
-
-        $this->validate($request, $rules);
-
+        ]);
+       
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+    
         $categories = new Category();
         $categories->name = $request->name;
 
@@ -84,11 +88,14 @@ class CategoryController extends Controller
     {
 
     
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-        ];
+        ]);
+       
         
-        $this->validate($request, $rules);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
         
         $category->name = $request->name;
 

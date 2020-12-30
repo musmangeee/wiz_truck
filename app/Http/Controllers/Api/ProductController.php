@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -46,27 +47,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $rules = [
+
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
             'menu_id'=>'required',
 
-        ];
-
-        $this->validate($request, $rules);
-
+        ]);
        
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+    
         $data = $request->all();
+      
         $name='';
         if ($file = $request->file('image')) {
 
             $name = time() . $file->getClientOriginalName();
-            $file->move('public\products', $name);
+            $file->move('public\business_product', $name);
             $input['image'] = $name;
-            
         }
+
         $products = Product::create($data);
         
 
@@ -121,9 +126,25 @@ class ProductController extends Controller
             'price',
             'discount',
         ]));
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'menu_id'=>'required',
+
+        ]);
+       
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+       
+
         if ($product->isClean()) {
             return response()->json(['error' => 'You need to specify any different value to update'], 422);
         }
+
+
         $product->save();
         return response()->json($product);
     }

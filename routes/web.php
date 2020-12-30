@@ -60,6 +60,7 @@ Route::group(['middleware' => ['check_business_role', 'check_admin_role']], func
     
     
     Route::get('/home', 'HomeController@index')->name('home');
+
     Route::get('write_a_review', 'DefaultUser\ReviewController@writeareview')->name('search.business');
     Route::get('write_a_review/{slug}', 'DefaultUser\ReviewController@write_a_review_page')->name('write_a_review_store');
     Route::post('store_review', 'DefaultUser\ReviewController@postReview')->name('user.store.review');
@@ -104,6 +105,7 @@ Route::prefix('business')->group(function () {
         Route::get('/', 'BusinessUser\BusinessController@index')->name('individual.business.index');
         Route::get('setting', 'BusinessUser\BusinessController@setting');
         Route::get('business/reviews', 'BusinessUser\BusinessController@index');
+        Route::get('business/order', 'Order\OrderController@index');
         
     });
 });

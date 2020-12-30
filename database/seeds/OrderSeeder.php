@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Order;
 class OrderSeeder extends Seeder
 {
     /**
@@ -11,7 +11,7 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        \Illuminate\Support\Facades\DB::table('cities')->truncate();
+        \Illuminate\Support\Facades\DB::table('orders')->truncate();
           
         $orders = [
             [
@@ -23,6 +23,7 @@ class OrderSeeder extends Seeder
                 "longitude"=>"74.4086° E",
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
+                "total"=>"1212",
                 "status" => "1"
 
             ],
@@ -35,6 +36,7 @@ class OrderSeeder extends Seeder
                 "longitude"=>"74.4936° E",
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
+                "total"=>"1212",
                 "status" => "0"
             ],
             [
@@ -46,6 +48,7 @@ class OrderSeeder extends Seeder
                 "longitude"=>"74.4496° E",
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
+                "total"=>"1212",
                 "status" => "1"
             ],
             [
@@ -57,6 +60,7 @@ class OrderSeeder extends Seeder
                 "longitude"=>"74.3734° E",
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
+                "total"=>"1212",
                 "status" => "1"
             ],
         ];

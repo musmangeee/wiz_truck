@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->string('description');
+            $table->string('total')->default(0);
             $table->string('status')->default(1);
             $table->timestamps();
         });

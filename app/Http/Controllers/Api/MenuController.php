@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Menu;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class MenuController extends Controller
 {
@@ -36,11 +37,17 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-        ];
+            'business_id'=>'required',
+        ]);
+       
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
 
-        $this->validate($request, $rules);
+       
         $data = $request->all();
         $menus = Menu::create($data);
         return response()->json($menus, 201);

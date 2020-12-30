@@ -34,7 +34,8 @@ Route::group([
         Route::get('logout', 'Api\AuthController@logout');
         Route::get('user', 'Api\AuthController@user');
         Route::apiResource('restaurant_menu', 'Api\Restaurant\RestaurantMenuController');
-
+        Route::apiResource('owner_restaurant', 'Api\Restaurant\OwnerRestaurantController');
+        
     });
 });
 

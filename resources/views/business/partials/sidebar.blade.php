@@ -67,20 +67,7 @@
                         <i class="fe fe-home"></i> Dashboard
                     </a>
                 </li>
-                  
-
-                <li>
-                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pencil-alt2"></i><span>Test Products
-                            </span></a>
-                    <ul data-toggle="collapse" data-target="#product" role="button" aria-expanded="false" aria-controls="product">
-                        <li class="collapse"><a href="" id="product">List Products</a></li>
-                        <li><a href="">Add Products</a></li>
-                    </ul>
-                </li>
-
-
-
-                  <li class="nav-item">
+                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('products.index') }}">
                         <i class="fe fe-briefcase"></i> Products
                     </a>

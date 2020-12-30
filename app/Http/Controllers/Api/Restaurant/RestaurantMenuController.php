@@ -16,7 +16,7 @@ class RestaurantMenuController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->business_id);
+      
         
         $menu = Menu::where('id',$request->business_id)->with('products')->get();
      

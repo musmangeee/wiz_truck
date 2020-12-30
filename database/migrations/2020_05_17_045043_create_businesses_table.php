@@ -24,8 +24,7 @@ class CreateBusinessesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('business_email')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
+            
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->longText('message')->nullable();

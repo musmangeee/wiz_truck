@@ -10,7 +10,7 @@ class Business extends Model
 
     protected $fillable = ['id', 'name', 'url','postal_code',
         'phone',  'address', 'images', 'created_by', 'updated_by', 'deleted_by', 'user_id', 'slug','zipcode' ,'latitude' , 'longitude' ,'business_email' , 
-        'city', 'state' , 'hours' ,'status' ,'description' , 'claimed' , 'message'];
+          'hours' ,'status' ,'description' , 'claimed' , 'message'];
 
     public function categories()
     {
@@ -22,15 +22,7 @@ class Business extends Model
         return $this->hasMany('App\Review');
     }
 
-    public function town()
-    {
-        return $this->hasOne('App\Town', 'id', 'town_id');
-    }
-
-    public function city()
-    {
-        return $this->hasOne('App\City', 'id', 'city_id');
-    }
+   
 
     public function images()
     {
