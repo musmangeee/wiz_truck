@@ -67,6 +67,16 @@ class BusinessController extends Controller
             'access_token' =>$success['token']
         ];
 
+
+        foreach($request->categories as $category)
+        {
+
+            $bc= new BusinessCategory();
+            $bc->business_id = $business->id;
+            $bc->category_id = $category;
+            $bc->save();
+        }
+
         return response()->json($response);
 
     }

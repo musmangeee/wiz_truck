@@ -35,8 +35,6 @@
     var locatorSection = document.getElementById("locator-input-section")
     var input = document.getElementById("autocomplete");
 
-   
-
 
     function init() {
         var locatorButton = document.getElementById("locator-button");
@@ -64,6 +62,17 @@
                 setAddressToInputField(address.results[0].formatted_address)
             }
             console.log(address);
+            var lat = address['results'][0]['geometry']['location']['lat'];
+            var longitude = address['results'][0]['geometry']['location']['lng'];
+
+            console.log(location);
+        
+        var lati = lat;
+        document.getElementById("latitude").value = lati;
+        var longi = longitude;
+        document.getElementById("longitude").value = longi;  
+
+           
         };
         xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyCdAAjnKyYtVFYkgoTM5a5viCFgbWCspUA", true);
         xhttp.send();
@@ -82,9 +91,19 @@
     var options = {
         bounds: defaultBounds
     };
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    var places = new google.maps.places.Autocomplete(input, options);
     
-  
+    
+     
+        // var address = place.formatted_address;
+        // console.log(place,address);
+        // var latitude = place.geometry.location.lat();
+        // var longitude = place.geometry.location.lng();
+      
+        // var lati = latitude;
+        // document.getElementById("latitude").value = lati;
+        // var longi = longitude;
+        // document.getElementById("longitude").value = longi;  
 
     init()
 

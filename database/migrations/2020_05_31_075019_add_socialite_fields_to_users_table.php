@@ -14,8 +14,8 @@ class AddSocialiteFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('provider_name')->nullable()->after('id');
-            $table->string('provider_id')->nullable()->after('provider_name');
+            $table->string('provider')->nullable()->after('id');
+            $table->string('provider_id')->nullable()->after('provider');
             $table->string('password')->nullable()->change();
             $table->string('avatar')->nullable();
         });

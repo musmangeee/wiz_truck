@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Business;
-use App\BusinessCategory;
-use App\Category;
 use App\City;
-use App\Http\Controllers\Helper\HelperController;
 use App\Town;
+use App\Business;
+use App\Category;
+use App\Location;
+use App\BusinessCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Helper\HelperController;
 
 class SearchController extends Controller
 {
@@ -296,5 +297,30 @@ foreach($data['search_results']->toArray('id') as $id){
     
 
         return view('frontend.search', compact('data'));
+    }
+
+    // 
+    
+    public function findNearestRestaurants(Request $request, $radius = 500)
+    {
+        
+        $latitude  = $request->latitude;
+        $longitude = $request->longitude;
+
+
+        $location = Location::selectRaw("
+        user_id,longitude,latitude,
+        ( 6371000 * acos( cos( radians(?) ) *
+          cos( radians( latitude ) )
+          * cos( radians( longitude ) - radians(?)
+          ) + sin( radians(?) ) *
+          sin( radians( latitude ) ) )
+         ) AS distance", [$latitude, $longitude, $latitude])
+            ->having("distance", "<", $radius)
+            ->orderBy("distance",'asc')
+            ->offset(0)
+            ->limit(20)->with('user')
+            ->get();
+        return response()->json(["location" => $location]);
     }
 }
