@@ -5,6 +5,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
+use App\ProductOrder;
 class ProductOrderController extends Controller
 {
     /**
@@ -20,6 +21,7 @@ class ProductOrderController extends Controller
      
     public function order_accept(Request $request, $id)
     {   
+  
      
         $order = array();
 
@@ -32,12 +34,13 @@ class ProductOrderController extends Controller
             'product' => 'required',
             'quantity'=>'required',
             'product_id' => 'required',
+            'order_id' => 'required',
      ]);
     
   
      
              $order = Order::create([
-             
+              'order_id'=>$request-> order_id,
               'user_id' =>$request-> user_id ,
               'business_id' =>$request-> business_id,
               'description' => $request -> description , 
@@ -49,20 +52,25 @@ class ProductOrderController extends Controller
               'product' => $request -> product,
               
              ]);
-           
-             
-             foreach($request->product as $product)
+          
+          
+           //return response()->json($request->products);
+             foreach($request->products as $product)
              {
                 $pc = new ProductOrder();
-                $pc->product_id = $product->id;
-                $pc->quantity = $quantity;
+                $pc->order_id = $order->id;
+                $pc->product_id = $product['product_id'];
+                $pc->quantity = $product['quantity'];
+                
                 $pc->save();
              }
-        
+             $order['products'] = ProductOrder::where('order_id', $order->id)->get();
+           
         
              return response()->json([
             'status' =>true,
             'message' => 'Order Created Successfully',
+            'order' =>$order,
           
         ]);
     }

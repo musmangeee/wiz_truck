@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use App\Business;
+use App\BusinessCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,7 @@ class BusinessController extends Controller
     public function ApiRegister(Request $request)
     {
        
-
+      
         $validator = Validator::make($request->all(), [
             'first_name'    => 'required',
             'last_name' => 'required',
@@ -30,7 +31,8 @@ class BusinessController extends Controller
             'phone'   => 'required',
             'business_email' => 'required|string|email|unique:businesses',
             'description' => 'required',
-            'role' => 'required|integer'
+            'role' => 'required|integer',
+            'categories' => 'required|array|min:1'
         ]);
 
         if ($validator->fails()) {
@@ -56,6 +58,15 @@ class BusinessController extends Controller
             'business_email' => $request -> business_email,
             'description' => $request -> description , 
         ]);
+
+        foreach($request->categories as $category)
+        {
+
+            $bc= new BusinessCategory();
+            $bc->business_id = $business->id;
+            $bc->category_id = $category;
+            $bc->save();
+        }
 
 
         // Add Categories
