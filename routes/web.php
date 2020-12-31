@@ -180,3 +180,5 @@ Route::get('maps', function () {
     dd($data);
    
 });
+
+Route::get('location', 'SearchController@searchlocation');
