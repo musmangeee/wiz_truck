@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
       
-        factory(Order::class, 2000)->create();
+        
         $this->call(PermissionTableSeeder::class);
         $this->call(RoleTableSeeder::class);
         $this->call(UserTableSeeder::class);
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(OrderSeeder::class);
-       
+        $this->call(ProductOrderSeeder::class);
         /*
          * Factories
          */
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         //
         //        });
 
-       
+        // factory(Order::class, 2000)->create();
         
               
  
