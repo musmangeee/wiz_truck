@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Business;
-use App\BusinessCategory;
-use App\Category;
 use App\City;
-use App\Http\Controllers\Helper\HelperController;
 use App\Town;
+use App\Business;
+use App\Category;
+use App\Location;
+use App\BusinessCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Helper\HelperController;
 
 class SearchController extends Controller
 {
@@ -82,58 +83,66 @@ class SearchController extends Controller
         $find = $helper->get_find($request->find);
         
         
-        $location = $helper->get_location($request->location);
+        //$location = $helper->get_location($request->location);
         
-        $helper->set_location_preferences($request->location);
+       // $helper->set_location_preferences($request->location);
     
       
-        if ($find['type'] == 'top_business_search') {
+//         if ($find['type'] == 'top_business_search') {
 
-            if ($location['message'] == 'The Town or City is non found in record!') {
-                $city_id = City::where('name', $request->location)->first();
-                $search_results = Business::where('city_id', $city_id)
-                    ->withCount('reviews')
-                    ->orderBy('reviews_count', 'desc')->get();
+//             if ($location['message'] == 'The Town or City is non found in record!') {
+//                 $city_id = City::where('name', $request->location)->first();
+//                 $search_results = Business::where('city_id', $city_id)
+//                     ->withCount('reviews')
+//                     ->orderBy('reviews_count', 'desc')->get();
                     
-            } else {
-                $search_results = Business::where('town_id', $location['town']['id'])
-                    ->withCount('reviews')
-                    ->orderBy('reviews_count', 'desc')->get();
+//             } else {
+//                 $search_results = Business::where('town_id', $location['town']['id'])
+//                     ->withCount('reviews')
+//                     ->orderBy('reviews_count', 'desc')->get();
                   
-            }
-        } elseif ($find['type'] == 'category_search') {
-            $helper->set_category_preferences($request->find);
+//             }
+//         } elseif ($find['type'] == 'category_search') {
+//             $helper->set_category_preferences($request->find);
 
-            $businessCategory = BusinessCategory::where('category_id', $find['category']['id'])
-                ->pluck('business_id');
-            $search_results = Business::findMany($businessCategory);
-        } elseif ($find['type'] == 'business_search') {
-            $search_results = Business::where('id', $find['business']['id'])->get();
+//             $businessCategory = BusinessCategory::where('category_id', $find['category']['id'])
+//                 ->pluck('business_id');
+//             $search_results = Business::findMany($businessCategory);
+//         } elseif ($find['type'] == 'business_search') {
+//             $search_results = Business::where('id', $find['business']['id'])->get();
                 
-        } elseif ($find['type'] == 'keywords_search') {
-            $search_results = Business::where('name', 'LIKE', '%' . $find['keywords'] . '%')
-                ->where('town_id', $location['town']['id'])->get()
-                ;
-        }
+//         } elseif ($find['type'] == 'keywords_search') {
+//             $search_results = Business::where('name', 'LIKE', '%' . $find['keywords'] . '%')
+//                 ->where('town_id', $location['town']['id'])->get()
+//                 ;
+//         }
 
-        $data = $helper->main_menu_data();
-        $data['keywords'] = $find['keywords'];
+//         $data = $helper->main_menu_data();
+//         $data['keywords'] = $find['keywords'];
       
-        $data['search_results'] = $search_results;
+//         $data['search_results'] = $search_results;
 
-        $b_ids = array();
-foreach($data['search_results']->toArray('id') as $id){
-    $b_ids[] = $id['id'];
-}
+//         $b_ids = array();
+// foreach($data['search_results']->toArray('id') as $id){
+//     $b_ids[] = $id['id'];
 
-    $data['search_results'] = Business::whereIn('id', $b_ids)->paginate(10);
+// }
+
+$data['search_results'] = $this->findNearestRestaurants($request->latitude , $request->longitude ,1000);
+
+//    dd($data['search_results']);
+//     $data['search_results'] = Business::whereIn('id', $b_ids)->paginate(10);
         
-        if(isset($location['location_string'])){
-            $data['pref_location'] = $location['location_string'];
-        }
+        // if(isset($location['location_string'])){
+        //     $data['pref_location'] = $location['location_string'];
+        // }
 
         return view('frontend.search', compact('data'));
     }
+
+
+
+
 
 
     public function set_search_preferences($category, $city)
@@ -296,5 +305,40 @@ foreach($data['search_results']->toArray('id') as $id){
     
 
         return view('frontend.search', compact('data'));
+    }
+
+    // 
+    
+    public function findNearestRestaurants($latitude , $longitude, $radius = 500)
+    {
+        
+        // $latitude  = $request->latitude;
+        // $longitude = $request->longitude;
+        // 
+        // $users = User::role('admin')->pluck('id'); 
+       
+        // $user_ids = [];
+        // foreach($users as  $user){
+        //     $user_ids[]=$user['id'];
+           
+        // }
+        $business = Business::selectRaw("
+        user_id,longitude,latitude,
+        ( 6371000 * acos( cos( radians(?) ) *
+          cos( radians( latitude ) )
+          * cos( radians( longitude ) - radians(?)
+          ) + sin( radians(?) ) *
+          sin( radians( latitude ) ) )
+         ) AS distance", [$latitude, $longitude, $latitude])
+            ->having("distance", "<", $radius)
+            ->orderBy("distance",'asc')
+            ->offset(0)
+            ->limit(20)
+            ->get();
+
+         return $business;
+
+
+
     }
 }

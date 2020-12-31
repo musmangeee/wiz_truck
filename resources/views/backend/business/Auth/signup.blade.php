@@ -503,12 +503,12 @@
         var places = new google.maps.places.Autocomplete(document
             .getElementById('location'),options);
          google.maps.event.addListener(places, 'place_changed', function() {
-        var place = places.getPlace();
+         var place = places.getPlace();
      
         var address = place.formatted_address;
         console.log(place,address);
 
-        var  value = address.split(",");
+        var value = address.split(",");
         count=value.length;
         country=value[count-1];
         state=value[count-2];

@@ -133,7 +133,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('permissions', 'PermissionController');
         Route::resource('business', 'AdminUser\BusinessController');
         Route::resource('business_category', 'AdminUser\BusinessCategoryController');
-        Route::resource('city', 'AdminUser\CityController');
+        // Route::resource('city', 'AdminUser\CityController');
         Route::resource('town', 'AdminUser\TownController');
         Route::resource('claims', 'AdminUser\BusinessClaimController');
         Route::post('verify_business', 'AdminUser\BusinessController@verify_business')->name('verify_business');
@@ -182,3 +182,5 @@ Route::get('maps', function () {
     dd($data);
    
 });
+
+Route::get('location', 'SearchController@searchlocation');

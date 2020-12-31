@@ -55,20 +55,19 @@ Route::get('user_order/{id}', 'Api\OrderController@user_order');
 Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_category_restaurant');
 
 Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
- 
+
+Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
 
 
-
-
-// Google login response
+// Google Json response
 Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
 // RegiseterAPI
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
 
 
+Route::apiResource('coupon', 'Api\Coupon\CouponController');
 
 
-// change password
-
-
+Route::get('location', 'SearchController@findNearestRestaurants');
+Route::get('search', 'Api\SearchController@searchlocation');
