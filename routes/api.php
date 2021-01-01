@@ -38,7 +38,7 @@ Route::group([
         Route::get('business_review/{id}', 'Api\Reviews\ReviewController@index');
         Route::post('post_review', 'Api\Reviews\ReviewController@store');
         Route::post('get_order', 'Api\ProductOrderController@order_accept');
-
+        Route::get('check_order/{id}', 'Api\ProductOrderController@index');
 
     });
 });

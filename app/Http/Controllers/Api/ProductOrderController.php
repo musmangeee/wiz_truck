@@ -16,9 +16,10 @@ class ProductOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        dd($user);
     }
      
      
@@ -41,12 +42,12 @@ class ProductOrderController extends Controller
      ]);
     //  dd($request->all());
      $user = $request-> user();
-     $business = Business::where('user_id',$user->id)->first();
+  
    
              $order = Order::create([
               'order_id'=>$request-> order_id,
               'user_id' =>$request-> user()->id,
-              'business_id' =>$business->id,
+              'business_id' =>$request->business_id,
               'description' => $request -> description , 
               'order_date'=>$request-> order_date,
               'address' => $request-> address,
@@ -77,6 +78,8 @@ class ProductOrderController extends Controller
                'order' =>$order,
           
         ]);
+
+
     }
 
 
