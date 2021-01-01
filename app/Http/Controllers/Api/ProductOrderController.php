@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use Validator;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Order;
+use Validator;
+use App\Business;
 use App\ProductOrder;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 class ProductOrderController extends Controller
 {
     /**
@@ -19,11 +22,11 @@ class ProductOrderController extends Controller
     }
      
      
-    public function order_accept(Request $request, $id)
+    public function order_accept(Request $request)
     {   
-  
-     
-        $order = array();
+          
+       
+          $order = array();
 
       $validator =  Validator::make($request->all(), [
             'description' => 'required',
@@ -36,13 +39,14 @@ class ProductOrderController extends Controller
             'product_id' => 'required',
             'order_id' => 'required',
      ]);
-    
-  
-     
+    //  dd($request->all());
+     $user = $request-> user();
+     $business = Business::where('user_id',$user->id)->first();
+   
              $order = Order::create([
               'order_id'=>$request-> order_id,
-              'user_id' =>$request-> user_id ,
-              'business_id' =>$request-> business_id,
+              'user_id' =>$request-> user()->id,
+              'business_id' =>$business->id,
               'description' => $request -> description , 
               'order_date'=>$request-> order_date,
               'address' => $request-> address,
@@ -68,9 +72,9 @@ class ProductOrderController extends Controller
            
         
              return response()->json([
-            'status' =>true,
-            'message' => 'Order Created Successfully',
-            'order' =>$order,
+               'status' =>true,
+               'message' => 'Order Created Successfully',
+               'order' =>$order,
           
         ]);
     }

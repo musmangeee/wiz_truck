@@ -17,7 +17,7 @@ class ProductOrderSeeder extends Seeder
             [
                 "id" => 1,
                 "product_id" => 1,
-                "order_id" => 2,
+                "order_id" => 5,
                 "discount" => 12,
                 "quantity" => 2 ,
                
@@ -26,7 +26,7 @@ class ProductOrderSeeder extends Seeder
             [
                 "id" => 2,
                 "product_id" => 1,
-                "order_id" => 3,
+                "order_id" => 5,
                 "discount" => 122,
                 "quantity" => 3,
                

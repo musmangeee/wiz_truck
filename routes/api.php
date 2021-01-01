@@ -35,15 +35,16 @@ Route::group([
         Route::get('user', 'Api\AuthController@user');
         Route::apiResource('restaurant_menu', 'Api\Restaurant\RestaurantMenuController');
         Route::apiResource('owner_restaurant', 'Api\Restaurant\OwnerRestaurantController');
-        
+        Route::get('business_review/{id}', 'Api\Reviews\ReviewController@index');
+        Route::post('post_review', 'Api\Reviews\ReviewController@store');
+        Route::post('get_order', 'Api\ProductOrderController@order_accept');
+
+
     });
 });
 
 Route::apiResource('products', 'Api\ProductController');
 Route::apiResource('menus', 'Api\MenuController');
-
-
-
 Route::apiResource('categories', 'Api\CategoryController');
 Route::apiResource('businesses', 'Api\BusinessController');
 Route::apiResource('business_category', 'Api\BusinessCategoryController');
@@ -54,9 +55,7 @@ Route::get('user_order/{id}', 'Api\OrderController@user_order');
 
 Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_category_restaurant');
 
-Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
 
-Route::get('order/{id}', 'Api\ProductOrderController@order_accept');
 
 
 // Google Json response

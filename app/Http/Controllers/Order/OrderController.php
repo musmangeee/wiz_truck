@@ -13,7 +13,7 @@ class OrderController extends Controller
         $user = $request->user();
         $business = Business::where('user_id',$user->id)->first();
         $order = Order::where('business_id',$business->id)->get(); 
-
+        
         return View('business.dashboard', compact('order'));
     }
     

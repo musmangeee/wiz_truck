@@ -152,7 +152,7 @@
 
                               <!-- Heading -->
                               <span class="h2 mb-0">
-                                  2:37
+                                 {{$total}}
                               </span>
 
                           </div>

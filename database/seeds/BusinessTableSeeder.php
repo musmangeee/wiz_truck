@@ -21,14 +21,14 @@ class BusinessTableSeeder extends Seeder
             [
                 "name" => "Cakes and Bakes",
                 "user_id" => "1", 
-                "latitude" => "31.4749° N", 
-                 "longitude" => "74.3734° E",
+                "latitude" => 31.422071, 
+                 "longitude" => 74.284231,
                 "phone" => "+233201660218",
                 "url" => "null",
                 "address" => "null",
                 "zipcode" => "00001",
                 "phone" => "null",
-                'address' => "DHA Phase 8",
+                'address' => "Military Accounts Chs, Lahore, Punjab......",
                 'business_email' => "null",
               
                
@@ -37,8 +37,8 @@ class BusinessTableSeeder extends Seeder
             [
                 "name" => "Fazal Sweets & Bakers",
                 "user_id" => "1", 
-                "latitude" => "31.5204° N", 
-                "longitude" =>"74.3587° E",
+                "latitude" => 31.422003, 
+                "longitude" =>74.285266,
                 "phone" => "+233201660218",
                 "address" => "null",
                 "zipcode" => "00001",
@@ -51,8 +51,8 @@ class BusinessTableSeeder extends Seeder
             [
                 "name" => "Chandni Chowk Restaurant",
                 "user_id" => "1", 
-                "latitude" => "30.7145° N", 
-                 "longitude" =>"76.7149° E",
+                "latitude" => 31.421939, 
+                 "longitude" =>74.285566,
                  "phone" => "+233201660218",
                 "address" => "null",
                 "zipcode" => "00001",
@@ -65,8 +65,8 @@ class BusinessTableSeeder extends Seeder
             [
                 "name" => "Turkish Restaurant",
                 "user_id" => "1", 
-                "latitude" => "31.4715° N",
-                "longitude" =>"74.4584° E",
+                "latitude" => 31.421724,
+                "longitude" =>74.285716,
                 "phone" => "+233201660218",
                 "url" => "null",
                 "address" => "null",

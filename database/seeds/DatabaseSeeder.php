@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Order;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(OrderSeeder::class);
         $this->call(CoupanTableSeeder::class);
-        $this->call(RiderSeeder::class);
+       // $this->call(RiderSeeder::class);
        
 
         /*
@@ -40,11 +40,13 @@ class DatabaseSeeder extends Seeder
         // factory(App\User::class, 200)->create();
         // factory(App\Business::class, 2000)->create();
         //        factory(App\Review::class, 10000)->create()->each(function ($business) {
-        //
+        //          
         //        });
 
         // factory(Order::class, 2000)->create();
-        
+
+          factory(App\Review::class, 2000)->create();
+          
               
  
 
