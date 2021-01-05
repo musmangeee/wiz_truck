@@ -24,7 +24,10 @@ class OrderSeeder extends Seeder
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
                 "total"=>"1212",
-                "status" => "1"
+                "status" => "pending",
+                "payment_method"=>"1",
+                "payment_status"=>"0",
+           
 
             ],
             [
@@ -37,7 +40,9 @@ class OrderSeeder extends Seeder
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
                 "total"=>"1212",
-                "status" => "0"
+                "status" => "pending",
+                "payment_method"=>"1",
+                "payment_status"=>"0",
             ],
             [
                 "id" => 3,
@@ -49,7 +54,9 @@ class OrderSeeder extends Seeder
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
                 "total"=>"1212",
-                "status" => "1"
+                "status" => "pending",
+                "payment_method"=>"1",
+                "payment_status"=>"0",
             ],
             [
                 "id" => 4,
@@ -61,7 +68,9 @@ class OrderSeeder extends Seeder
                 "order_date" => \Carbon\Carbon::parse('2000-01-01'),
                 "description"   => "abc",
                 "total"=>"1212",
-                "status" => "1"
+                "status" => "pending",
+                "payment_method"=>"1",
+                "payment_status"=>"0",
             ],
         ];
        

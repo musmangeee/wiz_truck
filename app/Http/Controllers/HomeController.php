@@ -37,6 +37,7 @@ class HomeController extends Controller
         $completed_order = Order::where('status',1)->get()->count();
         $pending_order =  Order::where('status',0)->get()->count();
         $total = Order::where('status','=',1)->sum('total');
+        
       
         return view('business.dashboard', compact('orders','completed_order','pending_order','total'));
     }

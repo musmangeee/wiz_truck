@@ -118,7 +118,7 @@ class BusinessController extends Controller
     {
         $business = Business::find($id);
         $category = BusinessCategory::all();
-        return view('backend.business.edit', compact('business', 'category'));
+        return view('admin.business.detail', compact('business', 'category'));
     }
 
     /**

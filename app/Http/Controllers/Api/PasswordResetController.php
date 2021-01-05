@@ -14,10 +14,11 @@ class PasswordResetController extends Controller
 {
     public function change_password(Request $request)
     {
+      
     $input = $request->all();
    
     $userid = Auth::guard('api')->user()->id;
-  
+    
     $rules = array(
         'old_password' => 'required',
         'new_password' => 'required|min:6',

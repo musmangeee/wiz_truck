@@ -18,10 +18,10 @@ class CategorySeeder extends Seeder
             ['name' => 'Food','icon' => 'fa fa-utensils','image' => 'food1.jpg'],
             ['name' => 'Pizza','icon' => 'fas fa-pizza-slice','image' => 'food.jpg'],
             ['name' => 'Restaurant','icon' => 'fa fa-home','image' => 'food4.png'],
-            // ['name' => 'Industry','icon' => 'fa fa-industry','image' => 'food.png'],
-            // ['name' => 'Mining','icon' => 'fa fa-hammer','image' => 'food1.jpg'],
-            // ['name' => 'Oil & Gas','icon' => 'fas fa-oil-can','image' => 'food2.jpg'],
-            // ['name' => 'Pizza','icon' => 'fas fa-farm','image' => 'food3.jpg'],
+            ['name' => 'Industry','icon' => 'fa fa-industry','image' => 'food.png'],
+            ['name' => 'Mining','icon' => 'fa fa-hammer','image' => 'food1.jpg'],
+            ['name' => 'Oil & Gas','icon' => 'fas fa-oil-can','image' => 'food2.jpg'],
+            ['name' => 'Pizza','icon' => 'fas fa-farm','image' => 'food3.jpg'],
         ];
 
         \Illuminate\Support\Facades\DB::table('categories')->insert($categories);

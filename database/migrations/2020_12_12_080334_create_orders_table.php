@@ -23,7 +23,9 @@ class CreateOrdersTable extends Migration
             $table->string('longitude');
             $table->string('description');
             $table->string('total')->default(0);
-            $table->string('status')->default(1);
+            $table->string('status')->default("pending");
+            $table->string('payment_method');
+            $table->integer('payment_status')->default(0);
             $table->timestamps();
         });
     }

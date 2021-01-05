@@ -7,7 +7,7 @@ use App\Menu;
 use App\Product;
 use Auth;
 use Illuminate\Http\Request;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
 {
@@ -73,9 +73,13 @@ class ProductController extends Controller
        
         
         if ($file = $request->file('image')) {
-
+            
             $name = time() . $file->getClientOriginalName();
-            $file->move('public\business_product', $name);
+
+            $image_resize = Image::make($file->getRealPath());              
+            $image_resize->resize(300, 300);
+            $image_resize->save(public_path('business_product/' .$name));
+            // $file->move('public\business_product', $name);
             $input['image'] = $name;
         }
 

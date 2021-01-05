@@ -37,9 +37,15 @@ Route::group([
         Route::apiResource('owner_restaurant', 'Api\Restaurant\OwnerRestaurantController');
         Route::get('business_review/{id}', 'Api\Reviews\ReviewController@index');
         Route::post('post_review', 'Api\Reviews\ReviewController@store');
-        Route::post('get_order', 'Api\ProductOrderController@order_accept');
+        Route::post('get_order', 'Api\ProductOrderController@create_order');
         Route::get('check_order/{id}', 'Api\ProductOrderController@index');
-
+        Route::get('update_order/{id}', 'Api\ProductOrderController@update');
+        Route::get('delete_order/{id}', 'Api\ProductOrderController@destroy');
+        Route::post('accept_order', 'Api\ProductOrderController@accept_order');
+        Route::post('cancel_order', 'Api\ProductOrderController@cancel_order');
+        Route::post('deliver_order', 'Api\ProductOrderController@deliver_order');
+        Route::post('completed_order', 'Api\ProductOrderController@completed_order');
+        Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update');
     });
 });
 

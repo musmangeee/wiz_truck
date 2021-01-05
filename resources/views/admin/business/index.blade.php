@@ -50,6 +50,7 @@
                         <th scope="col">Verified</th>
                         <th scope="col">Claimed</th>
                         <th scope="col">Created</th>
+                        <th scope="col">Details</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -77,7 +78,9 @@
                                 </td>
                                 <td>@if($b->claimed == 0) Not Claimed @else Claimed @endif </td>
                                 <td>{{  \Carbon\Carbon::parse($b->created_at)->diffForhumans()  }}</td>
-                        </tr>
+                                <td> <a href="{{route('business.edit', $b->id)}}"
+                                    class="btn btn-info btn-sm lift far fa-info-circle"></a></td>
+                            </tr>
                     @endforeach
                     </tbody>
                 </table>

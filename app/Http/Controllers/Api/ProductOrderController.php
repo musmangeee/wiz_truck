@@ -16,14 +16,21 @@ class ProductOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request , $id)
     {
-        $user = $request->user();
-        dd($user);
+        $user_id = $request->user()->id;
+        $business_id = Business::where('user_id', $user_id)->first();
+        $order = Order::where('business_id', $id)->get();
+        return response()->json([
+            'status' =>true,
+            'message' => 'Order get Successfully',
+            'order' =>$order,
+       
+     ]);
     }
      
      
-    public function order_accept(Request $request)
+    public function create_order(Request $request)
     {   
           
        
@@ -39,6 +46,9 @@ class ProductOrderController extends Controller
             'quantity'=>'required',
             'product_id' => 'required',
             'order_id' => 'required',
+            'payment_method'=> 'required',
+            'payment_status' => 'required',
+            'status'=> 'required',
      ]);
     //  dd($request->all());
      $user = $request-> user();
@@ -55,10 +65,15 @@ class ProductOrderController extends Controller
               'longitude' => $request-> longitude,
               'product_id' => $request -> product_id,
               'product' => $request -> product,
+              'status'=>$request -> status,
+              'payment_method'=> $request -> payment_method,
+              'payment_status' => $request -> payment_status,
               
              ]);
           
           
+
+
            //return response()->json($request->products);
              foreach($request->products as $product)
              {
@@ -82,6 +97,137 @@ class ProductOrderController extends Controller
 
     }
 
+    public function accept_order(Request $request)
+    {
+       $user = $request-> user();
+        $message = "";
+        $status = false;
+       $business = Business::where('user_id',$user->id)->first();
+       //dd($business->id);
+       if($business == null){
+           $message = "You have no business account associated with your email.";
+           }
+       else{
+        $order = Order::where(['business_id'=>$business->id,'id'=>$request->order_id])->first();
+           if($order != null){
+            $order->status = "accept";
+            $status= true;
+            $order->save();
+            $message = "The order have been accepted"; 
+           }
+           else{
+            $message = "You have no order associated with your business email."; 
+           }
+        
+      }
+      
+        return response()->json([
+            'status' =>$status,
+            'message' => $message,
+            'order' =>$order,
+        ]);       
+
+       
+
+
+    }   
+     
+    public function cancel_order(Request $request)
+    {
+        $user = $request-> user();
+        $message = "";
+        $status = false;
+       $business = Business::where('user_id',$user->id)->first();
+       //dd($business->id);
+       if($business == null){
+           $message = "You have no business account associated with your email.";
+           }
+       else{
+        $order = Order::where(['business_id'=>$business->id,'id'=>$request->order_id])->first();
+           if($order != null){
+            $order->status = "cancel";
+            $status= true;
+            $order->save();
+            $message = "The order have been canceled"; 
+           }
+           else{
+            $message = "You have no order associated with your business email."; 
+           }
+        
+      }
+      
+        return response()->json([
+            'status' =>$status,
+            'message' => $message,
+            'order' =>$order,
+        ]);       
+
+       
+
+
+    }
+    public function deliver_order(Request $request)
+    {
+        $user = $request-> user();
+        $message = "";
+        $status = false;
+       $business = Business::where('user_id',$user->id)->first();
+       //dd($business->id);
+       if($business == null){
+           $message = "You have no business account associated with your email.";
+           }
+       else{
+        $order = Order::where(['business_id'=>$business->id,'id'=>$request->order_id])->first();
+           if($order != null){
+            $order->status = "deliver";
+            $status= true;
+            $order->save();
+            $message = "The order have been delivered"; 
+           }
+           else{
+            $message = "You have no order associated with your business email."; 
+           }
+        
+      }
+      
+        return response()->json([
+            'status' =>$status,
+            'message' => $message,
+            'order' =>$order,
+        ]);       
+ 
+    }
+    public function completed_order(Request $request)
+    {
+        $user = $request-> user();
+        $message = "";
+        $status = false;
+       $business = Business::where('user_id',$user->id)->first();
+       //dd($business->id);
+       if($business == null){
+           $message = "You have no business account associated with your email.";
+           }
+       else{
+        $order = Order::where(['business_id'=>$business->id,'id'=>$request->order_id])->first();
+           if($order != null){
+            $order->status = "completed";
+            $status= true;
+            $order->save();
+            $message = "The order have been completed"; 
+           }
+           else{
+            $message = "You have no order associated with your business email."; 
+           }
+        
+      }
+      
+        return response()->json([
+            'status' =>$status,
+            'message' => $message,
+            'order' =>$order,
+        ]);       
+ 
+    }
 
 
 
@@ -125,7 +271,7 @@ class ProductOrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -137,7 +283,34 @@ class ProductOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $input = $request->all();
+        $validator =  Validator::make($request->all(), [
+        'description' => 'required',
+        'address' => 'required',
+        'longitude'=>'required',
+        'latitude'=>'required',
+        'order_date'=>'required',
+        'product' => 'required',
+        'quantity'=>'required',
+        'product_id' => 'required',
+        'order_id' => 'required',
+        'payment_method'=> 'required',
+        'payment_status' => 'required',
+ ]);
+        
+       
+        
+             $order = Order::find($id);
+            
+             $order->update($input);
+             return response()->json([
+                'status' =>true,
+                'message' => 'Order updated Successfully',
+                'order' =>$order,
+           
+         ]);
+             
     }
 
     /**
@@ -148,6 +321,11 @@ class ProductOrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id)->delete();
+        return response()->json([
+         'status' =>true,
+         'message' =>'Order Deleted Successfully',
+         'order' =>$order,
+        ]);
     }
 }

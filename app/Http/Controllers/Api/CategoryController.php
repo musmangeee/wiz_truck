@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CategoryController extends Controller
 {
@@ -42,6 +44,7 @@ class CategoryController extends Controller
     { 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'image'=>'required',
         ]);
        
         
@@ -49,21 +52,38 @@ class CategoryController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
     
-        $categories = new Category();
-        $categories->name = $request->name;
+        $input = $request->all();
+       
 
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $key => $value) {
-                $cover = $value;
-                $extension = $cover->getClientOriginalExtension();
-                $imagename = 'category_' . strtolower($request->name) . '.' . $extension;
-                \Illuminate\Support\Facades\Storage::disk('public', 'categories')->put($imagename, File::get($cover));
-                $categories->image = $imagename;
-            }
+        if ($file = $request->file('image')) {
+            
+            $name = time() . $file->getClientOriginalName();
+
+            $image_resize = Image::make($file->getRealPath());              
+            $image_resize->resize(300, 300);
+            $image_resize->save(public_path('business_category/' .$name));
+            // $file->move('public\business_product', $name);
+            $input['image'] = $name;
         }
-        $categories->save();
 
-        return response()->json($categories, 201);
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $key => $value) {
+        //         $cover = $value;
+        //         $extension = $cover->getClientOriginalExtension();
+        //         $imagename = 'category_' . strtolower($request->name) . '.' . $extension;
+        //         \Illuminate\Support\Facades\Storage::disk('public', 'categories')->put($imagename, File::get($cover));
+        //         $categories->image = $imagename;
+        //     }
+        // }
+        $categories = Category::create($input);
+        // $categories->save($input);
+
+        return response()->json([
+            'status' =>true,
+            'message' => 'Categories updated Successfully',
+            'profile' =>$categories,
+       
+     ]);
     }
 
     /**
