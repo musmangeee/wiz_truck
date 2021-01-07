@@ -45,7 +45,8 @@ Route::group([
         Route::post('cancel_order', 'Api\ProductOrderController@cancel_order');
         Route::post('deliver_order', 'Api\ProductOrderController@deliver_order');
         Route::post('completed_order', 'Api\ProductOrderController@completed_order');
-        Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update');
+        Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update');//
+        Route::post('order_exists', 'Api\Restaurant\OrderManagementController@order_exists');
     });
 });
 

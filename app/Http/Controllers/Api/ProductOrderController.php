@@ -32,9 +32,27 @@ class ProductOrderController extends Controller
      
     public function create_order(Request $request)
     {   
-          
+        // $user_id = $request-> user()->id;
+        // $business = Business::where('user_id',$user_id)->first();
+        // $order = Order::where('business_id',$business->id)->get();
        
-          $order = array();
+        $input = $request->all();
+        $input['user_id'] = $request->user()->id;
+        // dd($request['status']);
+        // dd($request->status);
+        // $input['id'] = $request->user()->id;
+    //    dd($input['order_id']);
+    // dd($input['user_id']);
+        if(Order::where(['user_id' => $input['user_id'] ,'status' => 'pending'])->exists())
+        {
+           return response()->json([
+
+                 'message' => 'order is already in exist'
+          
+           ]);
+        }
+
+       $order = array();
 
       $validator =  Validator::make($request->all(), [
             'description' => 'required',
@@ -85,7 +103,16 @@ class ProductOrderController extends Controller
                 $pc->save();
              }
              $order['products'] = ProductOrder::where('order_id', $order->id)->get();
-           
+            
+          
+            //  $user_id = $request-> user()->id;
+            //  $business = Business::where('user_id',$user_id)->first();
+            //  $order = Order::where('business_id',$business->id)->get();
+             
+            //  if($order == $request->order_id){
+                //     $message = "Order already exits";
+            //     dd('dd');
+            //  }
         
              return response()->json([
                'status' =>true,

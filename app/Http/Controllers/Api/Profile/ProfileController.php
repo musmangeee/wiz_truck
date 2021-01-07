@@ -20,7 +20,7 @@ class ProfileController extends Controller
         $validator =  Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
-           // 'email' => "unique:users,email,$this->id,id", todo
+            'email' => 'required',
             'phone'=>'required',
            
             ]);
