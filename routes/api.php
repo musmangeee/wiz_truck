@@ -27,6 +27,7 @@ Route::group([
     Route::post('login', 'Api\AuthController@login');
     Route::post('signup', 'Api\AuthController@signup');
     Route::post('change_password/{id}', 'Api\PasswordResetController@change_password'); 
+    Route::post('forgot_password', 'Api\Auth\ForgetPasswordController@forgot_password');
 
     Route::group([
         'middleware' => 'auth:api'
@@ -47,6 +48,9 @@ Route::group([
         Route::post('completed_order', 'Api\ProductOrderController@completed_order');
         Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update');//
         Route::post('order_exists', 'Api\Restaurant\OrderManagementController@order_exists');
+        Route::get('pending_order_rider', 'Api\Rider\RiderController@TodaysPendingOrders');
+        Route::get('all_orders', 'Api\Rider\RiderController@AllOrders');
+        Route::post('rider_status', 'Api\Rider\RiderController@status');
     });
 });
 

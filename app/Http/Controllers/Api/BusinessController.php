@@ -34,7 +34,8 @@ class BusinessController extends Controller
             'role' => 'required|integer',
             'categories' => 'required|array|min:1'
         ]);
-
+         
+        
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
@@ -57,6 +58,7 @@ class BusinessController extends Controller
             'phone' => $request -> phone, 
             'business_email' => $request -> business_email,
             'description' => $request -> description , 
+            
         ]);
 
         foreach($request->categories as $category)
@@ -67,12 +69,45 @@ class BusinessController extends Controller
             $bc->category_id = $category;
             $bc->save();
         }
+         
 
+        if ($files = $request->file('images')) {
+            foreach ($files as $file) {
+               
+                $name = time() . $file->getClientOriginalName();
+               $file->move('public\business_images', $name);
+            
+             
+                 $image = Image::create([
+                    'name' => $name,
+                ]);
+               
+                $business_image = BusinessImage::create([
+                    'business_id' => $business->id,
+                    'image_id' => $image->id
+                ]);
+              
 
+            }
+        }
+        else{
+            
+            $name = 'placeholder.png';
+            $image = Image::create([
+                'name' => $name,
+            ]);
+           
+            $business_image = BusinessImage::create([
+                'business_id' => $business->id,
+                'image_id' => $image->id
+            ]);
+        }
+
+        
         // Add Categories
         $response = [
             "status" => "200",
-            "message" => "Your business have register successfuly",
+            "message" => "Your business have register successfully",
             "user" => $user,
             "business" => $business, 
             'access_token' =>$success['token']
