@@ -81,3 +81,16 @@ Route::apiResource('coupon', 'Api\Coupon\CouponController');
 
 Route::get('location', 'SearchController@findNearestRestaurants');
 Route::get('search', 'Api\SearchController@searchlocation');
+
+
+
+Route::prefix('rider')->group(function () {
+    Route::post('login', 'Api\Rider\RiderAPIController@login');
+    Route::post('register', 'Api\Rider\RiderAPIController@register');
+    Route::post('send_reset_link_email', 'Api\Rider\RiderAPIController@sendResetLinkEmail');
+    Route::get('user', 'Api\Rider\RiderAPIController@user');
+    Route::get('logout', 'Api\Rider\RiderAPIController@logout');
+    Route::post('settings/{id}', 'Api\Rider\RiderAPIController@settings');
+   
+
+});

@@ -32,17 +32,9 @@ class ProductOrderController extends Controller
      
     public function create_order(Request $request)
     {   
-        // $user_id = $request-> user()->id;
-        // $business = Business::where('user_id',$user_id)->first();
-        // $order = Order::where('business_id',$business->id)->get();
-       
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
-        // dd($request['status']);
-        // dd($request->status);
-        // $input['id'] = $request->user()->id;
-    //    dd($input['order_id']);
-    // dd($input['user_id']);
+   
         if(Order::where(['user_id' => $input['user_id'] ,'status' => 'pending'])->exists())
         {
            return response()->json([
@@ -68,7 +60,7 @@ class ProductOrderController extends Controller
             'payment_status' => 'required',
             'status'=> 'required',
      ]);
-    //  dd($request->all());
+   
      $user = $request-> user();
   
    
@@ -92,7 +84,7 @@ class ProductOrderController extends Controller
           
 
 
-           //return response()->json($request->products);
+          
              foreach($request->products as $product)
              {
                 $pc = new ProductOrder();
@@ -103,16 +95,12 @@ class ProductOrderController extends Controller
                 $pc->save();
              }
              $order['products'] = ProductOrder::where('order_id', $order->id)->get();
+            if($pc){
+                $notification = new NotificationController();
+                $notification->sendPushNotification('fAsAHm66RIW09Q6YGqY1JM:APA91bHk88SwTuhDHx5j4tkKSmgFp1VZ6ezXI5mhECIPhOZ-WZ1FnYLv8movTfY5JVMbS-UoKETBFNVxpOS8tk6EDkWXw-wfa2ATijC90KpW3TJ6lhuchdXSY4KoSfdp6rZJQnlCRzvF','your order have been place ','order placed successfully',$order->id);
+            }
             
-          
-            //  $user_id = $request-> user()->id;
-            //  $business = Business::where('user_id',$user_id)->first();
-            //  $order = Order::where('business_id',$business->id)->get();
-             
-            //  if($order == $request->order_id){
-                //     $message = "Order already exits";
-            //     dd('dd');
-            //  }
+           
         
              return response()->json([
                'status' =>true,

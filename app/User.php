@@ -65,4 +65,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Order');
     }
+    public function AuthAccessToken(){
+        return $this->hasMany('\App\OauthAccessToken');
+    }
 }

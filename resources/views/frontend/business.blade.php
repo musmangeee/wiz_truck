@@ -100,7 +100,7 @@
                                      <small class="card-text text-secondary mb-2">{{$product->description}}</small>
                                      <h4 class="card-title">${{$product->price}}</h4>
                                     
-                                     <a href="" class="btn btn-sm btn-secondary" id="BtnCart" >Add To Cart</a>
+                                     <a href="" data-toggle="modal" data-target="#orderModel" class="btn btn-sm btn-secondary" id="BtnCart" >Add To Cart</a>
                                      {{-- {{route('add-cart', [$product->id])}} --}}
                                     </div>
                                      <div class="col-3">
@@ -120,6 +120,69 @@
                       
                         
                    
+
+                 <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="orderModel" tabindex="-1" role="dialog" aria-labelledby="orderModelTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModelTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-check mt-4">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                  pepsi
+                </label>
+                </div>
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                  7upMirinda
+                </label>
+              </div>
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                  Mirinda
+                </label>
+              </div>
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                  Dew
+                </label>
+              </div>
+                <div class="form-group mt-4">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                    <h4>Special instructions</h4>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Any specific preferences? Let the restaurant know.</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                      </div>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-primary">Add To Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
                    
                    
