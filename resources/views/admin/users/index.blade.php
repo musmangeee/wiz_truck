@@ -42,6 +42,9 @@
                                     Name
                                 </th>
                                 <th>
+                                    Device Token
+                                </th>
+                                <th>
                                     Email
                                 </th>
                                 <th>
@@ -63,6 +66,7 @@
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->device_token }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @if(!empty($user->getRoleNames()))

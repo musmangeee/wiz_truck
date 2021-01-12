@@ -8,6 +8,7 @@ use App\ProductOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Api\Notification\NotificationController;
 
 class ProductOrderController extends Controller
 {
@@ -32,6 +33,7 @@ class ProductOrderController extends Controller
      
     public function create_order(Request $request)
     {   
+       
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
    
@@ -54,6 +56,7 @@ class ProductOrderController extends Controller
             'order_date'=>'required',
             'product' => 'required',
             'quantity'=>'required',
+            'order_type'=>'required',
             'product_id' => 'required',
             'order_id' => 'required',
             'payment_method'=> 'required',
@@ -70,6 +73,7 @@ class ProductOrderController extends Controller
               'business_id' =>$request->business_id,
               'description' => $request -> description , 
               'order_date'=>$request-> order_date,
+              'order_type'=>$request-> order_type,
               'address' => $request-> address,
               'latitude' => $request-> latitude,
               'longitude' => $request-> longitude,
@@ -95,19 +99,21 @@ class ProductOrderController extends Controller
                 $pc->save();
              }
              $order['products'] = ProductOrder::where('order_id', $order->id)->get();
-            if($pc){
-                $notification = new NotificationController();
-                $notification->sendPushNotification('fAsAHm66RIW09Q6YGqY1JM:APA91bHk88SwTuhDHx5j4tkKSmgFp1VZ6ezXI5mhECIPhOZ-WZ1FnYLv8movTfY5JVMbS-UoKETBFNVxpOS8tk6EDkWXw-wfa2ATijC90KpW3TJ6lhuchdXSY4KoSfdp6rZJQnlCRzvF','your order have been place ','order placed successfully',$order->id);
+            if($pc->save()){
+               
+              $business =  Business::where('id',$request->business_id)->first();
+              $token= $business->user->device_token;
+              $notification = new NotificationController();
+              $notification->sendPushNotification('c79lCSy4S1G53dI7ZA8VVz:APA91bEVAazFYK5TUcY238vgCVZ_-_bwGkIUvHxeuKUniq995KFtdC1eKsTkmL-X1VndKRgOLffh5fVHg2F__OoBVm84o0mL06zXABnz-bqXVN5w1-AI01VGMTrugjEy3bCcv8j5qwyk','your order have been place ','order placed successfully',$order->id);
+             
+              $notification->sendPushNotification($token,'your have received an order ','order placed successfully',$request->business_id);
             }
-            
-           
-        
-             return response()->json([
+            return response()->json([
                'status' =>true,
                'message' => 'Order Created Successfully',
                'order' =>$order,
           
-        ]);
+             ]);
 
 
     }
@@ -118,6 +124,7 @@ class ProductOrderController extends Controller
         $message = "";
         $status = false;
        $business = Business::where('user_id',$user->id)->first();
+
        //dd($business->id);
        if($business == null){
            $message = "You have no business account associated with your email.";

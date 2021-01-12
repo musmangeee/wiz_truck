@@ -73,6 +73,7 @@ Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_cat
 Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
 // RegiseterAPI
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
+
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
 
 
@@ -91,6 +92,7 @@ Route::prefix('rider')->group(function () {
     Route::get('user', 'Api\Rider\RiderAPIController@user');
     Route::get('logout', 'Api\Rider\RiderAPIController@logout');
     Route::post('settings/{id}', 'Api\Rider\RiderAPIController@settings');
-   
-
 });
+// Route::prefix('business')->group(function (){
+//     Route::post('register', '');
+// });

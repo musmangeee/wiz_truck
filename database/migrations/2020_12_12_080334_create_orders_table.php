@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('business_id');
             $table->unsignedBigInteger('user_id');
             $table->string('order_date');
+            $table->string('order_type');
             $table->string('address');
             $table->string('latitude');
             $table->string('longitude');

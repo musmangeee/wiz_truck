@@ -10,9 +10,12 @@ class NotificationController extends Controller
     function sendPushNotification($fcm_token, $title, $message, $id = null)
     {
 
+        
+
+        
         $url = "https://fcm.googleapis.com/fcm/send";
         $header = [
-            'authorization: key=' . env('PUSH_NOTIFICATION_KEY'),
+            'authorization: key=' . 'AAAAsxK-WA8:APA91bGXpVuo4uLf4ZXj0ioQev05bZ9DLuPP2NjCCm7jg4mePlgqjb6KyJeh6znV_18aJQ7bd_PWnAivdTdeCa8uIIy7rCwAn_mGiJmIQaVhzaE4ldoAk8gqy8tqlXRrG3wPkbuGwtIi',
             'content-type: application/json'
         ];
 
@@ -41,7 +44,8 @@ class NotificationController extends Controller
 
         $result = curl_exec($ch);
         curl_close($ch);
-
+    
         return $result;
+        
     }
 }
