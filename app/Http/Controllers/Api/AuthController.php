@@ -28,9 +28,11 @@ class AuthController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
+            // 'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'first_name'    => 'required',
+            'last_name' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -38,6 +40,7 @@ class AuthController extends Controller
         }
         $input = $request->all();
         unset($input['role']);
+        $input['name'] = $input['first_name'].' '.$input['last_name'];
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['token'] =  $user->createToken('MyApp')->accessToken;
@@ -69,7 +72,6 @@ class AuthController extends Controller
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
-        
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials))
             return response()->json([
@@ -112,7 +114,7 @@ class AuthController extends Controller
         $request->user()->token()->revoke();
         return response()->json([
             'message' => 'Successfully logged out'
-        ]); 
+        ]);
     }
 
     /**
