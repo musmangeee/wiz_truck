@@ -109,11 +109,12 @@ class ProductOrderController extends Controller
               $notification->sendPushNotification($token,'your have received an order ','order placed successfully',$request->business_id);
             }
             return response()->json([
-               'status' =>true,
+               
+                'status' =>true,
                'message' => 'Order Created Successfully',
                'order' =>$order,
           
-             ]);
+            ]);
 
 
     }
