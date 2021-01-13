@@ -86,11 +86,14 @@ class LoginController extends Controller
 
     public function mobileResponse(Request $request)
     {
+        $message = [
+            'role.unique' => 'Please login as a User'
+        ];
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'email' => 'required|string|email',
-            'role' => 'required|integer'
-        ]);
+            'email' => 'required|string|email|',
+            'role' => 'required|integer|unique:model_has_roles,model_id'
+        ],$message);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);

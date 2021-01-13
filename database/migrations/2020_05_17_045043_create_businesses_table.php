@@ -15,7 +15,7 @@ class CreateBusinessesTable extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('url')->nullable();
             $table->string('slug')->nullable();
@@ -24,7 +24,6 @@ class CreateBusinessesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('business_email')->nullable();
-            
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->longText('message')->nullable();
@@ -33,7 +32,12 @@ class CreateBusinessesTable extends Migration
             $table->string('status')->nullable()->default(0);
             $table->string('claimed')->nullable()->default(0);
             $table->timestamps();
+
+             //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
         });
+
+       
     }
 
     /**

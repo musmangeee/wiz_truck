@@ -63,28 +63,19 @@ Route::get('restaurant/{id}', 'Api\RestaurantController@index');
 Route::get('restaurant_reviews/{id}', 'Api\RestaurantReviewController@index');
 Route::get('business_order/{id}', 'Api\OrderController@business_order');
 Route::get('user_order/{id}', 'Api\OrderController@user_order');
-
 Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_category_restaurant');
-
-
-
-
-// Google Json response
+//! Google Json response
 Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
-// RegiseterAPI
+// ! Google Login Res
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
-
+// !Rider Register
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
-
-
+// !Coupon
 Route::apiResource('coupon', 'Api\Coupon\CouponController');
-
-
+// !Location
 Route::get('location', 'SearchController@findNearestRestaurants');
 Route::get('search', 'Api\SearchController@searchlocation');
-
-
-
+// ! Rider routes
 Route::prefix('rider')->group(function () {
     Route::post('login', 'Api\Rider\RiderAPIController@login');
     Route::post('register', 'Api\Rider\RiderAPIController@register');
@@ -93,6 +84,3 @@ Route::prefix('rider')->group(function () {
     Route::get('logout', 'Api\Rider\RiderAPIController@logout');
     Route::post('settings/{id}', 'Api\Rider\RiderAPIController@settings');
 });
-// Route::prefix('business')->group(function (){
-//     Route::post('register', '');
-// });
