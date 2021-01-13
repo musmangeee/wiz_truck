@@ -51,6 +51,7 @@ Route::group([
         Route::get('pending_order_rider', 'Api\Rider\RiderController@TodaysPendingOrders');
         Route::get('all_orders', 'Api\Rider\RiderController@AllOrders');
         Route::post('rider_status', 'Api\Rider\RiderController@status');
+        Route::get('order_details','Api\UserOrderController@get_details');
     });
 });
 
@@ -93,6 +94,10 @@ Route::prefix('rider')->group(function () {
     Route::get('logout', 'Api\Rider\RiderAPIController@logout');
     Route::post('settings/{id}', 'Api\Rider\RiderAPIController@settings');
 });
-// Route::prefix('business')->group(function (){
-//     Route::post('register', '');
-// });
+
+Route::middleware('auth:api')->group(function () {
+    Route::prefix('business')->group(function (){
+        Route::get('order_details','Api\Business\OrderAPIController@get_details');
+    });
+});
+
