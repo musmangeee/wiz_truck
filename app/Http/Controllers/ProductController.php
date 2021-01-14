@@ -140,6 +140,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->all());
+    
         $input = $request->all();
 
         $this->validate($request, [
@@ -156,8 +158,7 @@ class ProductController extends Controller
              $product = Product::find($id);
              $product->update($input);
         
-        return redirect()->back()
-            ->with('success', 'Product updated successfully');
+        return redirect()->back();
     }
    
 

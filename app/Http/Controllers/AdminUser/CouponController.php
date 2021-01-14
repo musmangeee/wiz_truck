@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers\AdminUser;
 
-use App\Business;
-use App\BusinessClaim;
-use App\Http\Controllers\Controller;
-use App\User;
+use App\Coupon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Controller;
 
-class BusinessClaimController extends Controller
+class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $claims = BusinessClaim::paginate(10);
-        return view('admin.claims.index', compact('claims'));
+        
+        $coupons = Coupon::paginate(10);
+        return view ('admin.coupons.index',compact('coupons'));
     }
 
+   
     /**
      * Show the form for creating a new resource.
      *
@@ -29,9 +23,12 @@ class BusinessClaimController extends Controller
      */
     public function create()
     {
-        //
+        // $Coupon = Coupon::latest('id')->first();
+        return view('admin.coupons.create');
+      
+       
     }
-
+ 
     /**
      * Store a newly created resource in storage.
      *
@@ -40,9 +37,13 @@ class BusinessClaimController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $Coupons = Coupon::create($input);
+        
+       
+        return redirect()->route('coupon.index');
     }
-
+ 
     /**
      * Display the specified resource.
      *
@@ -53,7 +54,7 @@ class BusinessClaimController extends Controller
     {
         //
     }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -62,9 +63,11 @@ class BusinessClaimController extends Controller
      */
     public function edit($id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+        return view('admin.coupons.edit',compact('coupon'));
+       
     }
-
+ 
     /**
      * Update the specified resource in storage.
      *
@@ -74,9 +77,25 @@ class BusinessClaimController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
 
+        // $validate = Validator::make($request->all(), [ 
+            
+        // ]);
+
+
+        // if ($validate->fails()) { 
+          
+        //     return response()->json(['error'=>$validate->errors()->first(),'status' => false], 401);            
+        // }
+
+        
+       
+        $input = $request->all();
+        $Coupon = Coupon::findOrFail($id);
+        $Coupon->update($input);
+        return redirect()->route('coupon.index');
+    }
+ 
     /**
      * Remove the specified resource from storage.
      *
@@ -85,23 +104,9 @@ class BusinessClaimController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function claim_business(Request $request)
-    {
-        $business = Business::where('id', $request->business_id)->first();
-        $business->user_id = $request->user_id;
-        $business->claimed = 1;
-        $business->save();
-        $user = User::where('id',$request->user_id)->first();
-        $user->assignRole('business');
-        $claim  = BusinessClaim::where('id', $request->claim_id)->first();
-        $claim->status  = 1;
-        $claim->save();
-
-        Session::flash('success', 'Business claimed successfully.');
-        return redirect()->back();
+        $Coupon = Coupon::findOrFail($id);
+        $Coupon->delete();
+        return redirect()->route('coupon.index');
+        
     }
 }
-

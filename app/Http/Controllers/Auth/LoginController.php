@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\Auth;
+
+
 use App\Providers\RouteServiceProvider;
 use Laravel\Socialite\Facades\Socialite;
-
-use Validator;
-
-
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -81,45 +83,51 @@ class LoginController extends Controller
 
         return redirect($this->redirectPath());
     }
-
     
+    // ! Mobile Response API
 
-    public function mobileResponse(Request $request)
+    public function mobileAuthRegister(Request $request)
     {
-        $message = [
-            'role.unique' => 'Please login as a User'
-        ];
+      
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|string|email|',
-            'role' => 'required|integer|unique:model_has_roles,model_id'
-        ],$message);
-
+            'name'  =>  'required|string',
+            'email' => 'required|email|unique:users,email',
+            'role'  =>  'required|integer'
+        ]);
+       
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 401);
+           return response()->json(['error' => $validator->errors()], 401);
         }
-        
+
         $input = $request->all();
         $role = $input['role'];
         //$user->assignRole(3);
         unset($input['role']);
-        // $input['password'] = bcrypt($input['password']);
-         
-        if (User::where('email',$request->email)->exists()) 
-        {
-            $user = User::where('email', $request->email)->first();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            $success['name'] =  $user->name;
-            return response()->json(['success' => $success]);
-        }
-        else
-        {
-            $user = User::create($input);
+
+            $user = User::create($input);   
             $user->assignRole($role);
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['name'] =  $user->name;
             return response()->json(['success' => $success]);
+   
         }
+    
+
+    public function mobileResponse(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+       
+        if ($validator->fails()) {
+           return response()->json(['error' => $validator->errors()], 401);
+        }
+
+            $user = User::where('email' , $request->email )->first();
+            $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $success['name'] =  $user->name;
+            return response()->json(['success' => $success]);
+
         }
        
     

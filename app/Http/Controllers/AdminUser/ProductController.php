@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\AdminUser;
 
-use App\Business;
-use App\BusinessClaim;
-use App\Http\Controllers\Controller;
-use App\User;
+use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Controller;
 
-class BusinessClaimController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,8 @@ class BusinessClaimController extends Controller
      */
     public function index()
     {
-        $claims = BusinessClaim::paginate(10);
-        return view('admin.claims.index', compact('claims'));
+          $products = Product::paginate(10);
+          return view ('admin.food.index',compact('products'));
     }
 
     /**
@@ -29,7 +26,7 @@ class BusinessClaimController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -62,7 +59,8 @@ class BusinessClaimController extends Controller
      */
     public function edit($id)
     {
-        //
+         $products = Product::findOrFail($id);
+        return view('admin.food.edit', compact('products'));
     }
 
     /**
@@ -74,7 +72,25 @@ class BusinessClaimController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+    
+        $input = $request->all();
+
+        // $this->validate($request, [
+        //     'name' => 'required',
+        // ]);
+        
+        if ($file = $request->file('image')) {
+
+            $name = time() . $file->getClientOriginalName();
+            $file->move('public\business_product', $name);
+            $input['image'] = $name;
+            
+        }
+             $product = Product::find($id);
+             $product->update($input);
+        
+        return redirect()->route('products.index');
     }
 
     /**
@@ -85,23 +101,7 @@ class BusinessClaimController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function claim_business(Request $request)
-    {
-        $business = Business::where('id', $request->business_id)->first();
-        $business->user_id = $request->user_id;
-        $business->claimed = 1;
-        $business->save();
-        $user = User::where('id',$request->user_id)->first();
-        $user->assignRole('business');
-        $claim  = BusinessClaim::where('id', $request->claim_id)->first();
-        $claim->status  = 1;
-        $claim->save();
-
-        Session::flash('success', 'Business claimed successfully.');
-        return redirect()->back();
+        Product::find($id)->delete();
+        return redirect()->back()->with('success', 'Product deleted successfully');
     }
 }
-

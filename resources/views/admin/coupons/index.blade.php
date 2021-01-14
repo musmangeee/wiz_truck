@@ -17,15 +17,15 @@
 
                             <!-- Title -->
                             <h1 class="header-title">
-                               Category
+                               Coupon
                             </h1>
 
                         </div>
                         <div class="col-auto">
 
                             <!-- Button -->
-                            <a href="{{route('business_category.create')}}" class="btn btn-primary lift">
-                                Create New Category
+                            <a href="{{route('coupon.create')}}" class="btn btn-primary lift">
+                                Create New
                             </a>
 
                         </div>
@@ -50,8 +50,11 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Category</th>
-                            <th>Image</th>
+                            <th>Code</th>
+                            <th>Type</th>
+                            <th>Value</th>
+                            <th>PercentOFF</th>
+                            <th>Expire At</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -59,35 +62,31 @@
                         @php
                             $i = 1;
                         @endphp
-                        @foreach ($businessCategory as $item)
+                        @foreach ($coupons as $item)
                             <tr>
                                 <th scope="row">{{$i++}}</th>
-                                <td><i class="{{ $item->icon }} pr-3"></i>{{$item->name}}</td>
+                                <td>{{$item->code}}</td>
+                    
+                                <td>{{$item->type}}</td>
+                                <td>{{$item->value}}</td>
+                                <td>{{$item->percent_off}}</td>
+                                <td>{{$item->expiry_date}}</td>
                                 <td>
-
-
-
-                                        <img height="30px" src="{{asset('public\business_category/'. $item->image)}}" class="avatar avatar-sm rounded">
-
-
-                                </td>
-                                
-                                <td>
-                                    <a href="{{route('business_category.edit', $item->id)}}"
+                                    <a href="{{route('coupon.edit', $item->id)}}"
                                        class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
-                                    <form action="{{ route('business_category.destroy', $item->id)}}" method="post"
+                                    <form action="{{ route('coupon.destroy', $item->id)}}" method="post"
                                           class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
+                                        <button class="btn btn-danger btn-sm lift" type="submit"><i class="fe fe-trash"></i>
                                         </button>
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
-                        {{ $businessCategory->links() }}
                     </table>
+                    {{ $coupons->links() }}
                 </div>
             </div>
         </div>

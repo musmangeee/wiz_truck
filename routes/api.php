@@ -65,9 +65,10 @@ Route::get('restaurant_reviews/{id}', 'Api\RestaurantReviewController@index');
 Route::get('business_order/{id}', 'Api\OrderController@business_order');
 Route::get('user_order/{id}', 'Api\OrderController@user_order');
 Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_category_restaurant');
-//! Google Json response
+//! Google&Facebook Json response
 Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
-// ! Google Login Res
+Route::post('/mobileAuthRegister', 'Auth\LoginController@mobileAuthRegister');
+// ! Auth API Response
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
 // !Rider Register
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
@@ -87,10 +88,10 @@ Route::prefix('rider')->group(function () {
 });
 
 
-Route::middleware('auth:api')->group(function () {
-    Route::prefix('business')->group(function (){
-        Route::get('order_details','Api\Business\OrderAPIController@get_details');
-    });
-});
+// Route::middleware('auth:api')->group(function () {
+//     Route::prefix('business')->group(function (){
+//         Route::get('order_details','Api\Business\OrderAPIController@get_details');
+//     });
+// });
 
 

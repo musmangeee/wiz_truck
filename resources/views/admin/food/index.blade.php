@@ -17,29 +17,17 @@
 
                             <!-- Title -->
                             <h1 class="header-title">
-                               Category
+                               Food
                             </h1>
 
                         </div>
-                        <div class="col-auto">
-
-                            <!-- Button -->
-                            <a href="{{route('business_category.create')}}" class="btn btn-primary lift">
-                                Create New Category
-                            </a>
-
-                        </div>
+                       
                     </div> <!-- / .row -->
                 </div> <!-- / .header-body -->
 
             </div>
         </div>
-        @if(Session::has('success'))
-            <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
-        @endif
-        @if(Session::has('error'))
-            <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
-        @endif
+       
 
         <div class="card">
             <div class="card-body">
@@ -49,33 +37,32 @@
                     <table class="table table-sm table-nowrap card-table text-secondary">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Category</th>
+                           
+                            <th>Name</th>
                             <th>Image</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Created At</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @php
-                            $i = 1;
-                        @endphp
-                        @foreach ($businessCategory as $item)
+                      
+                        @foreach ($products as $item)
                             <tr>
-                                <th scope="row">{{$i++}}</th>
-                                <td><i class="{{ $item->icon }} pr-3"></i>{{$item->name}}</td>
-                                <td>
-
-
-
-                                        <img height="30px" src="{{asset('public\business_category/'. $item->image)}}" class="avatar avatar-sm rounded">
-
-
-                                </td>
                                 
+                                <td>{{$item->name}}</td>
                                 <td>
-                                    <a href="{{route('business_category.edit', $item->id)}}"
+                            <img height="30px" src="{{asset('public\business_product/'. $item->image)}}" class="avatar avatar-sm rounded">
+                                </td>
+                                <td>{{$item->description}}</td>
+                                <td>{{$item->price}}</td>
+                                <td>{{  \Carbon\Carbon::parse($item->created_at)->diffForhumans()  }}</td>
+                                {{-- <td>{{$item->created_at}}</td> --}}
+                                <td>
+                                    <a href="{{route('products.edit', $item->id)}}"
                                        class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
-                                    <form action="{{ route('business_category.destroy', $item->id)}}" method="post"
+                                    <form action="{{ route('products.destroy', $item->id)}}" method="post"
                                           class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
@@ -86,8 +73,8 @@
                             </tr>
                         @endforeach
                         </tbody>
-                        {{ $businessCategory->links() }}
                     </table>
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>

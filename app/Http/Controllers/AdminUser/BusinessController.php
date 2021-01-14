@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\AdminUser;
 
+use App\User;
+use App\Image;
+use App\Review;
 use App\Business;
-use App\BusinessCategory;
-use App\BusinessImage;
-use App\Category;
 
-use App\Http\Controllers\Controller;
+use App\Category;
+use App\BusinessImage;
+use App\BusinessCategory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use App\Image;
 
 class BusinessController extends Controller
 {
@@ -173,7 +175,7 @@ class BusinessController extends Controller
         return redirect()->route('business.index');
     }
 
-
+    
     public function verify_business(Request $request)
     {
         $b = Business::where('id', $request->business_id)->first();
@@ -181,6 +183,33 @@ class BusinessController extends Controller
         $b->save();
 
         Session::flash('success', 'Business has been verified successfully.');
+        return redirect()->back();
+    }
+
+    public function reviews()
+    {
+        // $review = User::where('id')->with('reviews')->get();
+        $review = Review::paginate(10);
+        // dd($review);
+        return view('admin.business.reviews',compact('review'));
+    }
+    public function editreviews($id)
+    {
+        $review = Review::find($id);
+        $user = User::all();
+        $business = Business::all();
+        return view('admin.business.editreviews',compact('user','business','review'));
+    }
+    public function updateReviews(Request $request,$id)
+    {
+        $input = $request->all();
+        $Ingredient = Review::findOrFail($id);
+        $Ingredient->update($input);
+        return redirect()->back();
+    }
+    public function dltReviews($id){
+        $Ingredient = Review::findOrFail($id);
+        $Ingredient->delete();
         return redirect()->back();
     }
 

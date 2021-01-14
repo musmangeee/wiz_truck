@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\AdminUser;
 
-use App\City;
-use App\Http\Controllers\Controller;
-use App\Town;
+use App\User;
+use App\Order;
+use App\Business;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class TownController extends Controller
+class OderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class TownController extends Controller
      */
     public function index()
     {
-        $towns = Town::all();
-        return view('admin.town.index', compact('towns'));
+        $orders = Order::paginate(10);
+        return view ('admin.order.index',compact('orders'));
     }
 
     /**
@@ -27,8 +28,7 @@ class TownController extends Controller
      */
     public function create()
     {
-        $cities = City::all();
-        return view('admin.town.create', compact('cities'));
+        //
     }
 
     /**
@@ -39,17 +39,7 @@ class TownController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-
-        $this->validate($request, [
-            'name' => 'required',
-
-        ]);
-
-        $town = Town::create($input);
-
-        return redirect()->route('town.index')
-            ->with('success', 'Town created successfully');
+        //
     }
 
     /**
@@ -71,9 +61,10 @@ class TownController extends Controller
      */
     public function edit($id)
     {
-        $cities = City::all();
-        $town = Town::findOrFail($id);
-        return view('admin.town.edit', compact('town', 'cities'));
+        $order = Order::findOrFail($id);
+        $user = User::all();
+        $business = Business::all();
+        return view('admin.order.edit', compact('order','user','business'));
     }
 
     /**
@@ -85,17 +76,10 @@ class TownController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-        ]);
-
-        $town = Town::find($id);
-        $input = $request->all();
-
-        $town->update($input);
-
-        return redirect()->back()
-            ->with('success', 'Town updated successfully');
+        $input      = $request->all();
+        $Ingredient = Order::findOrFail($id);
+        $Ingredient->update($input);
+        return redirect()->route('order.index');
     }
 
     /**
@@ -106,7 +90,7 @@ class TownController extends Controller
      */
     public function destroy($id)
     {
-        Town::find($id)->delete();
-        return redirect()->back()->with('success', 'Town deleted successfully');
+        Order::find($id)->delete();
+        return redirect()->back()->with('success', 'Product deleted successfully');
     }
 }

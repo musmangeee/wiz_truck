@@ -165,9 +165,9 @@
   <div class="col-lg-6">
     <div class="card">
         <div class="card-header no-border">
-            <h3 class="card-title">Food truck</h3>
+            <h3 class="card-title">Food Truck</h3>
             <div class="card-tools">
-                <a href="https://multi-restaurants.smartersvision.com/restaurants" class="btn btn-tool btn-sm"><i class="fa fa-bars"></i> </a>
+                <a href="{{ route('business.index') }}" class="btn btn-tool btn-sm"><i class="fa fa-bars"></i> </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -177,7 +177,7 @@
                     <th>Image</th>
                     <th>Restaurant</th>
                     <th>Address</th>
-                    <th>Actions</th>
+                   
                 </tr>
                 </thead>
                 <tbody>
@@ -185,15 +185,16 @@
                   @foreach ($business as $item)
                   <tr>
                     <td>
+                        {{-- <a data-fancybox="gallery"  href="{{asset('public/business_images/'.$item->images[0]['name'])}}" /> --}}
                         <img class='img-circle img-size-32 mr-2' style='width:50px' src='{{ asset('public/business_images/'.$item->images[0]['name']) }}' alt='restaurant-2649620_1280'>
                     </td>
                     <td>{{ $item->name  }}</td>
                     <td>
                        {{ $item ->address }}
                     </td>
-                    <td class="text-center">
-                        <a href="https://multi-restaurants.smartersvision.com/restaurants/1/edit" class="text-muted"> <i class="fa fa-edit"></i> </a>
-                    </td>
+                    {{-- <td class="text-center">
+                        <a href="" class="text-muted"> <i class="fa fa-edit"></i> </a>
+                    </td> --}}
                 </tr>
                   @endforeach
                 

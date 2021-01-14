@@ -9,7 +9,7 @@ class Order extends Model
     protected $fillable = ['user_id', 'business_id','order_date','address','longitude','latitude','description','status','payment_method','payment_status','order_type'];
     public function restaurant()
     {
-        return $this->belongsTo('App\Business');
+        return $this->belongsTo('App\Business', 'business_id');
     }
     public function user()
     {
