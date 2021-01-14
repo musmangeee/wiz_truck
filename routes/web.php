@@ -21,7 +21,7 @@ use App\User;
  */
 
  Auth::routes(['verify' => false]);
-// ! Google Auth 
+
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
     ->name('login.provider')
     ->where('driver', implode('|', config('auth.socialite.drivers')));
@@ -29,7 +29,8 @@ Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')
     ->name('login.callback')
     ->where('driver', implode('|', config('auth.socialite.drivers')));
 
-// ! User's routes
+
+
 Route::get('/', 'Frontend\FrontEndController@index')->name('user.index');
 
 Route::post('subscription', 'Frontend\FrontEndController@subscription')->name('frontend.subscription');

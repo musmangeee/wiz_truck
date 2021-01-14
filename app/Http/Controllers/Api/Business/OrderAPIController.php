@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\BusinessOrder;
+namespace App\Http\Controllers\Api\Business;
 
 use App\Order;
 use App\Business;
@@ -24,5 +24,18 @@ class OrderAPIController extends Controller
         ]);
         
         
+    }
+    public function order_by_status(Request $request)
+    {
+    
+        $user = Auth::guard('api')->user();
+        $business = Business::where('user_id',$user->id)->first();
+        $order = Order::where(['business_id' => $business->id,'status'=>$request->status])->get();
+        return response()->json([
+            'status' =>true,
+            'message' => 'order status get Successfully',
+            'order' =>$order,
+        ]);
+
     }
 }

@@ -17,11 +17,10 @@ class ProductOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request , $id)
+    public function index(Request $request)
     {
-        $user_id = $request->user()->id;
-        $business_id = Business::where('user_id', $user_id)->first();
-        $order = Order::where('business_id', $id)->get();
+        $user = Auth::guard('api')->user();
+        $order = Order::where('user_id', $user->id)->get();
         return response()->json([
             'status' =>true,
             'message' => 'Order get Successfully',
@@ -102,7 +101,7 @@ class ProductOrderController extends Controller
             if($pc->save()){
                
               $business =  Business::where('id',$request->business_id)->first();
-              $token= $business->user->device_token;
+              $token= $business->user()->device_token;
               $notification = new NotificationController();
               $notification->sendPushNotification('c79lCSy4S1G53dI7ZA8VVz:APA91bEVAazFYK5TUcY238vgCVZ_-_bwGkIUvHxeuKUniq995KFtdC1eKsTkmL-X1VndKRgOLffh5fVHg2F__OoBVm84o0mL06zXABnz-bqXVN5w1-AI01VGMTrugjEy3bCcv8j5qwyk','your order have been place ','order placed successfully',$order->id);
              
@@ -141,6 +140,7 @@ class ProductOrderController extends Controller
            else{
             $message = "You have no order associated with your business email."; 
            }
+
         
       }
       
@@ -191,7 +191,8 @@ class ProductOrderController extends Controller
     }
     public function deliver_order(Request $request)
     {
-        $user = $request-> user();
+        $user = $request->user();
+        $order = 0;
         $message = "";
         $status = false;
        $business = Business::where('user_id',$user->id)->first();
@@ -222,7 +223,7 @@ class ProductOrderController extends Controller
     }
     public function completed_order(Request $request)
     {
-        $user = $request-> user();
+        $user = $request->user();
         $message = "";
         $status = false;
        $business = Business::where('user_id',$user->id)->first();

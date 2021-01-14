@@ -14,9 +14,9 @@ class ForgetPasswordController extends Controller
     public function forgot_password() {
   
         $credentials = request()->validate(['email' => 'required|email']);
-
+        
         $password =Password::sendResetLink($credentials);
-      
+        dd($password);
 
         return response()->json(["msg" => 'Reset password link sent on your email id.']);
     }

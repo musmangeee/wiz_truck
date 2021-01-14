@@ -15,7 +15,7 @@ class NotificationController extends Controller
         
         $url = "https://fcm.googleapis.com/fcm/send";
         $header = [
-            'authorization: key=' . 'AAAAsxK-WA8:APA91bGXpVuo4uLf4ZXj0ioQev05bZ9DLuPP2NjCCm7jg4mePlgqjb6KyJeh6znV_18aJQ7bd_PWnAivdTdeCa8uIIy7rCwAn_mGiJmIQaVhzaE4ldoAk8gqy8tqlXRrG3wPkbuGwtIi',
+            'authorization: key=' . '',
             'content-type: application/json'
         ];
 

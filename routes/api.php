@@ -39,7 +39,7 @@ Route::group([
         Route::get('business_review/{id}', 'Api\Reviews\ReviewController@index');
         Route::post('post_review', 'Api\Reviews\ReviewController@store');
         Route::post('get_order', 'Api\ProductOrderController@create_order');
-        Route::get('check_order/{id}', 'Api\ProductOrderController@index');
+        Route::get('check_order', 'Api\ProductOrderController@index');
         Route::get('update_order/{id}', 'Api\ProductOrderController@update');
         Route::get('delete_order/{id}', 'Api\ProductOrderController@destroy');
         Route::post('accept_order', 'Api\ProductOrderController@accept_order');
@@ -90,7 +90,7 @@ Route::prefix('rider')->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::prefix('business')->group(function (){
         Route::get('order_details','Api\Business\OrderAPIController@get_details');
+        Route::get('order_status','Api\Business\OrderAPIController@order_by_status');
     });
 });
-
 
