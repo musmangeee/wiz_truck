@@ -115,7 +115,7 @@ class LoginController extends Controller
 
     public function mobileResponse(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [ 
             'email' => 'required|email',
         ]);
        

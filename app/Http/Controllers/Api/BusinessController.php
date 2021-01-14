@@ -57,12 +57,13 @@ class BusinessController extends Controller
         
         $business = Business::create([
             'user_id' => $user ->id,  
-            'name' => $request -> business_name,
-            'url' => $request -> url, 
-            'phone' => $request -> phone, 
-            'business_email' => $request -> business_email,
-            'description' => $request -> description , 
-            
+            'name' => $request ->business_name,
+            'url' => $request ->url, 
+            'phone' => $request ->phone, 
+            'business_email' => $request ->business_email,
+            'description' => $request ->description , 
+            'latitude' => $request ->latitude , 
+            'longitude' => $request ->longitude , 
         ]);
 
         foreach($request->categories as $category)
