@@ -62,13 +62,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('notification.index') }}">
+                        <i class="fe fe-bell"></i>Notification
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('business.index') }}">
-                        <i class="fe fe-briefcase"></i> Restaurant
+                        <i class="fe fe-shopping-cart"></i> Food Truck
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('business.reviews') }}">
-                        <i class="fe fe-briefcase"></i> Food Reviews
+                        <i class="fe fe-shopping-bag"></i> Food Truck Reviews
                     </a>
                 </li>
                 <li class="nav-item">
@@ -79,21 +84,23 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('order.index') }}">
-                        <i class="fe fe-briefcase"></i> Orders
+                        <i class="fe fe-box"></i> Orders
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('coupon.index') }}">
-                        <i class="fe fe-briefcase"></i> Coupon
+                        <i class="fe fe-clipboard"></i> Coupon
                     </a>
                 </li>
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('business_category.index') }}">
-                        <i class="fe fe-tag"></i>Categories
+                        <i class="fe fe-align-justify"></i>Categories
                     </a>
                 </li>
+
+                
                
                 </li>
                 <li class="nav-item">

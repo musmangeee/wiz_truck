@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Frontend;
 
 
+use App\User;
 use App\Review;
 use App\Business;
 use App\Category;
 use App\Subscription;
-use App\BusinessCategory;
 use App\BusinessImage;
+use App\BusinessCategory;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\HelperController;
-use Illuminate\Http\Request;
 
 
 class FrontEndController extends Controller
@@ -22,7 +23,8 @@ class FrontEndController extends Controller
     {
            
         $helper = new HelperController();
-        $restaurants = Business::take(3)->with('images','categories','reviews')->get();
+        $restaurants = Business::latest()->take(3)->with('images','categories','reviews')->get();
+        
                
            
         $pref_wallpaper = $helper->get_prefer_wallpaper();

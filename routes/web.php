@@ -101,6 +101,7 @@ Route::prefix('admin')->group(function () {
         Route::post('deleteReview/{id}', 'AdminUser\BusinessController@dltReviews')->name('dltReviews');
         Route::resource('products', 'AdminUser\ProductController');
         Route::resource('order', 'AdminUser\OderController');
+        Route::resource('notification', 'AdminUser\NoticationController');
         Route::resource('coupon', 'AdminUser\CouponController');
         Route::resource('business_category', 'AdminUser\BusinessCategoryController');
         Route::resource('claims', 'AdminUser\BusinessClaimController');

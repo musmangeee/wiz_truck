@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\AdminUser;
 
-use App\User;
-use App\Order;
-use App\Business;
+use App\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class OderController extends Controller
+class NoticationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,13 +15,9 @@ class OderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(10);
-        $pending_count = Order::where('status' , 'pending')->count();
-        $accepted_count = Order::where('status' , 'accepted')->count();
-        $cancle_count = Order::where('status' , 'cancle')->count();
-        $deliver_count = Order::where('status' , 'deliver')->count();
-        
-        return view ('admin.order.index',compact('orders','pending_count','accepted_count','cancle_count','deliver_count'));
+        //
+        $notification = Notification::all();
+        return view('admin.notification.index',compact('notification'));
     }
 
     /**
@@ -66,10 +60,7 @@ class OderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::findOrFail($id);
-        $user = User::all();
-        $business = Business::all();
-        return view('admin.order.edit', compact('order','user','business'));
+        //
     }
 
     /**
@@ -81,10 +72,7 @@ class OderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input      = $request->all();
-        $Ingredient = Order::findOrFail($id);
-        $Ingredient->update($input);
-        return redirect()->route('order.index');
+        //
     }
 
     /**
@@ -95,7 +83,6 @@ class OderController extends Controller
      */
     public function destroy($id)
     {
-        Order::find($id)->delete();
-        return redirect()->back()->with('success', 'Product deleted successfully');
+        //
     }
 }

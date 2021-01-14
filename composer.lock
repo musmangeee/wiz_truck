@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "56b63a9e5c4f777db524aa1226b702fc",
+=======
+    "content-hash": "1ed1b6196cd677a377f931cb725574fe",
+>>>>>>> dev
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3746,6 +3750,7 @@
             "time": "2020-11-09T14:08:36+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "starkbank/ecdsa",
             "version": "0.0.4",
             "source": {
@@ -3767,6 +3772,44 @@
                 "files": [
                     "src/ellipticcurve.php"
                 ]
+=======
+            "name": "stripe/stripe-php",
+            "version": "v7.67.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "935d2c67912007f6d17b6c08a62050252c509129"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/935d2c67912007f6d17b6c08a62050252c509129",
+                "reference": "935d2c67912007f6d17b6c08a62050252c509129",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.17.1",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "^3.3",
+                "symfony/process": "~3.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+>>>>>>> dev
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3774,6 +3817,7 @@
             ],
             "authors": [
                 {
+<<<<<<< HEAD
                     "name": "StarkBank",
                     "email": "developers@starkbank.com",
                     "homepage": "https://starkbank.com",
@@ -3783,6 +3827,20 @@
             "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
             "homepage": "https://github.com/starkbank/ecdsa-php",
             "time": "2020-05-15T15:46:20+00:00"
+=======
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "time": "2020-12-09T19:00:34+00:00"
+>>>>>>> dev
         },
         {
             "name": "swiftmailer/swiftmailer",
