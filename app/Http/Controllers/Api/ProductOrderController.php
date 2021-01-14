@@ -102,6 +102,7 @@ class ProductOrderController extends Controller
                
               $business =  Business::where('id',$request->business_id)->first();
               $token= $business->user()->device_token;
+                dd($token);
               $notification = new NotificationController();
               $notification->sendPushNotification('c79lCSy4S1G53dI7ZA8VVz:APA91bEVAazFYK5TUcY238vgCVZ_-_bwGkIUvHxeuKUniq995KFtdC1eKsTkmL-X1VndKRgOLffh5fVHg2F__OoBVm84o0mL06zXABnz-bqXVN5w1-AI01VGMTrugjEy3bCcv8j5qwyk','your order have been place ','order placed successfully',$order->id);
              

@@ -48,7 +48,7 @@ class BusinessController extends Controller
         $input['name'] = $input['first_name'].' '.$input['last_name'];
         $input['password'] = bcrypt($input['password']);
         $input['device_token'] = $request['device_token'];
-
+    
         $user = User::create($input);
         $user->assignRole($role);
  
