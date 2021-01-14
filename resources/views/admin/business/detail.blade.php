@@ -189,7 +189,7 @@
                 <hr class="mt-5 mb-5">
 
                 <!-- Buttons -->
-                {{-- <input type="submit" name="submit" value="Update Project" class="btn btn-block btn-primary"> --}}
+                <input type="submit" name="submit" value="Update Project" class="btn btn-block btn-primary">
 
                 {{-- <a href="#" class="btn btn-block btn-primary">
                     Create project

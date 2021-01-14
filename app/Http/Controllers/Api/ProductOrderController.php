@@ -20,7 +20,8 @@ class ProductOrderController extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        $order = Order::where('user_id', $user->id)->get();
+        $order = Order::where('user_id', $user->id)->with('restaurant')->get();
+       
         return response()->json([
             'status' =>true,
             'message' => 'Order get Successfully',
@@ -32,7 +33,6 @@ class ProductOrderController extends Controller
      
     public function create_order(Request $request)
     {   
-       
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
    
@@ -98,13 +98,15 @@ class ProductOrderController extends Controller
                 $pc->save();
              }
              $order['products'] = ProductOrder::where('order_id', $order->id)->get();
-            if($pc->save()){
-               
+           
+             if($pc->save()){
+             
+
               $business =  Business::where('id',$request->business_id)->first();
-              $token= $business->user()->device_token;
-                dd($token);
+              $token= $business->user->device_token;
+             
               $notification = new NotificationController();
-              $notification->sendPushNotification('c79lCSy4S1G53dI7ZA8VVz:APA91bEVAazFYK5TUcY238vgCVZ_-_bwGkIUvHxeuKUniq995KFtdC1eKsTkmL-X1VndKRgOLffh5fVHg2F__OoBVm84o0mL06zXABnz-bqXVN5w1-AI01VGMTrugjEy3bCcv8j5qwyk','your order have been place ','order placed successfully',$order->id);
+              $notification->sendPushNotification($user->device_token,'your order have been place ','order placed successfully',$order->id);
              
               $notification->sendPushNotification($token,'your have received an order ','order placed successfully',$request->business_id);
             }
@@ -113,6 +115,7 @@ class ProductOrderController extends Controller
                 'status' =>true,
                'message' => 'Order Created Successfully',
                'order' =>$order,
+              
           
             ]);
 

@@ -22,7 +22,7 @@ class ReviewController extends Controller
     }
     public function postReview(Request $request)
     {
-        dd($request);
+        
         $review = new Review();
 
         $review->user_id = Auth::user()->id;

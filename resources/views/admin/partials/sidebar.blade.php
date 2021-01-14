@@ -63,7 +63,29 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('business.index') }}">
-                        <i class="fe fe-briefcase"></i> Business
+                        <i class="fe fe-briefcase"></i> Restaurant
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('business.reviews') }}">
+                        <i class="fe fe-briefcase"></i> Food Reviews
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('products.index') }}">
+                        <i class="fe fe-briefcase"></i> Foods
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('order.index') }}">
+                        <i class="fe fe-briefcase"></i> Orders
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('coupon.index') }}">
+                        <i class="fe fe-briefcase"></i> Coupon
                     </a>
                 </li>
                 
@@ -90,7 +112,11 @@
                         <i class="fe fe-shield"></i> Permissions
                     </a>
                 </li>
+
+             
             </ul>
+
+            
 
 
 

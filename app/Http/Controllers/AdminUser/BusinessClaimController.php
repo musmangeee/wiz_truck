@@ -18,7 +18,7 @@ class BusinessClaimController extends Controller
      */
     public function index()
     {
-        $claims = BusinessClaim::all();
+        $claims = BusinessClaim::paginate(10);
         return view('admin.claims.index', compact('claims'));
     }
 

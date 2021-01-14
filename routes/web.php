@@ -94,6 +94,14 @@ Route::prefix('admin')->group(function () {
         Route::resource('roles', 'RoleController');
         Route::resource('permissions', 'PermissionController');
         Route::resource('business', 'AdminUser\BusinessController');
+        Route::get('businessreviews', 'AdminUser\BusinessController@reviews')->name('business.reviews');
+        Route::get('businesseditReviews/{id}', 'AdminUser\BusinessController@editreviews')->name('businessreview.edit');
+        Route::get('businesseditReviews/{id}', 'AdminUser\BusinessController@editreviews')->name('businessreview.edit');
+        Route::post('updateReviews/{id}', 'AdminUser\BusinessController@updateReviews')->name('updateReviews');
+        Route::post('deleteReview/{id}', 'AdminUser\BusinessController@dltReviews')->name('dltReviews');
+        Route::resource('products', 'AdminUser\ProductController');
+        Route::resource('order', 'AdminUser\OderController');
+        Route::resource('coupon', 'AdminUser\CouponController');
         Route::resource('business_category', 'AdminUser\BusinessCategoryController');
         Route::resource('claims', 'AdminUser\BusinessClaimController');
         Route::post('verify_business', 'AdminUser\BusinessController@verify_business')->name('verify_business');
