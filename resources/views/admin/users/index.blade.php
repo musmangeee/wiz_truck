@@ -83,13 +83,14 @@
                                               method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn social-btn btn-danger btn-xs">
-                                                <i class="mdi mdi-delete-empty"></i>
+                                            <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
                                             </button>
                                         </form>
-                                        <a href="{{ route('users.edit',$user->id) }}" class="btn social-btn btn-warning btn-xs">
-                                            <i class="mdi mdi-pencil"></i>
-                                        </a>
+                                      
+                                        <a href="{{ route('users.edit',$user->id) }}"
+                                            class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
+
+                                         
 
                                     </td>
                                 </tr>

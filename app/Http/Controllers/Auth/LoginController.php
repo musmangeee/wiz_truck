@@ -108,7 +108,12 @@ class LoginController extends Controller
             $user->assignRole($role);
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['name'] =  $user->name;
-            return response()->json(['success' => $success]);
+            return response()->json([
+                'success' => $success,
+                'role' => $user->getRoleNames(),
+                'deviceToken' => $user->device_token
+            ]);
+            // return response()->json(['success' => $success]);
    
         }
     
@@ -126,7 +131,12 @@ class LoginController extends Controller
             $user = User::where('email' , $request->email )->first();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['name'] =  $user->name;
-            return response()->json(['success' => $success]);
+            
+            return response()->json([
+                'success' => $success,
+                'role' => $user->getRoleNames(),
+                'deviceToken' => $user->device_token
+            ]);
 
         }
        

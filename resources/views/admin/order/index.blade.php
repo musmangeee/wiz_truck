@@ -38,6 +38,135 @@
             <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
         @endif --}}
 
+        <div class="row">
+            <div class="col-3 col-lg-6 col-xl">
+
+                <!-- Value  -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+    
+                                <!-- Title -->
+                                <h6 class="text-uppercase text-muted mb-2">
+                                    Pending Orders
+                                </h6>
+    
+                                <!-- Heading -->
+                                <span class="h2 mb-0">
+                                    {{ $pending_count }}
+                                </span>
+    
+                            </div>
+                            <div class="col-auto">
+    
+                                <!-- Icon -->
+                                <span class="h2 fe fe-star text-muted mb-0"></span>
+    
+                            </div>
+                        </div>
+                        <!-- / .row -->
+                    </div>
+                </div>
+    
+            </div>
+            <div class="col-3 col-lg-6 col-xl">
+
+                <!-- Value  -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+    
+                                <!-- Title -->
+                                <h6 class="text-uppercase text-muted mb-2">
+                                    Accepted Orders
+                                </h6>
+    
+                                <!-- Heading -->
+                                <span class="h2 mb-0">
+                                    {{ $accepted_count }}
+                                </span>
+    
+                            </div>
+                            <div class="col-auto">
+    
+                                <!-- Icon -->
+                                <span class="h2 fe fe-star text-muted mb-0"></span>
+    
+                            </div>
+                        </div>
+                        <!-- / .row -->
+                    </div>
+                </div>
+    
+            </div>
+            <div class="col-3 col-lg-6 col-xl">
+
+                <!-- Value  -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+    
+                                <!-- Title -->
+                                <h6 class="text-uppercase text-muted mb-2">
+                                    Cancle Orders
+                                </h6>
+    
+                                <!-- Heading -->
+                                <span class="h2 mb-0">
+                                    {{ $cancle_count }}
+                                </span>
+    
+                            </div>
+                            <div class="col-auto">
+    
+                                <!-- Icon -->
+                                <span class="h2 fe fe-star text-muted mb-0"></span>
+    
+                            </div>
+                        </div>
+                        <!-- / .row -->
+                    </div>
+                </div>
+    
+            </div>
+            <div class="col-3 col-lg-6 col-xl">
+
+                <!-- Value  -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+    
+                                <!-- Title -->
+                                <h6 class="text-uppercase text-muted mb-2">
+                                    Deliver Orders
+                                </h6>
+    
+                                <!-- Heading -->
+                                <span class="h2 mb-0">
+                                    {{ $deliver_count }}
+                                </span>
+    
+                            </div>
+                            <div class="col-auto">
+    
+                                <!-- Icon -->
+                                <span class="h2 fe fe-star text-muted mb-0"></span>
+    
+                            </div>
+                        </div>
+                        <!-- / .row -->
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+
+        
+
         <div class="card">
             <div class="card-body">
                 <table class="table table-sm table-nowrap">
@@ -49,6 +178,7 @@
                         <th scope="col">Order Status</th>
                         <th scope="col">Address</th>
                         <th scope="col">Order Type</th>
+                        <th scope="col">Amount</th>
                        
                         <th scope="col">Action</th>
                        
@@ -63,6 +193,7 @@
                             <th>{{ $r->status }}</th>
                             <th>{{ $r->address }}</th>
                             <th>{{ $r->order_type }}</th>
+                            <th>{{ $r->total }}</th>
                             <td>
                                 <a href="{{route('order.edit', $r->id)}}"
                                    class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
