@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
 
         $this->call(OrderSeeder::class);
-        // $this->call(ProductOrderSeeder::class);
-
-        // $this->call(OrderSeeder::class);
-        $this->call(CoupanTableSeeder::class);
-       // $this->call(RiderSeeder::class);
+        $this->call(ProductOrderSeeder::class);
+ 
+        $this->call(OrderSeeder::class);
+       $this->call(CoupanTableSeeder::class);
+       $this->call(RiderSeeder::class);
        
 
         /*
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
 
         // factory(Order::class, 2000)->create();
 
-          factory(App\Review::class, 2000)->create();
+         factory(App\Review::class, 2000)->create();
           
               
  

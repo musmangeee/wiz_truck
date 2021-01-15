@@ -21,9 +21,7 @@ class BusinessController extends Controller
     }
     public function ApiRegister(Request $request)
     {
-       
-      
-        $validator = Validator::make($request->all(), [
+             $validator = Validator::make($request->all(), [
             'first_name'    => 'required',
             'last_name' => 'required',
             'email'   => 'required|string|email|unique:users',
@@ -37,24 +35,19 @@ class BusinessController extends Controller
             'categories' => 'required|array|min:1'
         ]);
          
-        
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
-
+        
         // unset($input['role']);
         $input = $request->all();
         $role = $input['role'];
         $input['name'] = $input['first_name'].' '.$input['last_name'];
         $input['password'] = bcrypt($input['password']);
         $input['device_token'] = $request['device_token'];
-    
         $user = User::create($input);
         $user->assignRole($role);
- 
-   
         $success['token'] =  $user->createToken('MyApp')->accessToken;
-        
         $business = Business::create([
             'user_id' => $user ->id,  
             'name' => $request ->business_name,
@@ -65,29 +58,23 @@ class BusinessController extends Controller
             'latitude' => $request ->latitude , 
             'longitude' => $request ->longitude , 
         ]);
-
         foreach($request->categories as $category)
         {
-
             $bc= new BusinessCategory();
             $bc->business_id = $business->id;
             $bc->category_id = $category;
             $bc->save();
         }
          
-
         if ($files = $request->file('images')) {
             foreach ($files as $file) {
                
                 $name = time() . $file->getClientOriginalName();
-               $file->move('public\business_images', $name);
-            
-             
-                 $image = Image::create([
+                $file->move('public\business_images', $name);
+                $image = Image::create([
                     'name' => $name,
                 ]);
-               
-                $business_image = BusinessImage::create([
+               $business_image = BusinessImage::create([
                     'business_id' => $business->id,
                     'image_id' => $image->id
                 ]);

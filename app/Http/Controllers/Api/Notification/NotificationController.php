@@ -44,7 +44,6 @@ class NotificationController extends Controller
 
         $result = curl_exec($ch);
         curl_close($ch);
-        dd($fcm_token, $result);
         return $result;
         
     }

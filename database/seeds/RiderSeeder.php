@@ -15,29 +15,30 @@ class RiderSeeder extends Seeder
         // 1- approve 2- pending 3- complete
 
         Ridderlogs::create([
-             'user_id' => '4',
+             'user_id' => '1',
              'order_id' => '1',
+             
              'commision' => '20%',
              'seen' => '0',
              'status' => '1'
         ]);
         Ridderlogs::create([
-            'user_id' => '4',
-            'order_id' => '1',
+            'user_id' => '2',
+            'order_id' => '2',
             'commision' => '20%',
             'seen' => '1',
             'status' => '2'
          ]);
             Ridderlogs::create([
-                'user_id' => '4',
-                'order_id' => '1',
+                'user_id' => '3',
+                'order_id' => '3',
                 'commision' => '20%',
                 'seen' => '0',
                 'status' => '3'
           ]);
             Ridderlogs::create([
                 'user_id' => '4',
-                'order_id' => '1',
+                'order_id' => '4',
                 'commision' => '20%',
                 'seen' => '1',
                 'status' => '1'

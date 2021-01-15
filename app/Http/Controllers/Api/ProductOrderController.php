@@ -74,6 +74,7 @@ class ProductOrderController extends Controller
               'order_date'=>$request-> order_date,
               'order_type'=>$request-> order_type,
               'address' => $request-> address,
+              'quantity'=>$request-> quantity,
               'latitude' => $request-> latitude,
               'longitude' => $request-> longitude,
               'product_id' => $request -> product_id,
@@ -100,8 +101,6 @@ class ProductOrderController extends Controller
              $order['products'] = ProductOrder::where('order_id', $order->id)->get();
            
              if($pc->save()){
-             
-
               $business =  Business::where('id',$request->business_id)->first();
               $token= $business->user->device_token;
              
@@ -111,12 +110,9 @@ class ProductOrderController extends Controller
               $notification->sendPushNotification($token,'your have received an order ','order placed successfully',$request->business_id);
             }
             return response()->json([
-               
                 'status' =>true,
                'message' => 'Order Created Successfully',
                'order' =>$order,
-              
-          
             ]);
 
 
@@ -144,18 +140,13 @@ class ProductOrderController extends Controller
            else{
             $message = "You have no order associated with your business email."; 
            }
-
+        }
         
-      }
-      
         return response()->json([
             'status' =>$status,
             'message' => $message,
             'order' =>$order,
         ]);       
-
-       
-
 
     }   
      

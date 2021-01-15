@@ -18,6 +18,7 @@ class OrderSeeder extends Seeder
                 "id" => 1,
                 "business_id" => 1,
                 "user_id" => 2,
+                
                 "address" => "DHA Phase 5",
                 "latitude" => "31.4625° N",
                 "longitude"=>"74.4086° E",
@@ -35,6 +36,7 @@ class OrderSeeder extends Seeder
                 "id" => 2,
                 "business_id" => 2,
                 "user_id" => 3,
+               
                 "address" => "DHA Phase 7",
                 "latitude" => "31.4647° N",
                 "longitude"=>"74.4936° E",
@@ -50,6 +52,7 @@ class OrderSeeder extends Seeder
                 "id" => 3,
                 "business_id" => 1,
                 "user_id" => 3,
+                
                 "address" => "DHA Phase 8",
                 "latitude" => "31.4899° N",
                 "longitude"=>"74.4496° E",
@@ -65,6 +68,7 @@ class OrderSeeder extends Seeder
                 "id" => 4,
                 "business_id" => 3,
                 "user_id" => 3,
+                
                 "address" => "DHA Phase 3",
                 "latitude" => "31.4749° N",
                 "longitude"=>"74.3734° E",
