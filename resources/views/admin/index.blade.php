@@ -240,7 +240,7 @@
                                     {{ $item ->email }}
                                 </td>
                                 <td>
-                                    <span class="badge badge-success"> {{ $item->roles->pluck('name')[0] }}</span>
+                                    <span class="badge badge-success"> {{ $item->roles->pluck('name')[0] ??"" }}</span>
 
                                 </td>
                                 {{-- <td class="text-center">
@@ -306,51 +306,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header no-border">
-                    <h3 class="card-title">Recent Users</h3>
-                    <div class="card-tools">
-                        <a href="{{ route('order.index') }}" class="btn btn-tool btn-sm"><i class="fa fa-bars"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body p-0">
-                    <table class="table table-striped table-valign-middle">
-                        <thead>
-                            <tr>
-
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Type</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @foreach ($users as $item)
-                            <tr>
-
-                                <td>{{ $item->name  }}</td>
-                                <td>
-                                    {{ $item ->email }}
-                                </td>
-                                <td>
-                                    <span class="badge badge-success"> {{ $item->roles->pluck('name')[0] }}</span>
-
-                                </td>
-                                {{-- <td class="text-center">
-                              <a href="" class="text-muted"> <i class="fa fa-edit"></i> </a>
-                          </td> --}}
-                            </tr>
-                            @endforeach
-
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+       
     </div>
 
 </div>

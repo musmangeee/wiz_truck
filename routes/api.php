@@ -59,6 +59,8 @@ Route::apiResource('products', 'Api\ProductController');
 Route::apiResource('menus', 'Api\MenuController');
 Route::apiResource('categories', 'Api\CategoryController');
 Route::apiResource('businesses', 'Api\BusinessController');
+// ! find-NearBy
+Route::post('nearbyDistance', 'Api\BusinessController@nearbyDistance');
 Route::apiResource('business_category', 'Api\BusinessCategoryController');
 Route::get('restaurant/{id}', 'Api\RestaurantController@index');
 Route::get('restaurant_reviews/{id}', 'Api\RestaurantReviewController@index');
@@ -100,5 +102,7 @@ Route::middleware('auth:api')->group(function () {
 //         Route::get('order_details','Api\Business\OrderAPIController@get_details');
 //     });
 // });
+
+// Route::get('commission', 'Api\ProductOrderController@commission');
 
 

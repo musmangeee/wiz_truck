@@ -14,8 +14,7 @@ class CreateBusinessesTable extends Migration
     public function up()
     {
         Schema::create('businesses', function (Blueprint $table) {
-            $table->id();
-            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->id();   
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('url')->nullable();
@@ -34,8 +33,6 @@ class CreateBusinessesTable extends Migration
             $table->string('claimed')->nullable()->default(0);
             $table->timestamps();
 
-             //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
         });
 
        

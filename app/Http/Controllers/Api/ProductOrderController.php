@@ -84,10 +84,6 @@ class ProductOrderController extends Controller
               
              ]);
           
-          
-
-
-          
              foreach($request->products as $product)
              {
                 $pc = new ProductOrder();
@@ -106,17 +102,17 @@ class ProductOrderController extends Controller
               $token= $business->user->device_token;
              
               $notification = new NotificationController();
-              $notification->sendPushNotification($user->device_token,'your order have been place ','order placed successfully',$order->id);
+            //   $notification->sendPushNotification($user->device_token,'your order have been place ','order placed successfully',$order->id);
              
-              $notification->sendPushNotification($token,'your have received an order ','order placed successfully',$request->business_id);
-            }
-            return response()->json([
-               
+            //   $notification->sendPushNotification($token,'your have received an order ','order placed successfully',$request->business_id);
+            $notification->sendNotification('Order Created',$user->device_token);
+            $notification->sendNotification('Order Created',$business->user->device_token);
+        
+        }
+            return response()->json([      
                 'status' =>true,
-               'message' => 'Order Created Successfully',
-               'order' =>$order,
-              
-          
+                'message' => 'Order Created Successfully',
+                'order' =>$order,
             ]);
 
 
@@ -124,12 +120,14 @@ class ProductOrderController extends Controller
 
     public function accept_order(Request $request)
     {
+        
        $user = $request-> user();
+      
         $message = "";
+        $order =[];
         $status = false;
        $business = Business::where('user_id',$user->id)->first();
 
-       //dd($business->id);
        if($business == null){
            $message = "You have no business account associated with your email.";
            }
@@ -139,24 +137,23 @@ class ProductOrderController extends Controller
             $order->status = "accept";
             $status= true;
             $order->save();
+            
+            // ! Sending push notification
+            $notification = new NotificationController();
+            $notification->sendNotification('Order Accepted',$order->user->device_token);
+            $notification->sendNotification('Order Accepted',$business->user->device_token);
             $message = "The order have been accepted"; 
            }
            else{
             $message = "You have no order associated with your business email."; 
            }
-
-        
       }
-      
+
         return response()->json([
             'status' =>$status,
             'message' => $message,
             'order' =>$order,
         ]);       
-
-       
-
-
     }   
      
     public function cancel_order(Request $request)
@@ -175,23 +172,22 @@ class ProductOrderController extends Controller
             $order->status = "cancel";
             $status= true;
             $order->save();
+            
+            // ! Sending push notification
+            $notification = new NotificationController();
+            $notification->sendNotification('Order Cancelled',$order->user->device_token);
+            
             $message = "The order have been canceled"; 
            }
            else{
             $message = "You have no order associated with your business email."; 
            }
-        
       }
-      
         return response()->json([
             'status' =>$status,
             'message' => $message,
             'order' =>$order,
         ]);       
-
-       
-
-
     }
     public function deliver_order(Request $request)
     {
@@ -210,20 +206,22 @@ class ProductOrderController extends Controller
             $order->status = "deliver";
             $status= true;
             $order->save();
+            // ! Sending push notification
+            $notification = new NotificationController();
+            $notification->sendNotification('Order Cancled',$order->user->device_token);
+            $notification->sendNotification('Order Cancled',$business->user->device_token);
             $message = "The order have been delivered"; 
            }
            else{
             $message = "You have no order associated with your business email."; 
            }
         
-      }
-      
+      }      
         return response()->json([
             'status' =>$status,
             'message' => $message,
             'order' =>$order,
         ]);       
- 
     }
     public function completed_order(Request $request)
     {
@@ -247,8 +245,7 @@ class ProductOrderController extends Controller
             $message = "You have no order associated with your business email."; 
            }
         
-      }
-      
+      }      
         return response()->json([
             'status' =>$status,
             'message' => $message,
@@ -256,8 +253,6 @@ class ProductOrderController extends Controller
         ]);       
  
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -327,10 +322,7 @@ class ProductOrderController extends Controller
         'payment_status' => 'required',
  ]);
         
-       
-        
              $order = Order::find($id);
-            
              $order->update($input);
              return response()->json([
                 'status' =>true,
@@ -356,4 +348,6 @@ class ProductOrderController extends Controller
          'order' =>$order,
         ]);
     }
+
+    
 }

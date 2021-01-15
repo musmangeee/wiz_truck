@@ -188,7 +188,7 @@
                     @foreach($orders as $r)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <th>{{ $r->user->name  }}</th> 
+                            <th>{{ $r->user->name ??""  }}</th> 
                             <th>{{ $r->restaurant != null ? $r->restaurant->name : '' }}</th> 
                             <th>{{ $r->status }}</th>
                             <th>{{ $r->address }}</th>
