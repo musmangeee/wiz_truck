@@ -20,8 +20,7 @@ class ProductOrderController extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        $order = Order::where('user_id', $user->id)->with('restaurant')->get();
-       
+        $order = Order::where('user_id', $user->id)->where('status','!=','completed')->with('restaurant')->first();
         return response()->json([
             'status' =>true,
             'message' => 'Order get Successfully',

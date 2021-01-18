@@ -36,16 +36,24 @@ class OrderAPIController extends Controller
     
         $user = Auth::guard('api')->user();
         $business = Business::where('user_id',$user->id)->first();
-        $order = Order::where(['business_id' => $business->id,'status'=>$request->status])->with('productOrders')->first();
-       
-        $pro_id  = $order->productOrders[0]['product_id'];
+        $orders = Order::where(['business_id' => $business->id,'status'=>$request->status])->with('productOrders')->get()->toArray();
         
-        $products = Product::where('id',$pro_id)->get();
+        $restaurants_orders = $orders;
+
+        foreach($orders  as $key1 => $order)
+        {
+            
+            foreach($order['product_orders'] as $key2 => $po)
+            {
+                $restaurants_orders[$key1]['product_orders'][$key2]['product_details'] = Product::where('id',$po['product_id'])->first()->toArray();
+            }
+        }
+       
         return response()->json([
             'status' =>true,
             'message' => 'order status get Successfully',
-            'order' =>$order,
-            'products'=>$products,
+            'orders ' =>$restaurants_orders ,
+             
         ]);
 
     }

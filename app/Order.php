@@ -20,6 +20,7 @@ class Order extends Model
         return $this->hasMany('App\ProductOrder');
     }
     
-
+    
+    // 'product_id', 'id'
 
 }

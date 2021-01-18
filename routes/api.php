@@ -87,8 +87,6 @@ Route::prefix('rider')->group(function () {
     Route::post('settings/{id}', 'Api\Rider\RiderAPIController@settings');
 });
 
-
-
 Route::middleware('auth:api')->group(function () {
     Route::prefix('business')->group(function (){
         Route::get('order_details','Api\Business\OrderAPIController@get_details');

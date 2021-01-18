@@ -30,11 +30,11 @@ class MenuSeeder extends Seeder
                 'business_id' => '1'
             ],
             [
-                'name' => 'ZINGER BURGERS',
+                'name' => 'ZINGER BURGERS1',
                 'business_id' => '2'
             ],
             [
-                'name' => 'SANDWICHES',
+                'name' => 'SANDWICHES1',
                 'business_id' => '2'
             ],
             [
@@ -50,7 +50,7 @@ class MenuSeeder extends Seeder
                 'business_id' => '3'
             ],
             [
-                'name' => 'SANDWICH',
+                'name' => 'SANDWICH1',
                 'business_id' => '3'
             ],
             [
@@ -58,7 +58,7 @@ class MenuSeeder extends Seeder
                 'business_id' => '4'
             ],
             [
-                'name' => 'BURGERS',
+                'name' => 'BURGERS1',
                 'business_id' => '4'
             ],
            
