@@ -48,7 +48,7 @@ class NotificationController extends Controller
 
     public function sendNotification($type , $device_token)
     {
-         $notification = Notification::where('title' , $type);
+         $notification = Notification::where('title' , $type)->first();
 
         if($device_token != null)
         {

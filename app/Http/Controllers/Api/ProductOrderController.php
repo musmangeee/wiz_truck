@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Order;
 use Validator;
 use App\Business;
+use App\Ridderlogs;
 use App\ProductOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -143,6 +144,15 @@ class ProductOrderController extends Controller
             $notification->sendNotification('Order Accepted',$order->user->device_token);
             $notification->sendNotification('Order Accepted',$business->user->device_token);
             $message = "The order have been accepted"; 
+
+            $rider = Ridderlogs::where('status','=','pending')->get();
+              // ! Sending ridder push notification
+                $notification = new NotificationController();
+                foreach ($rider as $r) {
+                $device_token = User::where('id' , $r->user_id)->first()->device_token;
+                $notification = new NotificationController();
+                $notification->sendNotification('Order Accepted',$device_token);
+                }
            }
            else{
             $message = "You have no order associated with your business email."; 

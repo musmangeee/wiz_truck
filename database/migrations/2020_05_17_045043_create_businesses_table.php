@@ -16,6 +16,7 @@ class CreateBusinessesTable extends Migration
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();   
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            // $table->unsignedInteger('user_id');
             $table->string('name')->nullable();
             $table->string('url')->nullable();
             $table->string('slug')->nullable();

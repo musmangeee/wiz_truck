@@ -72,7 +72,7 @@ Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
 Route::post('/mobileAuthRegister', 'Auth\LoginController@mobileAuthRegister');
 // ! Auth API Response
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
-// !Rider Register
+// !Rider Routes
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
 // !Coupon
 Route::apiResource('coupon', 'Api\Coupon\CouponController');
@@ -87,6 +87,11 @@ Route::prefix('rider')->group(function () {
     Route::get('user', 'Api\Rider\RiderAPIController@user');
     Route::get('logout', 'Api\Rider\RiderAPIController@logout');
     Route::post('settings/{id}', 'Api\Rider\RiderAPIController@settings');
+    Route::post('setRidderLocation', 'Api\Rider\RiderLocationController@setRidderLocation');
+    Route::get('broadcastOrder', 'Api\Rider\RiderLocationController@broadcastOrder');
+    Route::get('OrderHistory', 'Api\Rider\RiderLocationController@OrderHistory');
+    Route::post('assignOrder', 'Api\Rider\RiderLocationController@assignOrder');
+
 });
 
 
