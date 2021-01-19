@@ -108,6 +108,7 @@ Route::prefix('admin')->group(function () {
         Route::post('verify_business', 'AdminUser\BusinessController@verify_business')->name('verify_business');
         Route::post('claim_business', 'AdminUser\BusinessClaimController@claim_business')->name('admin.claim_business');
         Route::resource('subscription', 'AdminUser\SubscriptionController');
+        Route::resource('events', 'AdminUser\EventController');
     });
 });
 //! cart

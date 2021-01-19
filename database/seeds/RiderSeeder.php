@@ -17,28 +17,36 @@ class RiderSeeder extends Seeder
              'order_id' => '1',
              'commision' => '20%',
              'seen' => '0',
-             'status' => '1'
+             'status' => '1',
+             'latitude' => 'null',
+             'longitude' => 'null',
         ]);
         Ridderlogs::create([
             'user_id' => '4',
             'order_id' => '1',
             'commision' => '20%',
             'seen' => '1',
-            'status' => '2'
+            'status' => '2',
+            'latitude' => 'null',
+            'longitude' => 'null',
          ]);
             Ridderlogs::create([
                 'user_id' => '4',
                 'order_id' => '1',
                 'commision' => '20%',
                 'seen' => '0',
-                'status' => '3'
+                'status' => '3',
+                'latitude' => 'null',
+             'longitude' => 'null',
           ]);
             Ridderlogs::create([
                 'user_id' => '4',
                 'order_id' => '1',
                 'commision' => '20%',
                 'seen' => '1',
-                'status' => '1'
+                'status' => '1',
+                'latitude' => 'null',
+                'longitude' => 'null',
             ]);
 
     }

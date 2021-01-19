@@ -101,9 +101,14 @@
                 </li>
 
                  
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="">
-                        <i class="fe fe-align-justify"></i>Events
+                        <i class="fe fe-calendar"></i>Events
+                    </a>
+                </li> --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('events.index') }}" >
+                        <i class="fe fe-info"></i>Events
                     </a>
                 </li>
 

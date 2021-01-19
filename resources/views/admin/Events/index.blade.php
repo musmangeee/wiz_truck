@@ -17,7 +17,7 @@
 
                             <!-- Title -->
                             <h1 class="header-title">
-                               Food
+                               Events
                             </h1>
 
                         </div>
@@ -38,43 +38,46 @@
                         <thead>
                         <tr>
                            
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Created At</th>
-                            <th>Action</th>
+                            <th>Business</th>
+                            <th>User</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
                       
-                        @foreach ($products as $item)
-                            <tr>
+                        @foreach ($events as $e)
+                           <tr>
+                               <td>
+                                {{ $e->restaurant->name }}
+                               </td>
+                               <td>
+                                {{ $e->user->name }}
+                            </td>
+                            <td>
+                                {{  \Carbon\Carbon::parse($e->start_date)->diffForhumans()  }}
+                            </td>
+                            <td>
+                                {{  \Carbon\Carbon::parse($e->end_date)->diffForhumans()  }}
+                            </td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($e->start_time)->diffForhumans() }}
                                 
-                                <td>{{$item->name}}</td>
-                                <td>
-                            <img height="30px" src="{{asset('public\business_product/'. $item->image)}}" class="avatar avatar-sm rounded">
-                                </td>
-                                <td>{{$item->description}}</td>
-                                <td>{{$item->price}}</td>
-                                <td>{{  \Carbon\Carbon::parse($item->created_at)->diffForhumans()  }}</td>
-                                {{-- <td>{{$item->created_at}}</td> --}}
-                                <td>
-                                    <a href="{{route('products.edit', $item->id)}}"
-                                       class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
-                                    <form action="{{ route('products.destroy', $item->id)}}" method="post"
-                                          class="d-inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                            </td>
+                            <td>
+                                {{ $e->end_time }}
+                            </td>
+                            <td>
+                                <span class="badge badge-primary">{{ $e->status }}</span>
+                            </td>
+                           </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    {{ $products->links() }}
+                    {{ $events->links() }}
                 </div>
             </div>
         </div>
