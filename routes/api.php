@@ -110,8 +110,11 @@ Route::middleware('auth:api')->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::prefix('event')->group(function (){
         Route::post('create_event','Api\Event\EventAPIController@create_event');
-       
-    });
+        Route::get('list_event','Api\Event\EventAPIController@list_event');
+        Route::get('delete_event/{id}','Api\Event\EventAPIController@delete_event');
+        Route::post('cancel_event','Api\Event\EventAPIController@cancel_event');
+        Route::post('accepted_event','Api\Event\EventAPIController@accepted_event');
+        });
 });
 
 

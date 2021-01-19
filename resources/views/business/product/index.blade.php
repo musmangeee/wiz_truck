@@ -24,7 +24,7 @@
                         <div class="col-auto">
 
                             <!-- Button -->
-                            <a href="{{route('products.create')}}" class="btn btn-primary lift">
+                            <a href="{{route('business_products.create')}}" class="btn btn-primary lift">
                                 Create New Product
                             </a>
 
@@ -72,9 +72,9 @@
                                                           
                                
                                 <td>
-                                    <a href="{{ route('products.edit', $item->id)}}"
+                                    <a href="{{ route('business_products.edit', $item->id)}}"
                                        class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
-                                    <form action="{{ route('products.destroy', $item->id)}}" method="post"
+                                    <form action="{{ route('business_products.destroy', $item->id)}}" method="post"
                                           class="d-inline-block">
                                         @csrf
                                         @method('DELETE')

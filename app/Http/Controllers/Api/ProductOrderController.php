@@ -171,7 +171,7 @@ class ProductOrderController extends Controller
      
     public function cancel_order(Request $request)
     {
-        $user = $request-> user();
+        $user = $request->user();
         $message = "";
         $status = false;
        $business = Business::where('user_id',$user->id)->first();

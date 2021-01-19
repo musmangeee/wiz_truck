@@ -104,7 +104,7 @@ class ProductController extends Controller
 //         $products = Product::create($input , 
 //         ['image' => 'uploads/products/' . $feature_new_name]);
 
-        return redirect()->route('products.index')
+        return redirect()->route('business_products.index')
             ->with('success', 'Product created successfully');
     }
 

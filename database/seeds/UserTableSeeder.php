@@ -41,19 +41,19 @@ class UserTableSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
+            
             $u = User::create([
                 'name' => $user['name'],
                 'email' => $user['email'],
                 'device_token' => $user['device_token'],
-               
-                
                 'password' => bcrypt('Pa$$w0rd!'),
             ]);
+            
             if (isset($user['role'])) {
                 $role = \Spatie\Permission\Models\Role::findByName($user['role']);
                 $u->assignRole($role);
             }
-
+            
         }
     }
 }

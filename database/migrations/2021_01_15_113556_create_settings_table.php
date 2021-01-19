@@ -15,8 +15,8 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('commission');
-            $table->string('type');
+            $table->string('commission_percentage');
+            $table->string('price_per_km');
             $table->timestamps();
         });
     }
