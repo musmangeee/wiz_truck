@@ -99,4 +99,15 @@ Route::middleware('auth:api')->group(function () {
 //     });
 // });
 
+Route::middleware('auth:api')->group(function () {
+    Route::prefix('event')->group(function (){
+        Route::post('create_event','Api\Event\EventAPIController@create_event');
+       
+    });
+});
+
+
+
+
+
 
