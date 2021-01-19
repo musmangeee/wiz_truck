@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Api\Notification;
 
-use App\Http\Controllers\Controller;
+use App\Notification;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class NotificationController extends Controller
 {
     function sendPushNotification($fcm_token, $title, $message, $id = null)
     {
 
-        
-
-        
         $url = "https://fcm.googleapis.com/fcm/send";
         $header = [
             'authorization: key=' . 'AAAAsxK-WA8:APA91bGMY-aEFbCLZBKFfwaro-odnhy9ZpefruAs01QhnekvgsUgKKHySwnQH-I7GWCOJeFA1pHSZqj_9kUY9In-hclnQPE2WBvhOrgwIpgJ08ro-wZeeXPNcHGz3HiQLFO54PA2_ffL',
@@ -46,5 +44,16 @@ class NotificationController extends Controller
         curl_close($ch);
         return $result;
         
+    }
+
+    public function sendNotification($type , $device_token)
+    {
+         $notification = Notification::where('title' , $type)->first();
+
+        if($device_token != null)
+        {
+            $this->sendPushNotification($device_token,$notification->title,$notification->message);
+        }
+
     }
 }

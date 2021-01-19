@@ -59,6 +59,8 @@ Route::apiResource('products', 'Api\ProductController');
 Route::apiResource('menus', 'Api\MenuController');
 Route::apiResource('categories', 'Api\CategoryController');
 Route::apiResource('businesses', 'Api\BusinessController');
+// ! find-NearBy
+Route::post('nearbyDistance', 'Api\BusinessController@nearbyDistance');
 Route::apiResource('business_category', 'Api\BusinessCategoryController');
 Route::get('restaurant/{id}', 'Api\RestaurantController@index');
 Route::get('restaurant_reviews/{id}', 'Api\RestaurantReviewController@index');
@@ -70,7 +72,7 @@ Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
 Route::post('/mobileAuthRegister', 'Auth\LoginController@mobileAuthRegister');
 // ! Auth API Response
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
-// !Rider Register
+// !Rider Routes
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
 // !Coupon
 Route::apiResource('coupon', 'Api\Coupon\CouponController');
@@ -85,6 +87,11 @@ Route::prefix('rider')->group(function () {
     Route::get('user', 'Api\Rider\RiderAPIController@user');
     Route::get('logout', 'Api\Rider\RiderAPIController@logout');
     Route::post('settings/{id}', 'Api\Rider\RiderAPIController@settings');
+    Route::post('setRidderLocation', 'Api\Rider\RiderLocationController@setRidderLocation');
+    Route::get('broadcastOrder', 'Api\Rider\RiderLocationController@broadcastOrder');
+    Route::get('OrderHistory', 'Api\Rider\RiderLocationController@OrderHistory');
+    Route::post('assignOrder', 'Api\Rider\RiderLocationController@assignOrder');
+
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -99,6 +106,7 @@ Route::middleware('auth:api')->group(function () {
 //     });
 // });
 
+
 Route::middleware('auth:api')->group(function () {
     Route::prefix('event')->group(function (){
         Route::post('create_event','Api\Event\EventAPIController@create_event');
@@ -108,6 +116,9 @@ Route::middleware('auth:api')->group(function () {
 
 
 
+
+
+// Route::get('commission', 'Api\ProductOrderController@commission');
 
 
 

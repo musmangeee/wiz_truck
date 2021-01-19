@@ -100,6 +100,13 @@
                     </a>
                 </li>
 
+                 
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fe fe-align-justify"></i>Events
+                    </a>
+                </li>
+
                 
                
                 </li>

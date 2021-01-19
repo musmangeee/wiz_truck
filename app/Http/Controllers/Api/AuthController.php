@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Validator;
 use App\Business;
+use App\Location;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -78,8 +79,12 @@ class AuthController extends Controller
                 'message' => 'Unauthorized'
             ], 401);
 
+           
             
+            // dd(Auth::guard('api')->user()->id);
         $user = $request->user();
+
+    
 
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -94,6 +99,22 @@ class AuthController extends Controller
             $business = Business::where('user_id',$user->id)->first();
             // $menu = Menu::where('business_id',$business->id)->with('products')->get(); 
         }
+
+       $id =  $user->id;
+       if ($location = Location::where('user_id',$id)->where('latitude','longitude' !=null)->get()) {
+           Location::create([
+               'user_id' => $id,
+               'latitude' => $request-> latitude,
+               'longitude' => $request-> longitude
+           ]);
+       }
+       elseif($location != null)  
+       {
+           $location = new Location();
+           $location->user_id = $id;
+           $location->latitude = $request->latitude;
+           $longitude = $request->longitude;
+       }
 
         return response()->json([
             'name' => $user->name,

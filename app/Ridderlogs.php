@@ -12,6 +12,11 @@ class Ridderlogs extends Model
     }
     public function orders()
 	{
-		return $this->hasMany('App\Order');
+		return $this->belongsTo('App\Order','order_id');
+	}
+
+	public function user()
+	{
+		return $this->hasMany('App\User');
 	}
 }

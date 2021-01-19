@@ -19,7 +19,9 @@ class CreateRidderlogsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->string('commision')->default(0);
             $table->integer('seen')->default(0);
-            $table->integer('status')->default(2);
+            $table->string('status');
+            $table->double('latitude');
+            $table->double('longitude');
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RidderController extends Controller
 {
+    // ! Register Ridder 
     public function ridderRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -48,4 +49,7 @@ class RidderController extends Controller
 
         return response()->json($response);
     }
+
+    // ! Set Ridder Location
+  
 }
