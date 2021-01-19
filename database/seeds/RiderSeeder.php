@@ -18,8 +18,10 @@ class RiderSeeder extends Seeder
              'commision' => '20%',
              'seen' => '0',
              'status' => '1',
+
              'latitude'=>'31.54930264206945',
              'longitude'=>'74.31553639721054'
+
         ]);
         Ridderlogs::create([
             'user_id' => '2',
@@ -27,8 +29,10 @@ class RiderSeeder extends Seeder
             'commision' => '20%',
             'seen' => '1',
             'status' => '2',
+
             'latitude'=>'31.54930264206945',
              'longitude'=>'74.31553639721054'
+
          ]);
             Ridderlogs::create([
                 'user_id' => '3',
@@ -36,8 +40,10 @@ class RiderSeeder extends Seeder
                 'commision' => '20%',
                 'seen' => '0',
                 'status' => '3',
+
                 'latitude'=>'31.54930264206945',
              'longitude'=>'74.31553639721054'
+
           ]);
             Ridderlogs::create([
                 'user_id' => '4',
@@ -45,8 +51,10 @@ class RiderSeeder extends Seeder
                 'commision' => '20%',
                 'seen' => '1',
                 'status' => '1',
+
                 'latitude'=>'31.54930264206945',
                 'longitude'=>'74.31553639721054'
+
             ]);
 
     }

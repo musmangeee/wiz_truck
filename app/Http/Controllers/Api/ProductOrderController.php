@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\User;
 use App\Order;
 use Validator;
 use App\Business;
+use App\Location;
 use App\Ridderlogs;
 use App\ProductOrder;
 use Illuminate\Http\Request;
@@ -118,7 +120,7 @@ class ProductOrderController extends Controller
 
     }
 
-    public function accept_order(Request $request)
+    public function accept_order(Request $request,$radius = 500)
     {
         
        $user = $request-> user();
@@ -127,7 +129,7 @@ class ProductOrderController extends Controller
         $order =[];
         $status = false;
        $business = Business::where('user_id',$user->id)->first();
-
+       
        if($business == null){
            $message = "You have no business account associated with your email.";
            }
@@ -143,7 +145,7 @@ class ProductOrderController extends Controller
             $notification->sendNotification('Order Accepted',$order->user->device_token);
             $notification->sendNotification('Order Accepted',$business->user->device_token);
             $message = "The order have been accepted"; 
-
+             
             $rider = Ridderlogs::where('status','=','pending')->get();
               // ! Sending ridder push notification
                 $notification = new NotificationController();
@@ -159,14 +161,40 @@ class ProductOrderController extends Controller
 
       }
 
+        $latitude  = $business->latitude;
+        $longitude =  $business->longitude;
+         
+        // dd($latitude,$longitude);
 
+        $loc = Location::selectRaw("
+        user_id,longitude,latitude,
+        ( 6371000 * acos( cos( radians(?) ) *
+            cos( radians( latitude ) )
+            * cos( radians( longitude ) - radians(?)
+            ) + sin( radians(?) ) *
+            sin( radians( latitude ) ) )
+        ) AS distance", [$latitude, $longitude, $latitude])
+            ->having("distance", "<", $radius)
+            ->orderBy("distance",'asc')
+            ->offset(0)
+            ->limit(20)
+            ->get();
+ 
+           
+        $commision = [];
+        // $distance = $loc[0]['distance'];
+
+        foreach ($loc as $location) {
+            $device_token = User::where('id' , $location->user_id)->first()->device_token;
+            $commision =  $location->distance*100; 
+            $notification = new NotificationController();
+            $notification->sendPushRiderNotification($device_token,'Order Accepted','Order accepted successfully',Null,$latitude,$longitude,$location->latitude,$location->longitude);
+        }
         return response()->json([
             'status' =>$status,
             'message' => $message,
             'order' =>$order,
         ]);       
-
-
     }   
      
     public function cancel_order(Request $request)
@@ -360,6 +388,26 @@ class ProductOrderController extends Controller
          'message' =>'Order Deleted Successfully',
          'order' =>$order,
         ]);
+    }
+
+    public function calculateDistance($lat1,$lon1,$lat2,$lon2,$unit)
+    {
+       
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+      
+        if ($unit == "K") {
+            return ($miles * 1.609344);
+        } else if ($unit == "N") {
+            return ($miles * 0.8684);
+        } else {
+            return $miles;
+        }
+
     }
 
     

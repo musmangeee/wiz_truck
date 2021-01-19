@@ -309,7 +309,7 @@ $data['search_results'] = $this->findNearestRestaurants($request->latitude , $re
 
     // 
     
-    public function findNearestRestaurants($latitude , $longitude, $radius = 500)
+    public function findNearestRestaurants($latitude , $longitude, $radius = 1000)
     {
         
         // $latitude  = $request->latitude;
