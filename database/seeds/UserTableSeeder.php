@@ -38,6 +38,13 @@ class UserTableSeeder extends Seeder
                  'device_token'=> 'device_token',
                 'role' => 'rider'
             ],
+            [
+                'name' => 'Food Truck',
+                'email' => 'foodtruck@gmail.com',
+                 'device_token'=> 'device_token',
+                'role' => 'restaurant'
+            ],
+
         ];
 
         foreach ($users as $user) {
@@ -53,7 +60,7 @@ class UserTableSeeder extends Seeder
                 $role = \Spatie\Permission\Models\Role::findByName($user['role']);
                 $u->assignRole($role);
             }
-            
+
         }
     }
 }

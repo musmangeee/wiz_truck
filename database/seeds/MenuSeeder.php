@@ -15,7 +15,7 @@ class MenuSeeder extends Seeder
         $menus = [
             [
                 'name' => 'SANDWICHES',
-                'business_id' => '1'
+                'business_id' => '3'
             ],
             [
                 'name' => 'BIRYANI',
@@ -47,19 +47,19 @@ class MenuSeeder extends Seeder
             ],
             [
                 'name' => 'BOTTLE',
-                'business_id' => '3'
+                'business_id' => '2'
             ],
             [
                 'name' => 'SANDWICH1',
-                'business_id' => '3'
+                'business_id' => '2'
             ],
             [
                 'name' => 'CHICKEN',
                 'business_id' => '4'
             ],
             [
-                'name' => 'BURGERS1',
-                'business_id' => '4'
+                'name' => 'BURGER',
+                'business_id' => '1'
             ],
            
             

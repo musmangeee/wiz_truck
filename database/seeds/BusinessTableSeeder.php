@@ -49,6 +49,20 @@ class BusinessTableSeeder extends Seeder
 
             ],
             [
+                "name" => "Food Truck",
+                "user_id" => "5", 
+                "latitude" => 31.421724,
+                "longitude" =>74.285716,
+                "phone" => "+233201660218",
+                "url" => "null",
+                "address" => "null",
+                "zipcode" => "00001",
+                "phone" => "null",
+                'address' => "USA",
+                'business_email' => "foodtruck@gmail.com",
+               
+            ],
+            [
                 "name" => "Chandni Chowk Restaurant",
                 "user_id" => "1", 
                 "latitude" => 31.421939, 
@@ -76,6 +90,8 @@ class BusinessTableSeeder extends Seeder
                 'business_email' => "null",
                
             ],
+            
+
            
        
            
