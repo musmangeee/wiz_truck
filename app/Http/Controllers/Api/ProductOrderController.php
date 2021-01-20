@@ -180,16 +180,21 @@ class ProductOrderController extends Controller
             ->limit(20)
             ->get();
  
+            $order_id = auth::guard('api')->user()->id;
+            // $order = Order::where('id',$user_status)->where('order_type','Delivery')->get();
            
         $commision = [];
         // $distance = $loc[0]['distance'];
 
-        foreach ($loc as $location) {
-            $device_token = User::where('id' , $location->user_id)->first()->device_token;
-            $commision =  $location->distance*100; 
-            $notification = new NotificationController();
-            $notification->sendPushRiderNotification($device_token,'Order Accepted','Order accepted successfully',Null,$latitude,$longitude,$location->latitude,$location->longitude);
+        if (Order::where('id',$order_id)->where('order_type','Delivery')->get()) {
+            foreach ($loc as $location) {
+                $device_token = User::where('id' , $location->user_id)->first()->device_token;
+                $commision =  $location->distance*100; 
+                $notification = new NotificationController();
+                $notification->sendPushRiderNotification($device_token,'Order Accepted','Order accepted successfully',Null,$latitude,$longitude,$location->latitude,$location->longitude);
+            }
         }
+      
         return response()->json([
             'status' =>$status,
             'message' => $message,
@@ -409,6 +414,8 @@ class ProductOrderController extends Controller
         }
 
     }
+
+   
 
     
 }

@@ -23,11 +23,10 @@
 <div class="col-lg-4 col-sm-6" >
     <div 
        class="card cat-card lift">
-        <!-- Image -->
-        <img  height="230px" width="300px" src="{{asset('public/business_images/'.$item->images[0]['name']) }}  " alt="..."
-  
-             class="card-img-top">
-             
+        @if(isset($item->images[0]))
+         <img  height="230px" width="300px" src="{{asset('public/business_images/'.$item->images[0]['name']) }}  " alt="..."
+            class="card-img-top">
+            @endif
         <!-- Body -->
         <div class="card-body py-3 text-left">
             <!-- Heading -->

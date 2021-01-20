@@ -114,11 +114,9 @@ Route::middleware('auth:api')->group(function () {
     });
 });
 
-
-
-
-
-// Route::get('commission', 'Api\ProductOrderController@commission');
+// ! Testing !
+Route::get('review', 'Api\ReviewController@reviewAgainstBusiness');
+Route::get('orderTrack', 'Api\Rider\RiderLocationController@orderTrack');
 
 
 

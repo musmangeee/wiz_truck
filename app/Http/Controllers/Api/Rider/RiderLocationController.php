@@ -40,10 +40,7 @@ class RiderLocationController extends Controller
     public function broadcastOrder(Request $request)
     {
         
-        // dd($users);
-        // $user = DB::table('model_has_roles')->where('role_id',4)->get();
-       
-        // $user = User::hasRole('rider');
+        
         $rider = Ridderlogs::all();
         $user = [];
         
@@ -56,8 +53,8 @@ class RiderLocationController extends Controller
         }
 
         return response()->json([
+            'message' => 'Notification send to all riders',
             'status' =>true,
-            'message' => $message,
         ]);   
 
     }
@@ -105,6 +102,17 @@ class RiderLocationController extends Controller
         ];
         return response()->json($res);
 
+    }
+
+    public function orderTrack()
+    {
+        $id     = auth::guard('api')->user()->id;
+        $rider  = Ridderlogs::where('order_id' , $id)->where('status','assigned')->with('orders')->first();
+        $res = [
+             'status' => true,
+             'rider' => $rider
+        ];
+        return response()->json($res);
     }
 
  
