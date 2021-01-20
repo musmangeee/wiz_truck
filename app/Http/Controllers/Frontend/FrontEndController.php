@@ -23,7 +23,7 @@ class FrontEndController extends Controller
     {
            
         $helper = new HelperController();
-        $restaurants = Business::latest()->take(3)->with('images','categories','reviews')->get();
+        $restaurants = Business::latest()->take(3   )->with('images','categories','reviews')->get();
         
                
            

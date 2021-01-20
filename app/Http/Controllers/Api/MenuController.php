@@ -38,16 +38,16 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique',
+            'name' => 'required',
             'business_id'=>'required',
         ]);
-       
-        
-        if ($validator->fails()) {
+       if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
-
-       
+        if(Menu::where(['business_id' => $request->business_id ,'name'=>$request->name])->first())
+        {
+            return response()->json(['error' => 'menu already exists']);
+        }
         $data = $request->all();
         $menus = Menu::create($data);
         return response()->json($menus, 201);

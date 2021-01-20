@@ -68,7 +68,7 @@
                     </a>
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link" href="{{ route('products.index') }}">
+                    <a class="nav-link" href="{{ url('business_products') }}">
                         <i class="fe fe-briefcase"></i> Products
                     </a>
                 </li>

@@ -20,7 +20,7 @@ class ImageSeeder extends Seeder
                 'name'=>'160871517583f5cdc0bee3484f475ba965d1087223.jpg'
             ],
             [
-                'name'=>'1608813544chick-fil-restaurant.jpg'
+                'name'=>'16111217501589330486822.jpg'
             ],
             [
                 'name'=>'160872670183f5cdc0bee3484f475ba965d1087223.jpg'

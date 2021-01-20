@@ -59,7 +59,7 @@ Route::group(['middleware' => ['check_business_role', 'check_admin_role']], func
     Route::get('/my/business/create', 'DefaultUser\BusinessController@create');
 //! Product and menu
     Route::get('/my/business/menu', 'DefaultUser\BusinessController@create');
-    Route::resource('products', 'ProductController');
+    Route::resource('business_products', 'ProductController');
     Route::resource('menu', 'MenuController');
     Route::get('my/reviews', 'DefaultUser\ReviewController@index')->name('user.reviews');
     Route::get('my/profile', 'UserProfileController@index')->name('user.profile');

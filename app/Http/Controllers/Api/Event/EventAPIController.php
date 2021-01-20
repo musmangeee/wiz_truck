@@ -50,4 +50,82 @@ class EventAPIController extends Controller
         ]);
   
     }
+        public function list_event(Request $request){
+
+            $user_id = Auth::guard('api')->user()->id;
+            $event = Event::where('user_id',$user_id)->get();
+            return response()->json([
+                'status' =>true,
+               'message' =>'Get Event Successfully',
+               'event' =>$event,
+            ]);
+
+
+        }
+        public function delete_event(Event $event){
+          $event->delete();
+          return response()->json([
+            'status' =>true,
+           'message' =>'Event Deleted Successfully',
+           'event' =>$event,
+        ]);
+
+        }
+         
+        public function cancel_event(Request $request){
+           
+            $user = $request->user();
+            $status = false;
+            $message = "";
+            
+            if($user == null){
+                $message = "You have no user account associated with your email.";
+                }
+            else{
+                 $event = Event::where('id',$request->event_id)->first();
+                if($event != null){
+                    $event->status = "cancel";
+                    $status= true;
+                    $event->save();
+                    $message = "The event have been canceled"; 
+                }
+                else{
+                    $message = "You have no event associated with your user email."; 
+                   }
+                   return response()->json([
+                    'status' =>$status,
+                    'message' => $message,
+                    'event' =>$event,
+                ]);  
+            }    
+        }
+        public function accepted_event(Request $request){
+           
+            $user = $request->user();
+            $status = false;
+            $message = "";
+            
+            if($user == null){
+                $message = "You have no user account associated with your email.";
+                }
+            else{
+                 $event = Event::where('id',$request->event_id)->first();
+                if($event != null){
+                    $event->status = "accepted";
+                    $status= true;
+                    $event->save();
+                    $message = "The event have been accepted"; 
+                }
+                else{
+                    $message = "You have no event associated with your user email."; 
+                   }
+                   return response()->json([
+                    'status' =>$status,
+                    'message' => $message,
+                    'event' =>$event,
+                ]);  
+            }    
+        }
+
+
 }

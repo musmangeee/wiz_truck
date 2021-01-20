@@ -37,9 +37,9 @@ class NotificationSeeder extends Seeder
                 
             ],
             [
-                'type'       => 'cancle',
+                'type'       => 'cancel',
                 'title'      => 'Order Cancelled',
-                'message'    => 'Order cancle successfully',
+                'message'    => 'Order cancel successfully',
             ],
 
         ];

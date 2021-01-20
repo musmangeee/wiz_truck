@@ -13,31 +13,37 @@ class RiderSeeder extends Seeder
     public function run()
     {
        Ridderlogs::create([
-             'user_id' => '4',
+             'user_id' => '1',
              'order_id' => '1',
              'commision' => '20%',
              'seen' => '0',
              'status' => '1',
-             'latitude' => 'null',
-             'longitude' => 'null',
+
+             'latitude'=>'31.54930264206945',
+             'longitude'=>'74.31553639721054'
+
         ]);
         Ridderlogs::create([
-            'user_id' => '4',
+            'user_id' => '2',
             'order_id' => '1',
             'commision' => '20%',
             'seen' => '1',
             'status' => '2',
-            'latitude' => 'null',
-            'longitude' => 'null',
+
+            'latitude'=>'31.54930264206945',
+             'longitude'=>'74.31553639721054'
+
          ]);
             Ridderlogs::create([
-                'user_id' => '4',
+                'user_id' => '3',
                 'order_id' => '1',
                 'commision' => '20%',
                 'seen' => '0',
                 'status' => '3',
-                'latitude' => 'null',
-             'longitude' => 'null',
+
+                'latitude'=>'31.54930264206945',
+             'longitude'=>'74.31553639721054'
+
           ]);
             Ridderlogs::create([
                 'user_id' => '4',
@@ -45,8 +51,10 @@ class RiderSeeder extends Seeder
                 'commision' => '20%',
                 'seen' => '1',
                 'status' => '1',
-                'latitude' => 'null',
-                'longitude' => 'null',
+
+                'latitude'=>'31.54930264206945',
+                'longitude'=>'74.31553639721054'
+
             ]);
 
     }

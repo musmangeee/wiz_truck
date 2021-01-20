@@ -33,7 +33,7 @@
              @endif
 
             <!-- Form -->
-            <form class="mb-4" method="POST" action="{{route('products.store')}}" enctype="multipart/form-data">
+            <form class="mb-4" method="POST" action="{{route('business_products.store')}}" enctype="multipart/form-data">
 
             @csrf
                 <!-- Project name -->
@@ -115,7 +115,7 @@
                 {{-- <a href="#" class="btn btn-block btn-primary">
                     Create project
                 </a> --}}
-                <a href="{{route('products.index')}}" class="btn btn-block btn-link text-muted">
+                <a href="{{route('business_products.index')}}" class="btn btn-block btn-link text-muted">
 
                     Cancel this Product
                 </a>

@@ -16,7 +16,7 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('business_id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->boolean('is_discounted')->default(1);
             $table->timestamps();
         });

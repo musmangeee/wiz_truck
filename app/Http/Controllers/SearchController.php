@@ -128,7 +128,7 @@ class SearchController extends Controller
 
 // }
 
-$data['search_results'] = $this->findNearestRestaurants($request->latitude , $request->longitude ,1000);
+$data['search_results'] = $this->findNearestRestaurants($request->latitude , $request->longitude ,10000);
 
 //    dd($data['search_results']);
 //     $data['search_results'] = Business::whereIn('id', $b_ids)->paginate(10);
