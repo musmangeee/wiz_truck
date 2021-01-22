@@ -33,7 +33,7 @@ Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')
 
 Route::get('/', 'Frontend\FrontEndController@index')->name('user.index');
 
-Route::post('subscription', 'Frontend\FrontEndController@subscription')->name('frontend.subscription');
+//Route::post('subscription', 'Frontend\FrontEndController@subscription')->name('frontend.subscription');
 Route::get('search', 'SearchController@search')->name('search');
 Route::get('location', 'SearchController@set_location')->name('location');
 Route::get('search_cities', 'SearchController@search')->name('search_cities');
@@ -109,6 +109,19 @@ Route::prefix('admin')->group(function () {
         Route::post('claim_business', 'AdminUser\BusinessClaimController@claim_business')->name('admin.claim_business');
         Route::resource('subscription', 'AdminUser\SubscriptionController');
         Route::resource('events', 'AdminUser\EventController');
+
+        // Route::get('show_subscribe', function () {
+        //     return view('subscribe.subscribe');
+        // });
+
+        Route::get('stripe', 'StripePaymentController@stripe');
+        Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
+    //    Route::get('show_subscribe', 'SubscriptionController@index');
+       
+      //  Route::post('/subscribe', 'SubscriptionController@processSubscription');
+              // welcome page only for subscribed users
+        Route::get('/welcome', 'SubscriptionController@showWelcome')->middleware('subscribed');
+
     });
 });
 //! cart
@@ -117,3 +130,5 @@ Route::get('/add-to-cart/{product}', 'CartController@addToCart')->name('add-cart
 Route::get('/remove/{id}', 'CartController@removeFromCart')->name('remove');
 //! Locaton 
 Route::get('location', 'SearchController@searchlocation');
+
+Route::get('/subscribe', 'SubscriptionController@showSubscription');

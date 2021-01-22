@@ -23,15 +23,12 @@ class FrontEndController extends Controller
     {
            
         $helper = new HelperController();
-        $restaurants = Business::latest()->take(3   )->with('images','categories','reviews')->get();
-        
-               
-           
+        $restaurants = Business::take(3)->with('images','categories','reviews')->get();
         $pref_wallpaper = $helper->get_prefer_wallpaper();
         $data = [];
         $data['pref_wallpaper'] = $pref_wallpaper;
   
-        $data['random_categories'] = Category::where('parent_id', NULL)->get()->random(4);
+        $data['random_categories'] = Category::where('parent_id', NULL)->get();
         $data['categories'] = Category::all();
         $data['categories_list'] = Category::where('parent_id', NULL)->get();
 
@@ -41,11 +38,9 @@ class FrontEndController extends Controller
 
     public function all_cities()
     {
-
         $helper = new HelperController();
         $data = $helper->main_menu_data();
         $cities = City::all();
-
         return view('frontend.cities', compact('cities', 'data'));
     }
 
