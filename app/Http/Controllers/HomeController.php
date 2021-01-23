@@ -31,17 +31,14 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        $business = Business::where('user_id',$user->id)->first();
-        $orders = Order::where('business_id',$business->id)->get()->count(); 
-        $completed_order = Order::where('status',1)->get()->count();
-        $pending_order =  Order::where('status',0)->get()->count();
-        $total = Order::where('status','=',1)->sum('total');
-        
-      
-        return view('business.dashboard', compact('orders','completed_order','pending_order','total'));
+        $user = Auth::user()->id;
+
+        $business = Business::where('user_id', $user)->first();
+        $orders = Order::where('business_id', $business->id)->get()->count();
+        $completed_order = Order::where('status', 1)->get()->count();
+        $pending_order =  Order::where('status', 0)->get()->count();
+        $total = Order::where('status', '=', 1)->sum('total');
+
+        return view('business.dashboard', compact('orders', 'completed_order', 'pending_order', 'total'));
     }
-
-
-     
 }

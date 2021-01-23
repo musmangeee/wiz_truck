@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BusinessDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -16,7 +17,7 @@ class BusinessDocumentController extends Controller
      */
     public function index()
     {
-        //
+        return view('business.documents');
     }
 
     /**
@@ -38,14 +39,63 @@ class BusinessDocumentController extends Controller
     public function store(Request $request, BusinessDocument $businessDocument)
     {
         try {
+            request()->validate([
+                'license'  => 'required|mimes:doc,docx,pdf,txt,png,jpg,jpeg|max:3048',
+                'liability_insurance'  => 'required|mimes:doc,docx,pdf,txt,png,jpg,jpeg|max:3048',
+                'health_permit'  => 'required|mimes:doc,docx,pdf,txt,png,jpg,jpeg|max:3048',
+                'void_check'  => 'required|mimes:doc,docx,pdf,txt,png,jpg,jpeg|max:3048',
+                'w9_form'  => 'required|mimes:doc,docx,pdf,txt,png,jpg,jpeg|max:3048',
+            ]);
 
-            $this->save_image($request, 'banner', $businessDocument, 'sliders', 300, 300);
-            $this->save_image($request, 'image', $businessDocument, 'sliders', 300, 300);
-            $this->save_image($request, 'image', $businessDocument, 'sliders', 300, 300);
-            $this->save_image($request, 'image', $businessDocument, 'sliders', 300, 300);
-            $this->save_image($request, 'image', $businessDocument, 'sliders', 300, 300);
-            $businessDocument->save();
-            return redirect()->route('sliders.index')->with('success', 'Document submitted');
+
+
+
+            if ($files = $request->file('license')) {
+                $destinationPath = 'public/images/documents'; // upload path
+                $extension = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $extension);
+                $insert['license'] = "$extension";
+            }
+            if ($files = $request->file('liability_insurance')) {
+                $destinationPath = 'public/images/documents'; // upload path
+                $extension = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $extension);
+                $insert['liability_insurance'] = "$extension";
+            }
+            if ($files = $request->file('health_permit')) {
+                $destinationPath = 'public/images/documents'; // upload path
+                $extension = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $extension);
+                $insert['health_permit'] = "$extension";
+            }
+            if ($files = $request->file('void_check')) {
+                $destinationPath = 'public/images/documents'; // upload path
+                $extension = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $extension);
+                $insert['void_check'] = "$extension";
+            }
+            if ($files = $request->file('w9_form')) {
+                $destinationPath = 'public/images/documents'; // upload path
+                $extension = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $extension);
+                $insert['w9_form'] = "$extension";
+            }
+
+            $insert['business_id'] = Auth::user()->business->id;
+            $insert['license'] = 1;
+            $insert['liability_insurance_status'] = 1;
+            $insert['health_permit_status'] = 1;
+            $insert['void_check_status'] = 1;
+            $insert['w9_form_status'] = 1;
+
+            BusinessDocument::insertGetId($insert);
+            // $this->save_image($request, 'license', $businessDocument, 'documents');
+            // $this->save_image($request, 'liability_insurance', $businessDocument, 'documents');
+            // $this->save_image($request, 'health_permit', $businessDocument, 'documents');
+            // $this->save_image($request, 'void_check', $businessDocument, 'documents');
+            // $this->save_image($request, 'w9_form', $businessDocument, 'documents');
+
+            return redirect()->route('home');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -108,13 +158,13 @@ class BusinessDocumentController extends Controller
         }
     }
 
-    public function save_image($request, $image, $obj, $image_path, $width = 300, $height = 300)
+    public function save_image($request, $image, $obj, $image_path)
     {
         try {
             if ($request->hasFile($image)) {
                 $file = $request->file($image);
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                Image::make($file)->resize($width, $height)->save(public_path('/images/' . $image_path . '/' . $filename));
+                $file->move(public_path('/images/' . $image_path . '/' . $filename));
                 $obj->$image = $filename;
                 $obj->save();
             }
@@ -123,14 +173,14 @@ class BusinessDocumentController extends Controller
         }
     }
 
-    public function update_image($request, $image, $obj, $image_path, $width = 300, $height = 300)
+    public function update_image($request, $image, $obj, $image_path)
     {
         try {
             if ($check = $request->hasFile($image)) {
                 $this->delete_image($obj, $image_path, $image);
                 $file = $request->file($image);
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                Image::make($file)->resize($width, $height)->save(public_path('/images/' . $image_path . '/' . $filename));
+                $file->save(public_path('/images/' . $image_path . '/' . $filename));
                 $obj->$image = $filename;
                 $obj->save();
             }

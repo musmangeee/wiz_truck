@@ -137,3 +137,6 @@ Route::get('location', 'SearchController@searchlocation');
 Route::get('/subscribe', 'SubscriptionController@showSubscription');
 
 Route::get('location', 'SearchController@searchlocation');
+
+Route::get('business/document', 'BusinessDocumentController@index')->name('business_document');
+Route::post('business/documents', 'BusinessDocumentController@store')->name('business_document.store');
