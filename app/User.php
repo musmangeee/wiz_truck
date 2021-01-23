@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Laravel\Cashier\Billable;
+use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use Laravel\Passport\HasApiTokens;
-use Laravel\Cashier\Billable;
+
 
 
 class User extends Authenticatable
@@ -15,7 +16,6 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
     use HasApiTokens;
-
     use Billable;
 
     /**

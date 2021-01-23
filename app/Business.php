@@ -8,9 +8,11 @@ class Business extends Model
 {
     protected $table = 'businesses';
 
-    protected $fillable = ['id', 'name', 'url','postal_code',
-        'phone',  'address', 'images', 'created_by', 'updated_by', 'deleted_by', 'user_id', 'slug','zipcode' ,'latitude' , 'longitude' ,'business_email' , 
-          'hours' ,'status' ,'description' , 'claimed' , 'message'];
+    protected $fillable = [
+        'id', 'name', 'url', 'postal_code',
+        'phone',  'address', 'images', 'created_by', 'updated_by', 'deleted_by', 'user_id', 'slug', 'zipcode', 'latitude', 'longitude', 'business_email',
+        'hours', 'status', 'description', 'claimed', 'message'
+    ];
 
     public function categories()
     {
@@ -22,7 +24,7 @@ class Business extends Model
         return $this->hasMany('App\Review');
     }
 
-   
+
 
     public function images()
     {
@@ -44,6 +46,8 @@ class Business extends Model
     {
         return $this->belongsTo('App\User');
     }
-
-  
+    public function business_document()
+    {
+        return $this->hasOne('App\BusinessDocument', 'business_id');
+    }
 }
