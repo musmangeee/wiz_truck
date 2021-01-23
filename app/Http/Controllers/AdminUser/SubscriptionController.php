@@ -16,7 +16,7 @@ class SubscriptionController extends Controller
     public function index()
     {
         $subscriptions = Subscription::paginate(10);
-        return view('admin.subscription.index', compact('subscriptions'));
+        return view('subscribe.subscribe', compact('subscriptions'));
     }
 
     /**
