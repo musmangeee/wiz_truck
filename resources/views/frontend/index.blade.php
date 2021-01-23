@@ -8,17 +8,13 @@
 <div class="container text-center py-5 mt-5">
        
 
-@for($a = 0; $a<3; $a++)
-   
-@endfor
-
-
 
 <div class="container text-center py-5 mt-5">
     <h2 class="h1">New on Wiz Truck</h2>
     <div class="row mt-5">
 
  @foreach ($restaurants as $key =>  $item)
+
 
 <div class="col-lg-4 col-sm-6" >
     <div 

@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "964f59576639030fa852ed05195ba59d",
+    "content-hash": "38dccd062cb97fb9f7d503a57fdb10d4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -741,6 +742,7 @@
             "time": "2020-05-25T17:44:05+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "dompdf/dompdf",
             "version": "v1.0.2",
             "source": {
@@ -809,6 +811,8 @@
             "time": "2021-01-08T14:18:52+00:00"
         },
         {
+=======
+>>>>>>> rehman
             "name": "dragonmantank/cron-expression",
             "version": "v2.3.1",
             "source": {
@@ -1510,6 +1514,7 @@
             "time": "2020-09-14T14:23:00+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "laravel/cashier",
             "version": "v12.6.3",
             "source": {
@@ -1584,6 +1589,8 @@
             "time": "2021-01-19T14:47:45+00:00"
         },
         {
+=======
+>>>>>>> rehman
             "name": "laravel/framework",
             "version": "v7.30.3",
             "source": {
@@ -2502,6 +2509,7 @@
             "time": "2020-07-01T11:33:50+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "moneyphp/money",
             "version": "v3.3.1",
             "source": {
@@ -2584,6 +2592,8 @@
             "time": "2020-03-18T17:49:59+00:00"
         },
         {
+=======
+>>>>>>> rehman
             "name": "monolog/monolog",
             "version": "2.2.0",
             "source": {
@@ -3055,6 +3065,7 @@
             "time": "2020-10-15T08:29:30+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "phenx/php-font-lib",
             "version": "0.5.2",
             "source": {
@@ -3132,6 +3143,8 @@
             "time": "2019-09-11T20:02:13+00:00"
         },
         {
+=======
+>>>>>>> rehman
             "name": "php-http/message-factory",
             "version": "v1.0.2",
             "source": {
@@ -3912,6 +3925,7 @@
             "time": "2020-08-18T17:17:46+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "sabberworm/php-css-parser",
             "version": "8.3.1",
             "source": {
@@ -3957,6 +3971,8 @@
             "time": "2020-06-01T09:10:00+00:00"
         },
         {
+=======
+>>>>>>> rehman
             "name": "sendgrid/php-http-client",
             "version": "3.13.0",
             "source": {
@@ -5076,6 +5092,7 @@
             "time": "2020-12-18T13:49:39+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "symfony/intl",
             "version": "v5.2.1",
             "source": {
@@ -5161,6 +5178,8 @@
             "time": "2020-12-14T10:10:03+00:00"
         },
         {
+=======
+>>>>>>> rehman
             "name": "symfony/mime",
             "version": "v5.2.1",
             "source": {
@@ -5469,6 +5488,7 @@
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "symfony/polyfill-intl-icu",
             "version": "v1.22.0",
             "source": {
@@ -5553,6 +5573,8 @@
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
+=======
+>>>>>>> rehman
             "name": "symfony/polyfill-intl-idn",
             "version": "v1.22.0",
             "source": {

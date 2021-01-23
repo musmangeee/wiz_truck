@@ -26,7 +26,7 @@ Route::group([
 ], function () {
     Route::post('login', 'Api\AuthController@login');
     Route::post('signup', 'Api\AuthController@signup');
-    Route::post('change_password/{id}', 'Api\PasswordResetController@change_password'); 
+    Route::post('change_password/{id}', 'Api\PasswordResetController@change_password');
     Route::post('forgot_password', 'Api\Auth\ForgetPasswordController@forgot_password');
 
     Route::group([
@@ -45,13 +45,14 @@ Route::group([
         Route::post('accept_order', 'Api\ProductOrderController@accept_order');
         Route::post('cancel_order', 'Api\ProductOrderController@cancel_order');
         Route::post('deliver_order', 'Api\ProductOrderController@deliver_order');
+        Route::post('pickup_order', 'Api\ProductOrderController@pickup_order');
         Route::post('completed_order', 'Api\ProductOrderController@completed_order');
-        Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update');//
+        Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update'); //
         Route::post('order_exists', 'Api\Restaurant\OrderManagementController@order_exists');
         Route::get('pending_order_rider', 'Api\Rider\RiderController@TodaysPendingOrders');
         Route::get('all_orders', 'Api\Rider\RiderController@AllOrders');
         Route::post('rider_status', 'Api\Rider\RiderController@status');
-        Route::get('order_details','Api\UserOrderController@get_details');
+        Route::get('order_details', 'Api\UserOrderController@get_details');
     });
 });
 
@@ -91,13 +92,16 @@ Route::prefix('rider')->group(function () {
     Route::get('broadcastOrder', 'Api\Rider\RiderLocationController@broadcastOrder');
     Route::get('OrderHistory', 'Api\Rider\RiderLocationController@OrderHistory');
     Route::post('assignOrder', 'Api\Rider\RiderLocationController@assignOrder');
+    Route::get('orderTrack', 'Api\Rider\RiderLocationController@orderTrack');
+    Route::post('pickup_order', 'Api\Rider\RiderLocationController@pickup_order');
+   Route::get('deliver_order', 'Api\Rider\RiderLocationController@deliver_order'); 
 
 });
 
 Route::middleware('auth:api')->group(function () {
-    Route::prefix('business')->group(function (){
-        Route::get('order_details','Api\Business\OrderAPIController@get_details');
-        Route::get('order_status','Api\Business\OrderAPIController@order_by_status');
+    Route::prefix('business')->group(function () {
+        Route::get('order_details', 'Api\Business\OrderAPIController@get_details');
+        Route::get('order_status', 'Api\Business\OrderAPIController@order_by_status');
     });
 });
 // Route::middleware('auth:api')->group(function () {
@@ -108,13 +112,13 @@ Route::middleware('auth:api')->group(function () {
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::prefix('event')->group(function (){
-        Route::post('create_event','Api\Event\EventAPIController@create_event');
-        Route::get('list_event','Api\Event\EventAPIController@list_event');
-        Route::get('delete_event/{id}','Api\Event\EventAPIController@delete_event');
-        Route::post('cancel_event','Api\Event\EventAPIController@cancel_event');
-        Route::post('accepted_event','Api\Event\EventAPIController@accepted_event');
-        });
+    Route::prefix('event')->group(function () {
+        Route::post('create_event', 'Api\Event\EventAPIController@create_event');
+        Route::get('list_event', 'Api\Event\EventAPIController@list_event');
+        Route::get('delete_event/{id}', 'Api\Event\EventAPIController@delete_event');
+        Route::post('cancel_event', 'Api\Event\EventAPIController@cancel_event');
+        Route::post('accepted_event', 'Api\Event\EventAPIController@accepted_event');
+    });
 });
 
 
@@ -122,6 +126,3 @@ Route::middleware('auth:api')->group(function () {
 
 
 // Route::get('commission', 'Api\ProductOrderController@commission');
-
-
-

@@ -16,6 +16,7 @@ class ReviewController extends Controller
         $user = $request->user();
           
         $business = Business::where('user_id',$user->id)->first();
+        
         $review=[];
         
         if(!$business == null)
