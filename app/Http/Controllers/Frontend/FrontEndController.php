@@ -38,9 +38,17 @@ class FrontEndController extends Controller
 
     public function all_cities()
     {
+<<<<<<< HEAD
         $helper = new HelperController();
         $data = $helper->main_menu_data();
         $cities = City::all();
+=======
+
+        $helper = new HelperController();
+        $data = $helper->main_menu_data();
+        $cities = City::all();
+
+>>>>>>> rehman
         return view('frontend.cities', compact('cities', 'data'));
     }
 

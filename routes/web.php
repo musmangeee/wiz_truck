@@ -20,7 +20,7 @@ use App\User;
  * Login & Registration Routes
  */
 
- Auth::routes(['verify' => false]);
+Auth::routes(['verify' => false]);
 
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
     ->name('login.provider')
@@ -33,7 +33,9 @@ Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')
 
 Route::get('/', 'Frontend\FrontEndController@index')->name('user.index');
 
+
 //Route::post('subscription', 'Frontend\FrontEndController@subscription')->name('frontend.subscription');
+
 Route::get('search', 'SearchController@search')->name('search');
 Route::get('location', 'SearchController@set_location')->name('location');
 Route::get('search_cities', 'SearchController@search')->name('search_cities');
@@ -50,14 +52,14 @@ Route::get('autocomplete_city', 'SearchController@autocomplete_city')->name('aut
 Route::get('autocomplete_town', 'SearchController@autocomplete_town')->name('autocomplete_town');
 Route::get('list_cities', 'SearchController@list_cities')->name('list_cities');
 Route::group(['middleware' => ['check_business_role', 'check_admin_role']], function () {
-    
+
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('write_a_review', 'DefaultUser\ReviewController@writeareview')->name('search.business');
     Route::get('write_a_review/{slug}', 'DefaultUser\ReviewController@write_a_review_page')->name('write_a_review_store');
     Route::post('store_review', 'DefaultUser\ReviewController@postReview')->name('user.store.review');
     Route::post('/my/business/store', 'DefaultUser\BusinessController@store_business')->name('user.business.store');
     Route::get('/my/business/create', 'DefaultUser\BusinessController@create');
-//! Product and menu
+    //! Product and menu
     Route::get('/my/business/menu', 'DefaultUser\BusinessController@create');
     Route::resource('business_products', 'ProductController');
     Route::resource('menu', 'MenuController');
@@ -74,17 +76,17 @@ Route::prefix('business')->group(function () {
         Route::get('/', 'BusinessUser\BusinessController@index')->name('individual.business.index');
         Route::get('setting', 'BusinessUser\BusinessController@setting');
         Route::get('business/reviews', 'BusinessUser\BusinessController@index');
-        Route::get('business/order', 'Order\OrderController@index');     
+        Route::get('business/order', 'Order\OrderController@index');
     });
 });
 //! Auth Logins for ridder & bussines
 Route::get('checkout', 'CheckoutController@index')->name('frontend.checkout');
 Route::group(['middleware' => ['guest']], function () {
-Route::get('/business/login', 'BusinessUser\LoginController@login')->name('Businesslogin');
-Route::get('/business/register', 'BusinessUser\LoginController@register')->name('register');
-Route::post('/business/register', 'BusinessUser\Auth\RegisterController@register')->name('Businessregister');
-Route::get('/ridder/login', 'BusinessUser\LoginController@Ridderlogin');
-Route::get('/ridder/login', 'BusinessUser\LoginController@Ridderregister')->name('ridderSignup');
+    Route::get('/business/login', 'BusinessUser\LoginController@login')->name('Businesslogin');
+    Route::get('/business/register', 'BusinessUser\LoginController@register')->name('register');
+    Route::post('/business/register', 'BusinessUser\Auth\RegisterController@register')->name('Businessregister');
+    Route::get('/ridder/login', 'BusinessUser\LoginController@Ridderlogin');
+    Route::get('/ridder/login', 'BusinessUser\LoginController@Ridderregister')->name('ridderSignup');
 });
 //! Admin Routes
 Route::prefix('admin')->group(function () {
@@ -110,18 +112,18 @@ Route::prefix('admin')->group(function () {
         Route::resource('subscription', 'AdminUser\SubscriptionController');
         Route::resource('events', 'AdminUser\EventController');
 
+
         // Route::get('show_subscribe', function () {
         //     return view('subscribe.subscribe');
         // });
 
         Route::get('stripe', 'StripePaymentController@stripe');
         Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
-    //    Route::get('show_subscribe', 'SubscriptionController@index');
-       
-      //  Route::post('/subscribe', 'SubscriptionController@processSubscription');
-              // welcome page only for subscribed users
-        Route::get('/welcome', 'SubscriptionController@showWelcome')->middleware('subscribed');
+        //    Route::get('show_subscribe', 'SubscriptionController@index');
 
+        //  Route::post('/subscribe', 'SubscriptionController@processSubscription');
+        // welcome page only for subscribed users
+        Route::get('/welcome', 'SubscriptionController@showWelcome')->middleware('subscribed');
     });
 });
 //! cart
@@ -129,6 +131,9 @@ Route::get('/cart', 'CartController@cart')->name('cart');
 Route::get('/add-to-cart/{product}', 'CartController@addToCart')->name('add-cart');
 Route::get('/remove/{id}', 'CartController@removeFromCart')->name('remove');
 //! Locaton 
+
 Route::get('location', 'SearchController@searchlocation');
 
 Route::get('/subscribe', 'SubscriptionController@showSubscription');
+
+Route::get('location', 'SearchController@searchlocation');
