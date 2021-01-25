@@ -97,37 +97,44 @@ class RiderLocationController extends Controller
     }
     public function deliver_order(Request $request)
     {
-        $user = $request->user();
-
-        $rider = Ridderlogs::where('user_id', $user->id)->first();
-        $rider->status = "deliver";
-        $rider->save();
-
-        return response()->json([
-            'status' => true,
-            'message' => "deliver order to rider",
-            'order' => $rider,
-        ]);
-    }
-    public function pickup_order(Request $request)
-    {
         $user = Auth::guard('api')->user();
-    
+        
         $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
+       
          $order = Order::find($request->order_id);
-        $order->status='pickup';
+        
+        $order->status='deliver';
         $order->save();
-        $rider->status = "pickup";
+        $rider->status = 'null';
         $rider->save();
 
         return response()->json([
             'status' => true,
             'message' => "pickup order to rider",
             'rider' => $rider,
+            'order'=>$order,
         ]);
     }
-    
-    
+    public function pickup_order(Request $request)
+    {
+        $user = Auth::guard('api')->user();
+        
+        $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
+         $order = Order::find($request->order_id);
+        
+        $order->status='pickup';
+        $order->save();
+        $rider->status = 'assigned';
+        $rider->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => "pickup order to rider",
+            'rider' => $rider,
+            'order'=>$order,
+        ]);
+    }
+     
 
     public function OrderHistory()
     {
@@ -144,13 +151,22 @@ class RiderLocationController extends Controller
     }
     public function orderTrack()
     {
+        $latitude=null;
+        $longitude=null;
         $id = auth::guard('api')->user()->id;
-        
         $rider  = Ridderlogs::where('user_id' , $id)->where('status','assigned')->with('orders')->first();
-         $business_id = $rider->orders->business_id;
-         $buz = Business::find($business_id);
-         $latitude = $buz->latitude;
-         $longitude = $buz->longitude;
+
+        if($rider != null){
+            dd('check');
+            $business_id = $rider->orders->business_id;
+            $buz = Business::find($business_id);
+            $latitude = $buz->latitude;
+            $longitude = $buz->longitude;
+        }else{
+
+            $message = 'there is no order assign rider';
+        }
+        
          
         
         $res = [

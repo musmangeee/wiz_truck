@@ -45,7 +45,7 @@ Route::group([
         Route::post('accept_order', 'Api\ProductOrderController@accept_order');
         Route::post('cancel_order', 'Api\ProductOrderController@cancel_order');
         Route::post('deliver_order', 'Api\ProductOrderController@deliver_order');
-        Route::post('pickup_order', 'Api\ProductOrderController@pickup_order');
+      // Route::post('pickup_order', 'Api\ProductOrderController@pickup_order');
         Route::post('completed_order', 'Api\ProductOrderController@completed_order');
         Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update'); //
         Route::post('order_exists', 'Api\Restaurant\OrderManagementController@order_exists');
@@ -94,7 +94,7 @@ Route::prefix('rider')->group(function () {
     Route::post('assignOrder', 'Api\Rider\RiderLocationController@assignOrder');
     Route::get('orderTrack', 'Api\Rider\RiderLocationController@orderTrack');
     Route::post('pickup_order', 'Api\Rider\RiderLocationController@pickup_order');
-   Route::get('deliver_order', 'Api\Rider\RiderLocationController@deliver_order'); 
+    Route::post('deliver_order', 'Api\Rider\RiderLocationController@deliver_order'); 
 
 });
 

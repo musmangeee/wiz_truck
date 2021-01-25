@@ -17,6 +17,7 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('package_id');
+            
             $table->boolean('status');
             $table->string('start_date');
             $table->string('end_date');
