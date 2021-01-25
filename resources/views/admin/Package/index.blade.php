@@ -17,7 +17,7 @@
 
                             <!-- Title -->
                             <h1 class="header-title">
-                               Events
+                               Packages
                             </h1>
 
                         </div>
@@ -39,26 +39,30 @@
                         <tr>
                            
                             <th>Name</th>
-                            <th>Price Per Person</th>
-                         
+                            <th>Event</th>
+                            <th>Booking Fee</th>
+                           
                         </tr>
                         </thead>
                         <tbody>
                       
-                        @foreach ($events as $e)
+                        @foreach ($package as $p)
                            <tr>
                                <td>
-                                {{ $e->name  }}
+                                {{ $p->name }}
                                </td>
                                <td>
-                                {{ $e->price_per_person }}
+                                {{ $p->event->name }}
                             </td>
-                           
+                            <td>
+                                {{ $p->booking_fee }}
+                            </td>
+                          
                            </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    {{ $events->links() }}
+                    {{-- {{ $events->links() }} --}}
                 </div>
             </div>
         </div>

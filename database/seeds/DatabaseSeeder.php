@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OrderSeeder::class);
         $this->call(CoupanTableSeeder::class);
         $this->call(RiderSeeder::class);
-        $this->call(EventSeeder::class);
+        // $this->call(EventSeeder::class);
         $this->call(PackageSeeder::class);
 
        

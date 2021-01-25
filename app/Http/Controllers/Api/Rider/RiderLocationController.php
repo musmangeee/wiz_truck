@@ -94,11 +94,12 @@ class RiderLocationController extends Controller
         
         $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
        
-         $order = Order::find($request->order_id);
+        $order = Order::find($request->order_id);
         
         $order->status='deliver';
         $order->save();
-        $rider->status = 'null';
+        $rider ->status = 'null';
+        $rider->commision = $order->total * 12.5 / 100;
         $rider->save();
 
         return response()->json([
