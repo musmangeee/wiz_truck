@@ -53,6 +53,10 @@ Route::group([
         Route::get('all_orders', 'Api\Rider\RiderController@AllOrders');
         Route::post('rider_status', 'Api\Rider\RiderController@status');
         Route::get('order_details', 'Api\UserOrderController@get_details');
+        Route::post('booking_create', 'Api\BookingController@store');
+        Route::get('booking_list', 'Api\BookingController@index');
+        Route::post('booking_update/{id}', 'Api\BookingController@update');
+        
     });
 });
 
@@ -122,6 +126,8 @@ Route::middleware('auth:api')->group(function () {
 });
 
 
+Route::get('list_event', 'Api\EventController@index');
+Route::get('list_package', 'Api\PackageController@index');
 
 
 
