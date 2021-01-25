@@ -52,7 +52,7 @@
                         @foreach ($events as $e)
                            <tr>
                                <td>
-                                {{ $e->restaurant->name }}
+                                {{ $e->restaurant->name  }}
                                </td>
                                <td>
                                 {{ $e->user->name }}
@@ -64,11 +64,12 @@
                                 {{  \Carbon\Carbon::parse($e->end_date)->diffForhumans()  }}
                             </td>
                             <td>
-                                {{ \Carbon\Carbon::parse($e->start_time)->diffForhumans() }}
+                                {{ \Carbon\Carbon::createFromFormat('H:i:s',$e->start_time)->format('h:i') }}
                                 
                             </td>
                             <td>
-                                {{ $e->end_time }}
+                                {{-- {{ \Carbon\Carbon::parse($e->end_time)->diffForhumans() }} --}}
+                                {{ \Carbon\Carbon::createFromFormat('H:i:s',$e->end_time)->format('h:i') }}
                             </td>
                             <td>
                                 <span class="badge badge-primary">{{ $e->status }}</span>

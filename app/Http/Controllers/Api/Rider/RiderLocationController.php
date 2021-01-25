@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api\Rider;
-
 use App\User;
-
-
 use App\Order;
-use App\Location;
 use App\Business;
+use App\Location;
+use Carbon\Carbon;
 use App\Ridderlogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,12 +40,6 @@ class RiderLocationController extends Controller
 
     public function broadcastOrder(Request $request)
     {
-
-
-        // dd($users);
-        // $user = DB::table('model_has_roles')->where('role_id',4)->get();
-
-        // $user = User::hasRole('rider');
 
         $rider = Ridderlogs::all();
         $user = [];
@@ -162,5 +154,33 @@ class RiderLocationController extends Controller
              'business_longitude' =>$longitude ,
         ];
         return response()->json($res);
+    }
+    public function riderEarning()
+    {
+        $id = auth::guard('api')->user()->id;
+         // ! Rider Total sum
+        $rider = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->first();
+        // ! Rider Today sum
+        $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->whereDate('created_at', Carbon::today())->first();
+        
+        $rider_sum = $rider->sum('commision');
+        $rider_sum_now = $rider->whereDate('created_at', Carbon::today())->sum('commision');
+      
+      
+            // //one month / 30 days
+            // $date = Carbon::now()->subDays(30);
+            // $rider_report = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')
+            // ->where('created_at', '>=', $date)
+            // ->get();
+            // return $rider_report;
+
+        // ! Response     
+        $res = [
+            'status' => true,
+            'message' => "Rider total earning.", 
+            'RiderTotalEarning' => $rider_sum,
+            'RiderTodayEarning' =>  $rider_sum_now
+        ];
+        return response()->json($res, 200);
     }
 }

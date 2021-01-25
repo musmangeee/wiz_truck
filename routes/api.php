@@ -92,6 +92,7 @@ Route::prefix('rider')->group(function () {
     Route::get('OrderHistory', 'Api\Rider\RiderLocationController@OrderHistory');
     Route::post('assignOrder', 'Api\Rider\RiderLocationController@assignOrder');
     Route::get('orderTrack', 'Api\Rider\RiderLocationController@orderTrack');
+    Route::get('riderEarning', 'Api\Rider\RiderLocationController@riderEarning');
 
 });
 
