@@ -24,26 +24,25 @@ class UserTableSeeder extends Seeder
                 'name' => 'Business Testing',
                 'email' => 'business@app.com',
                 'device_token'=> 'device_token',
-                'role' => 'restaurant'
+                'role' => 'restaurant',
+                'device_token' => 'dFMdZ4pFSIOS1rNcZtWue3:APA91bFAmrCeusztwU-dD0x-tmNFPRND6VPggNbhFYpDQDb_gdFbPac8XjmkyDqozWoJAEMNrqqkHNIKok6VlVMVYbY1IyGaESn7XkOXbMbQKNiclgbXw6nlnWaBO3ZWbQP25x94qSHx',
             ]
             ,
             [
                 'name' => 'User Testing',
                 'email' => 'user@app.com',
                 'device_token'=> 'device_token',
+                'role' => 'user',
+                'device_token' => 'ckYU5ty0Qhe6R3r2lLa4_9:APA91bHIDi90dsPQGyM68SgydBRMB16BQbuEguJtlWrhPxk8OFQ9M4TF2Nsy--QwLceMtJ2QmpZDNxzvO_7Fa-2kWiz43s6EkhRPqZJi6l588WRBJPqahODzcd5V7BTdo9zYw6C-BG9X',
             ],
             [
                 'name' => 'Rider Testing',
                 'email' => 'rider@app.com',
                  'device_token'=> 'device_token',
-                'role' => 'rider'
+                'role' => 'rider',
+                'device_token' => 'fLixxlDDQJGtwIQYaBXkP9:APA91bHxgksa7Xh2loMsQ_3eDXMEVwCzcb1phRqDJLCcJKjfBG2OtukXaeNl46rdENdPW_q0_wWUouLAQ_LbTmmF8xxsUHRwePkbrLWHvaR2yBXiij1UNAQn4ff7-7D5oE61ruwUYaYv',
             ],
-            [
-                'name' => 'Food Truck',
-                'email' => 'foodtruck@gmail.com',
-                 'device_token'=> 'device_token',
-                'role' => 'restaurant'
-            ],
+      
 
         ];
 
@@ -53,7 +52,7 @@ class UserTableSeeder extends Seeder
                 'name' => $user['name'],
                 'email' => $user['email'],
                 'device_token' => $user['device_token'],
-                'password' => bcrypt('Pa$$w0rd!'),
+                'password' => bcrypt('12345678'),
             ]);
             
             if (isset($user['role'])) {

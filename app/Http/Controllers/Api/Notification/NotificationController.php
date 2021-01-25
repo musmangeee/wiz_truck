@@ -41,12 +41,15 @@ class NotificationController extends Controller
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 
         $result = curl_exec($ch);
+        // dump($result);
         curl_close($ch);
+       
+        
         return $result;
         
     }
 
-    function sendPushRiderNotification($fcm_token, $title, $message, $id = null ,$res_latitude ,$res_longitude ,$user_latitude,$user_longitude)
+    function sendPushRiderNotification($fcm_token, $title, $message, $id = null ,$res_latitude ,$res_longitude ,$user_latitude,$user_longitude,$order_id,$comission,$distance)
     {
        
 
@@ -72,6 +75,11 @@ class NotificationController extends Controller
                 "res_longitude" : "' . $res_longitude . '",
                 "user_latitude" : "' . $user_latitude . '",
                 "user_longitude" : "' . $user_longitude . '",
+                "order_id" : "' . $order_id . '",
+                "comission" : "' . $comission . '",
+                "distance" : "' .  $distance . '",
+               
+               
               }
         }';
 
@@ -85,6 +93,7 @@ class NotificationController extends Controller
 
         $result = curl_exec($ch);
         curl_close($ch);
+        // dump($result);
         return $result;
         
     }
@@ -92,6 +101,7 @@ class NotificationController extends Controller
     public function sendNotification($type , $device_token)
     {
          $notification = Notification::where('title' , $type)->first();
+
 
         if($device_token != null)
         {

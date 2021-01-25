@@ -108,7 +108,7 @@
                 </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('events.index') }}" >
-                        <i class="fe fe-info"></i>Events
+                        <i class="fe fe-calendar"></i>Events
                     </a>
                 </li>
 

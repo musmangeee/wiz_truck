@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Rider;
 
 use App\User;
+use App\Order;
+use App\Business;
 use App\Location;
 use App\Ridderlogs;
 use Illuminate\Http\Request;
@@ -14,23 +16,26 @@ use App\Http\Controllers\Api\Notification\NotificationController;
 class RiderLocationController extends Controller
 {
     // ! Set Ridder Location
-    public function setRidderLocation(Request $request,$id)
-    {
-        $user_id   = $request->user()->id;
+    public function setRidderLocation(Request $request)
+    {        
+        $user_id   = auth('api')->user()->id;
+        // dd($user_id);
         $data = $request->all();
         $data['user_id'] = $user_id;
-        $rider = Ridderlogs::where('id',$user_id->id)->first();
-    
-        if ($rider == null) {
-            Ridderlogs::create($data);
+        $LOC = Location::where('user_id',$user_id)->first();
+          
+        if ($LOC == null) {
+            // dd( $LOC = Location::where('id',$user_id)->first());
+            Location::create($data);
         }
-        elseif($rider != null)
+        else
         {
-            $rider->update($data);
+           
+            $LOC->update($data);
             $res = [
                 'status' => true,
                 'message' => 'Record updated successfully',
-                'rider' => $rider
+                'rider' => $LOC
             ];
             return response()->json($res);
         }
@@ -61,18 +66,37 @@ class RiderLocationController extends Controller
 
     public function assignOrder(Request $request)
     {
-        $user = $request->user();
-      
-        $rider = Ridderlogs::where('user_id',$user->id)->first();
-            $rider->status = "assigned";
-            $rider->save();
-
-        ([
-            'status' =>true,
-            'message' => "assigned order to rider",
-            'order' =>$rider,
+        $user = Auth::guard('api')->user()->id;
+        $order_id = $request->order_id;
+        
+           if(Ridderlogs::where('user_id',$user)->where('status','assigned')->first() != null)
+           {
+              return response()->json([
+              'status' =>false,
+              'message' => "Order already assigned.",
         ]); 
 
+           }
+           else 
+           {
+             $rider =   new Ridderlogs();
+            $commision = Order::find($order_id)->total;
+            // dd($commision);
+             $commision = ($commision * 12.5 / 100);
+             $rider->commision = $commision;
+             $rider->user_id = $user;
+             $rider->order_id =   $order_id;
+             $rider->status='assigned';
+             $rider->save();
+             return response()->json([
+            'status' =>true,
+            'message' => "Assigned order to rider.",
+             ]);
+           }
+           
+           
+
+     
     }
     public function deliver_order(Request $request)
     {
@@ -106,11 +130,20 @@ class RiderLocationController extends Controller
 
     public function orderTrack()
     {
-        $id     = auth::guard('api')->user()->id;
-        $rider  = Ridderlogs::where('order_id' , $id)->where('status','assigned')->with('orders')->first();
+        $id = auth::guard('api')->user()->id;
+        
+        $rider  = Ridderlogs::where('user_id' , $id)->where('status','assigned')->with('orders')->first();
+         $business_id = $rider->orders->business_id;
+         $buz = Business::find($business_id);
+         $latitude = $buz->latitude;
+         $longitude = $buz->longitude;
+
         $res = [
              'status' => true,
-             'rider' => $rider
+             'message' => 'Specific order',
+             'rider' => $rider,
+             'business_latitide' =>$latitude ,
+             'business_longitude' =>$longitude ,
         ];
         return response()->json($res);
     }

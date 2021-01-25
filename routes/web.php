@@ -117,3 +117,5 @@ Route::get('/add-to-cart/{product}', 'CartController@addToCart')->name('add-cart
 Route::get('/remove/{id}', 'CartController@removeFromCart')->name('remove');
 //! Locaton 
 Route::get('location', 'SearchController@searchlocation');
+
+

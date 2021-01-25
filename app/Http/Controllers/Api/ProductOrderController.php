@@ -33,7 +33,7 @@ class ProductOrderController extends Controller
     }
      
      
-    public function create_order(Request $request)
+    public function create_order(Request $request,$radius = 500)
     {   
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
@@ -108,6 +108,7 @@ class ProductOrderController extends Controller
             //   $notification->sendPushNotification($token,'your have received an order ','order placed successfully',$request->business_id);
             $notification->sendNotification('Order Created',$user->device_token);
             $notification->sendNotification('Order Created',$business->user->device_token);
+            
         
         }
             return response()->json([      
@@ -135,6 +136,7 @@ class ProductOrderController extends Controller
            }
        else{
         $order = Order::where(['business_id'=>$business->id,'id'=>$request->order_id])->first();
+    
            if($order != null){
             $order->status = "accept";
             $status= true;
@@ -146,14 +148,36 @@ class ProductOrderController extends Controller
             $notification->sendNotification('Order Accepted',$business->user->device_token);
             $message = "The order have been accepted"; 
              
-            $rider = Ridderlogs::where('status','=','pending')->get();
-              // ! Sending ridder push notification
-                $notification = new NotificationController();
-                foreach ($rider as $r) {
-                $device_token = User::where('id' , $r->user_id)->first()->device_token;
-                $notification = new NotificationController();
-                $notification->sendNotification('Order Accepted',$device_token);
-                }
+          
+        
+        $latitude  = $business->latitude;
+        $longitude =  $business->longitude;
+         
+        $loc = Location::all();
+        
+           
+        $comission = ($order->total*12.5/100);
+        // dd($comission);
+        $distance = 1;
+       
+        foreach ($loc as $location) {
+            $device_token = User::where('id' , $location->user_id)->first()->device_token;
+   
+            // $comision =  $location->distance*100; 
+            $notification = new NotificationController();
+            $notification->sendPushRiderNotification($device_token,'Order Accepted','Order accepted successfully',Null,$latitude,$longitude,$location->latitude
+            ,$location->longitude,$order->id,$comission,$distance);
+        }
+
+                // foreach ($rider as $r) {
+                // //   return $r;
+            
+                // $device_token = User::where('id' , $r->user_id)->first()->device_token;
+         
+                // $notification = new NotificationController();
+                
+                // $notification->sendNotification('Order Accepted',$device_token);
+                // }
            }
            else{
             $message = "You have no order associated with your business email."; 
@@ -161,40 +185,7 @@ class ProductOrderController extends Controller
 
       }
 
-        $latitude  = $business->latitude;
-        $longitude =  $business->longitude;
-         
-        // dd($latitude,$longitude);
-
-        $loc = Location::selectRaw("
-        user_id,longitude,latitude,
-        ( 6371000 * acos( cos( radians(?) ) *
-            cos( radians( latitude ) )
-            * cos( radians( longitude ) - radians(?)
-            ) + sin( radians(?) ) *
-            sin( radians( latitude ) ) )
-        ) AS distance", [$latitude, $longitude, $latitude])
-            ->having("distance", "<", $radius)
-            ->orderBy("distance",'asc')
-            ->offset(0)
-            ->limit(20)
-            ->get();
- 
-            $order_id = auth::guard('api')->user()->id;
-            // $order = Order::where('id',$user_status)->where('order_type','Delivery')->get();
-           
-        $commision = [];
-        // $distance = $loc[0]['distance'];
-
-        if (Order::where('id',$order_id)->where('order_type','Delivery')->get()) {
-            foreach ($loc as $location) {
-                $device_token = User::where('id' , $location->user_id)->first()->device_token;
-                $commision =  $location->distance*100; 
-                $notification = new NotificationController();
-                $notification->sendPushRiderNotification($device_token,'Order Accepted','Order accepted successfully',Null,$latitude,$longitude,$location->latitude,$location->longitude);
-            }
-        }
-      
+    
         return response()->json([
             'status' =>$status,
             'message' => $message,
@@ -414,7 +405,9 @@ class ProductOrderController extends Controller
         }
 
     }
-
+    
+    
+    
    
 
     

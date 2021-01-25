@@ -80,11 +80,10 @@ class AuthController extends Controller
             ], 401);
 
            
-            
-            // dd(Auth::guard('api')->user()->id);
+       
+           
         $user = $request->user();
-
-    
+ $dd = User::where('email',$request->email)->update( [ 'device_token' => $request->device_token ]);
 
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -101,27 +100,33 @@ class AuthController extends Controller
         }
 
        $id =  $user->id;
-       if ($location = Location::where('user_id',$id)->where('latitude','longitude' !=null)->get()) {
-           Location::create([
-               'user_id' => $id,
+       if($user->hasRole('rider')){
+       $location = Location::where('user_id',$id)->first();
+       if ($location != null) {
+           $location->update([
                'latitude' => $request-> latitude,
                'longitude' => $request-> longitude
            ]);
        }
-       elseif($location != null)  
+       else
        {
            $location = new Location();
            $location->user_id = $id;
            $location->latitude = $request->latitude;
-           $longitude = $request->longitude;
+           $location->longitude = $request->longitude;
+           $location->save();
        }
+       }
+     
 
         return response()->json([
             'name' => $user->name,
             'email' => $user->email,
+           
             'role' => $user->getRoleNames(),
             'access_token' => $tokenResult->accessToken,
             'business' => $business,
+            'device_token' => $request->device_token,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
