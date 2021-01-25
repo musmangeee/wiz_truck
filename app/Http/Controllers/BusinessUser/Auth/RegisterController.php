@@ -41,7 +41,11 @@ class RegisterController extends Controller
            
         ]);
            
-        
+
+
+    
+
+        // dd($request -> all());
         if($validator->fails()) {
            
             return Redirect::back()->withErrors($validator);
@@ -52,8 +56,11 @@ class RegisterController extends Controller
         $user -> email = $request-> email ;
         $user -> password = Hash::make($request-> password);
         $user -> save();
+        // dd('hi');
         
-        // ! Busness Register
+        
+          
+        
         $business = Business::create([
             'user_id' => $user ->id,  
             'name' => $request -> business_name,

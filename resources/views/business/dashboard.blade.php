@@ -5,7 +5,7 @@
   <!-- HEADER -->
   <div class="header">
       <div class="container-fluid">
-
+    
           <!-- Body -->
           <div class="header-body">
               <div class="row align-items-end">
@@ -41,6 +41,18 @@
 
   <!-- CARDS -->
   <div class="container-fluid">
+    @if(Auth::user()->business->business_document->w9_form_status ==1)
+    <div class="alert alert-warning" role="alert">
+        Your request is currently under review. we will notify you soon.
+    </div>
+
+    @elseif(Auth::user()->business->status == 0)
+    <div class="alert alert-warning" role="alert">
+        kindly submit all the nesscery legal to make your foodtruck business live.
+        <a href="{{route('business_document')}}">Submit Here.</a>
+    </div>
+@endif
+
       <div class="row">
           <div class="col-12 col-lg-6 col-xl">
 
