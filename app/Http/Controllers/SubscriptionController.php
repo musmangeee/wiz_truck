@@ -12,10 +12,10 @@ class SubscriptionController extends Controller {
 
     //     $this->middleware('auth');
     // }
-    // public function index(){
-    //     dd('dd');
-    //     return view('subscribe.subscribe');
-    // }
+    public function index(){
+      
+        return view('subscribe.index');
+    }
     public function retrievePlans() {
         $key = \config('services.stripe.secret');
         $stripe = new \Stripe\StripeClient($key);
@@ -31,10 +31,11 @@ class SubscriptionController extends Controller {
         return $plans;
     }
     public function showSubscription() {
+        dd('ok');
         $plans = $this->retrievePlans();
         $user = Auth::user();
         
-        return view('seller.pages.subscribe', [
+        return view('subscribe.index', [
             'user'=>$user,
             'intent' => $user->createSetupIntent(),
             'plans' => $plans

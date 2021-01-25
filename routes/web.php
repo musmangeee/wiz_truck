@@ -112,14 +112,16 @@ Route::prefix('admin')->group(function () {
         Route::resource('subscription', 'AdminUser\SubscriptionController');
         Route::resource('events', 'AdminUser\EventController');
 
-
-        // Route::get('show_subscribe', function () {
-        //     return view('subscribe.subscribe');
-        // });
-
+        Route::get('/subscribe', 'SubscriptionController@index');
+        Route::get('/subscribe', 'SubscriptionController@showSubscription');
         Route::get('stripe', 'StripePaymentController@stripe');
         Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
-        //    Route::get('show_subscribe', 'SubscriptionController@index');
+        Route::get('show_subscribe', 'SubscriptionController@index');
+       
+        Route::post('/subscribe', 'SubscriptionController@processSubscription');
+              // welcome page only for subscribed users
+        Route::get('/welcome', 'SubscriptionController@showWelcome')->middleware('subscribed');
+   
 
         //  Route::post('/subscribe', 'SubscriptionController@processSubscription');
         // welcome page only for subscribed users
@@ -134,13 +136,6 @@ Route::get('/remove/{id}', 'CartController@removeFromCart')->name('remove');
 
 Route::get('location', 'SearchController@searchlocation');
 
-
-
-Route::get('location', 'SearchController@searchlocation');
-
-Route::get('/subscribe', 'SubscriptionController@showSubscription');
-
-Route::get('location', 'SearchController@searchlocation');
 
 Route::get('business/document', 'BusinessDocumentController@index')->name('business_document');
 Route::post('business/documents', 'BusinessDocumentController@store')->name('business_document.store');

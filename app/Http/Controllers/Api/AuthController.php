@@ -80,10 +80,8 @@ class AuthController extends Controller
             ], 401);
 
            
-       
-           
         $user = $request->user();
- $dd = User::where('email',$request->email)->update( [ 'device_token' => $request->device_token ]);
+        $dd = User::where('email',$request->email)->update( [ 'device_token' => $request->device_token ]);
 
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -98,6 +96,7 @@ class AuthController extends Controller
             $business = Business::where('user_id',$user->id)->first();
             // $menu = Menu::where('business_id',$business->id)->with('products')->get(); 
         }
+
 
        $id =  $user->id;
        if($user->hasRole('rider')){
@@ -118,7 +117,6 @@ class AuthController extends Controller
        }
        }
      
-
         return response()->json([
             'name' => $user->name,
             'email' => $user->email,
