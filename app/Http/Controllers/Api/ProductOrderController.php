@@ -64,6 +64,7 @@ class ProductOrderController extends Controller
             'order_type' => 'required',
             'product_id' => 'required',
             'order_id' => 'required',
+            'total' => 'required',
             'payment_method' => 'required',
             'payment_status' => 'required',
             'status' => 'required',
@@ -86,6 +87,7 @@ class ProductOrderController extends Controller
             'product_id' => $request->product_id,
             'product' => $request->product,
             'status' => $request->status,
+            'total' => $request->total,
             'payment_method' => $request->payment_method,
             'payment_status' => $request->payment_status,
 
