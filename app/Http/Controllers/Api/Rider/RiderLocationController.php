@@ -91,9 +91,7 @@ class RiderLocationController extends Controller
     public function deliver_order(Request $request)
     {
         $user = Auth::guard('api')->user();
-        
         $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
-       
         $order = Order::find($request->order_id);
         
         $order->status='deliver';
