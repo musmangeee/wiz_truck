@@ -76,17 +76,16 @@
                                         {{ \Carbon\Carbon::parse($role->updated_at)->diffForhumans() }}
                                     </td>
                                     <td>
-                                        <form class="d-inline-block" action="{{ route('roles.destroy',$role->id) }}"
-                                              method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn social-btn btn-danger btn-xs">
-                                                <i class="mdi mdi-delete-empty"></i>
-                                            </button>
-                                        </form>
-                                        <a href="{{ route('roles.edit',$role->id) }}" class="btn social-btn btn-warning btn-xs">
-                                            <i class="mdi mdi-pencil"></i>
-                                        </a>
+                                     
+                                        <form action="{{ route('roles.destroy',$role->id)}}" method="post"
+                                            class="d-inline-block">
+                                          @csrf
+                                          @method('DELETE')   
+                                          <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
+                                          </button>
+                                      </form>
+                                        <a href="{{route('roles.edit',$role->id)}}"
+                                            class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

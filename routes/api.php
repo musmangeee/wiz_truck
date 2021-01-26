@@ -98,8 +98,10 @@ Route::prefix('rider')->group(function () {
     Route::get('OrderHistory', 'Api\Rider\RiderLocationController@OrderHistory');
     Route::post('assignOrder', 'Api\Rider\RiderLocationController@assignOrder');
     Route::get('orderTrack', 'Api\Rider\RiderLocationController@orderTrack');
+    Route::get('riderEarning', 'Api\Rider\RiderLocationController@riderEarning');
     Route::post('pickup_order', 'Api\Rider\RiderLocationController@pickup_order');
     Route::post('deliver_order', 'Api\Rider\RiderLocationController@deliver_order'); 
+
 
 });
 
@@ -134,3 +136,6 @@ Route::get('list_package', 'Api\PackageController@index');
 
 
 // Route::get('commission', 'Api\ProductOrderController@commission');
+
+
+Route::post('test', 'Api\ProductOrderController@test');

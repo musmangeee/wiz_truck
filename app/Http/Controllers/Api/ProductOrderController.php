@@ -150,16 +150,14 @@ class ProductOrderController extends Controller
                 $longitude =  $business->longitude;
 
                 $loc = Location::all();
-
+               
 
                 $comission = ($order->total * 12.5 / 100);
-                // dd($comission);
                 $distance = 1;
 
                 foreach ($loc as $location) {
-                    $device_token = User::where('id', $location->user_id)->first()->device_token;
-
-                    // $comision =  $location->distance*100; 
+                   
+                    $device_token = User::where('id', $location->user_id)->value('device_token');
                     $notification = new NotificationController();
                     $notification->sendPushRiderNotification(
                         $device_token,

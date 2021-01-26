@@ -20,8 +20,8 @@ class CreateRidderlogsTable extends Migration
             $table->string('commision')->default(0);
             $table->integer('seen')->default(0);
             $table->string('status');
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ridderlogs extends Model
 {
+	protected $guarded = [];
     public function pendingorders()
 	{
 		return $this->hasOne('App\Order','id','order_id');
