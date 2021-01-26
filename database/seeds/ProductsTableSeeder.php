@@ -424,7 +424,7 @@ Béchamel',
             array (
                
                 'name' => 'The Italian',
-            'description' => 'Prosciutto, Fresh Onions & Tomatoes, Mixed Cheese (parmesan, mozzarella, and provolone) with Béchamel Sauce',
+                'description' => 'Prosciutto, Fresh Onions & Tomatoes, Mixed Cheese (parmesan, mozzarella, and provolone) with Béchamel Sauce',
                 'price' => 11.0,
                 'discount' => '1.00',
                 'menu_id' => 1,

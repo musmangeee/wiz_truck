@@ -20,5 +20,9 @@ class Event extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function packages()
+    {
+        return $this->hasMany('App\Package');
+    }
 
 }

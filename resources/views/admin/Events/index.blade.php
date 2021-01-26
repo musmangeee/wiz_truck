@@ -38,13 +38,9 @@
                         <thead>
                         <tr>
                            
-                            <th>Business</th>
-                            <th>User</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Price Per Person</th>
+                         
                         </tr>
                         </thead>
                         <tbody>
@@ -52,27 +48,12 @@
                         @foreach ($events as $e)
                            <tr>
                                <td>
-                                {{ $e->restaurant->name }}
+                                {{ $e->name  }}
                                </td>
                                <td>
-                                {{ $e->user->name }}
+                                {{ $e->price_per_person }}
                             </td>
-                            <td>
-                                {{  \Carbon\Carbon::parse($e->start_date)->diffForhumans()  }}
-                            </td>
-                            <td>
-                                {{  \Carbon\Carbon::parse($e->end_date)->diffForhumans()  }}
-                            </td>
-                            <td>
-                                {{ \Carbon\Carbon::parse($e->start_time)->diffForhumans() }}
-                                
-                            </td>
-                            <td>
-                                {{ $e->end_time }}
-                            </td>
-                            <td>
-                                <span class="badge badge-primary">{{ $e->status }}</span>
-                            </td>
+                           
                            </tr>
                         @endforeach
                         </tbody>

@@ -45,8 +45,10 @@ class RestaurantMenuController extends Controller
           'name' =>'required',
           'business_id' => 'required'
           ];
+
         $this->validate($request, $rules);
         $data = $request->all();
+        dd($data);
         $menus = Menu::create($data);
         return response()->json($menus, 201);
 

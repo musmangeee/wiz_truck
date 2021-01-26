@@ -69,7 +69,7 @@
                                         {{ \Carbon\Carbon::parse($permission->updated_at)->diffForhumans() }}
                                     </td>
                                     <td>
-                                        <form class="d-inline-block" action="{{ route('permissions.destroy',$permission->id) }}" method="POST">
+                                        {{-- <form class="d-inline-block" action="{{ route('permissions.destroy',$permission->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn social-btn btn-danger btn-xs">
@@ -78,7 +78,17 @@
                                         </form>
                                         <a href="{{ route('permissions.edit',$permission->id) }}" class="btn social-btn btn-warning btn-xs">
                                             <i class="mdi mdi-pencil"></i>
-                                        </a>
+                                        </a> --}}
+
+                                        <form action="{{ route('permissions.destroy',$permission->id)}}" method="post"
+                                            class="d-inline-block">
+                                          @csrf
+                                          @method('DELETE')   
+                                          <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
+                                          </button>
+                                      </form>
+                                        <a href="{{route('permissions.edit',$permission->id)}}"
+                                            class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

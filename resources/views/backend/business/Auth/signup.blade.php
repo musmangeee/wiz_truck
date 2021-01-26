@@ -26,12 +26,6 @@
             enctype="multipart/form-data">
             @csrf
 
-
-         
-
-    
-
-
           <div class="tab-pane fade show active" id="wizardStepOne" role="tabpanel"
                aria-labelledby="wizardTabOne">
 
@@ -466,6 +460,7 @@
                   <div class="col-auto">
 
                       <!-- Button -->
+                      {{-- !! --}}
                       <button class="btn btn-lg btn-primary" type="submit">Create</button>
 
                   </div>

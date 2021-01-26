@@ -16,6 +16,7 @@ class ReviewController extends Controller
         $user = $request->user();
           
         $business = Business::where('user_id',$user->id)->first();
+        
         $review=[];
         
         if(!$business == null)
@@ -29,9 +30,6 @@ class ReviewController extends Controller
           'data' => $review,
         
        ]);
-       
-       
-
 
     }
         public function store(Request $request)
@@ -47,17 +45,12 @@ class ReviewController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
-    
-      
         $review = new Review();
-
         $review->user_id = $request->user()->id;
         $review->business_id = $request->business_id;
         $review->text = $request->message;
         $review->stars = $request->stars;
         $review->save();
-         
-        
         return response()->json([
             'status' => 200,
             'message' => 'Review post successfully',

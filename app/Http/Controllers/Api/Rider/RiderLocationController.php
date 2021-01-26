@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api\Rider;
-
 use App\User;
-
-
 use App\Order;
+use App\Business;
 use App\Location;
+use Carbon\Carbon;
 use App\Ridderlogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,12 +40,6 @@ class RiderLocationController extends Controller
 
     public function broadcastOrder(Request $request)
     {
-
-
-        // dd($users);
-        // $user = DB::table('model_has_roles')->where('role_id',4)->get();
-
-        // $user = User::hasRole('rider');
 
         $rider = Ridderlogs::all();
         $user = [];
@@ -97,18 +90,48 @@ class RiderLocationController extends Controller
     }
     public function deliver_order(Request $request)
     {
-        $user = $request->user();
-
-        $rider = Ridderlogs::where('user_id', $user->id)->first();
-        $rider->status = "deliver";
+        $user = Auth::guard('api')->user();
+        // $business = Business::where('user_id', $user->id)->first();
+        $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
+        $order = Order::find($request->order_id);
+        $order->status='deliver';
+        $order->save();
+        $rider ->status = 'null';
+        $rider->commision = $order->total * 12.5 / 100;
+        $rider->save();
+        // ! Notification
+        $notification = new NotificationController();
+        $notification->sendNotification('Order Deliver', $order->user->device_token);
+        // $notification->sendNotification('Order Deliver', $business->user->device_token);
+       
+       
+        return response()->json([
+            'status' => true,
+            'message' => "pickup order to rider",
+            'rider' => $rider,
+            'order'=>$order,
+        ]);
+    }
+    public function pickup_order(Request $request)
+    {
+        $user = Auth::guard('api')->user();
+        
+        $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
+         $order = Order::find($request->order_id);
+        
+        $order->status='pickup';
+        $order->save();
+        $rider->status = 'assigned';
         $rider->save();
 
         return response()->json([
             'status' => true,
-            'message' => "deliver order to rider",
-            'order' => $rider,
+            'message' => "pickup order to rider",
+            'rider' => $rider,
+            'order'=>$order,
         ]);
     }
+
 
     public function OrderHistory()
     {
@@ -125,15 +148,49 @@ class RiderLocationController extends Controller
     }
     public function orderTrack()
     {
-        $id     = auth::guard('api')->user()->id;
-        // dd($id);
-        $rider  = Ridderlogs::where('user_id', $id)->where('status', 'assigned')->with('orders')->first();
-        // return $rider;
+
+        $latitude=null;
+        $longitude=null;
+        $id = auth::guard('api')->user()->id;
+        $rider  = Ridderlogs::where('user_id' , $id)->where('status','assigned')->with('orders')->first();
+
+        if($rider != null){
+            $business_id = $rider->orders->business_id;
+            $buz = Business::find($business_id);
+            $latitude = $buz->latitude;
+            $longitude = $buz->longitude;
+        }else{
+
+            $message = 'there is no order assign rider';
+        }
+
         $res = [
-            'status' => true,
-            'message' => 'Specific order',
-            'rider' => $rider
+             'status' => true,
+             'message' => 'Specific order',
+             'rider' => $rider,
+             'business_latitide' =>$latitude ,
+             'business_longitude' =>$longitude ,
         ];
         return response()->json($res);
+    }
+    public function riderEarning()
+    {
+        $id = auth::guard('api')->user()->id;
+         // ! Rider Total sum
+        $rider = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->first();
+        // ! Rider Today sum
+        $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->whereDate('created_at', Carbon::today())->first();
+        $rider_sum = $rider->sum('commision');
+        $rider_sum_now = $rider->whereDate('created_at', Carbon::today())->sum('commision');
+        
+    
+        // ! Response     
+        $res = [
+            'status' => true,
+            'message' => "Rider total earning.", 
+            'RiderTotalEarning' => $rider_sum,
+            'RiderTodayEarning' =>  $rider_sum_now
+        ];
+        return response()->json($res, 200);
     }
 }

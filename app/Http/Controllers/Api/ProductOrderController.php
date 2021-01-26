@@ -24,7 +24,7 @@ class ProductOrderController extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        $order = Order::where('user_id', $user->id)->where('status', '!=', 'completed')->with('restaurant')->first();
+        $order = Order::where('user_id', $user->id)->where('status', '!=', 'deliver')->with('restaurant')->first();
         return response()->json([
             'status' => true,
             'message' => 'Order get Successfully',
@@ -37,9 +37,10 @@ class ProductOrderController extends Controller
 
 
 
-    public function create_order(Request $request, $radius = 500)
+    public function create_order(Request $request)
 
     {
+    
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
 
@@ -64,6 +65,7 @@ class ProductOrderController extends Controller
             'order_type' => 'required',
             'product_id' => 'required',
             'order_id' => 'required',
+            'total' => 'required',
             'payment_method' => 'required',
             'payment_status' => 'required',
             'status' => 'required',
@@ -86,6 +88,7 @@ class ProductOrderController extends Controller
             'product_id' => $request->product_id,
             'product' => $request->product,
             'status' => $request->status,
+            'total' => $request->total,
             'payment_method' => $request->payment_method,
             'payment_status' => $request->payment_status,
 
@@ -150,16 +153,14 @@ class ProductOrderController extends Controller
                 $longitude =  $business->longitude;
 
                 $loc = Location::all();
-
+               
 
                 $comission = ($order->total * 12.5 / 100);
-                // dd($comission);
                 $distance = 1;
 
                 foreach ($loc as $location) {
-                    $device_token = User::where('id', $location->user_id)->first()->device_token;
-
-                    // $comision =  $location->distance*100; 
+                   
+                    $device_token = User::where('id', $location->user_id)->value('device_token');
                     $notification = new NotificationController();
                     $notification->sendPushRiderNotification(
                         $device_token,
@@ -285,6 +286,25 @@ class ProductOrderController extends Controller
             'order' => $order,
         ]);
     }
+    public function pickup_order(Request $request)
+    {
+        $user = Auth::guard('api')->user();
+    
+        $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
+         $order = Order::find($request->order_id);
+        $order->status='pickup';
+        $order->save();
+        $rider->status = "pickup";
+        $rider->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => "pickup order to rider",
+            'rider' => $rider,
+        ]);
+    }
+    
+
 
     /**
      * Show the form for creating a new resource.
