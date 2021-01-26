@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->string('description');
-            $table->string('total')->default(0);
+            $table->float('total');
             $table->string('status')->default("pending");
             $table->string('payment_method');
             $table->integer('payment_status')->default(0);

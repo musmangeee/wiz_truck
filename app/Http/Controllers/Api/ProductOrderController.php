@@ -37,9 +37,10 @@ class ProductOrderController extends Controller
 
 
 
-    public function create_order(Request $request, $radius = 500)
+    public function create_order(Request $request)
 
     {
+    
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
 
