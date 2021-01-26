@@ -16,7 +16,7 @@ class BusinessCategorySeeder extends Seeder
 
             [
                 'business_id' => '1',
-                'category_id' => '4',
+                'category_id' => '1',
             ],
             [
                 'business_id' => '2',

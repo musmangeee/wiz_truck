@@ -69,4 +69,15 @@ class BookingController extends Controller
         ]);
         
     }
+    public function destroy(Booking $booking)
+    {
+        $booking->delete();
+        return response()->json([
+            'status' =>true,
+            'message' => 'Booking Deleted Successfully!',
+            'product' => $booking,
+            
+            
+        ]);
+    }
 }
