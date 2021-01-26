@@ -117,7 +117,9 @@ class BusinessController extends Controller
         $pending = Order::where('business_id', $id)->where('status', 'pending')->count();
         $canceled = Order::where('business_id', $id)->where('status', 'canceled')->count();
 
-        return view('admin.business.show', compact('total_orders', 'order', 'pending', 'canceled', 'business', 'menus'));
+
+
+        return view('admin.business.show', compact('business_documents', 'total_orders', 'order', 'pending', 'canceled', 'business', 'menus'));
     }
 
     /**
@@ -222,5 +224,9 @@ class BusinessController extends Controller
         $Ingredient = Review::findOrFail($id);
         $Ingredient->delete();
         return redirect()->back();
+    }
+
+    public function download(Request $request)
+    {
     }
 }
