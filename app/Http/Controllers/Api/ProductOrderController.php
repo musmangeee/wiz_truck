@@ -158,9 +158,6 @@ class ProductOrderController extends Controller
                 foreach ($loc as $location) {
                    
                     $device_token = User::where('id', $location->user_id)->value('device_token');
-                    // return $device_token;
-
-                   
                     $notification = new NotificationController();
                     $notification->sendPushRiderNotification(
                         $device_token,

@@ -91,15 +91,20 @@ class RiderLocationController extends Controller
     public function deliver_order(Request $request)
     {
         $user = Auth::guard('api')->user();
+        $business = Business::where('user_id', $user->id)->first();
         $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
         $order = Order::find($request->order_id);
-        
         $order->status='deliver';
         $order->save();
         $rider ->status = 'null';
         $rider->commision = $order->total * 12.5 / 100;
         $rider->save();
-
+        // ! Notification
+        $notification = new NotificationController();
+        $notification->sendNotification('Order Deliver', $order->user->device_token);
+        // $notification->sendNotification('Order Deliver', $business->user->device_token);
+       
+       
         return response()->json([
             'status' => true,
             'message' => "pickup order to rider",
@@ -173,22 +178,12 @@ class RiderLocationController extends Controller
         $id = auth::guard('api')->user()->id;
          // ! Rider Total sum
         $rider = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->first();
-        if ($rider->status != deliverd) {
-            return response()->json("User status is not deliverd");
-        }
         // ! Rider Today sum
         $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->whereDate('created_at', Carbon::today())->first();
         $rider_sum = $rider->sum('commision');
         $rider_sum_now = $rider->whereDate('created_at', Carbon::today())->sum('commision');
         
-      
-            // //one month / 30 days
-            // $date = Carbon::now()->subDays(30);
-            // $rider_report = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')
-            // ->where('created_at', '>=', $date)
-            // ->get();
-            // return $rider_report;
-
+    
         // ! Response     
         $res = [
             'status' => true,
