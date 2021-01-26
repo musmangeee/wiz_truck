@@ -17,17 +17,11 @@ class BusinessTableSeeder extends Seeder
     {
         \Illuminate\Support\Facades\DB::table('businesses')->truncate();
         $businesses = [
-          
-
-            [
-                "name" => "Cakes and Bakes",
-                "user_id" => "2", 
-                "latitude" => 31.422071, 
-
+      
           
             [
                 "name" => "Food Truck",
-                "user_id" => "5", 
+                "user_id" => "2", 
                 "latitude" => 31.421724,
                 "longitude" =>74.285716,
 
@@ -105,10 +99,9 @@ class BusinessTableSeeder extends Seeder
        
            
 
-                'address' => "USA",
-                'business_email' => "foodtruck@gmail.com",
                
-            ],
+               
+         
 
         ];
 
