@@ -107,6 +107,7 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('business')->group(function () {
         Route::get('order_details', 'Api\Business\OrderAPIController@get_details');
         Route::get('order_status', 'Api\Business\OrderAPIController@order_by_status');
+        Route::post('business_document', 'Api\BusinessDocumentController@store');
     });
 });
 // Route::middleware('auth:api')->group(function () {
