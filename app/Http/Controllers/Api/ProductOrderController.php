@@ -120,7 +120,7 @@ class ProductOrderController extends Controller
         ]);
     }
 
-    public function accept_order(Request $request, $radius = 5000)
+    public function accept_order(Request $request, $radius = 500)
     {
 
         $user = $request->user();
@@ -150,29 +150,17 @@ class ProductOrderController extends Controller
                 $longitude =  $business->longitude;
 
                 $loc = Location::all();
-
-                // $loc = Location::selectRaw("
-                // longitude,latitude,
-                // ( 6371000 * acos( cos( radians(?) ) *
-                // cos( radians( latitude ) )
-                // * cos( radians( longitude ) - radians(?)
-                // ) + sin( radians(?) ) *
-                // sin( radians( latitude ) ) )
-                // ) AS distance", [$latitude, $longitude, $latitude])
-                // ->having("distance", "<", $radius)
-                // ->orderBy("distance",'asc')
-                // ->offset(0)
-                // ->limit(20)
-                // ->get();
-
-                // return $loc;
+               
 
                 $comission = ($order->total * 12.5 / 100);
                 $distance = 1;
 
                 foreach ($loc as $location) {
-                    $device_token = User::where('id', $location->user_id)->first()->device_token;
-                    // $comision =  $location->distance*100; 
+                   
+                    $device_token = User::where('id', $location->user_id)->value('device_token');
+                    // return $device_token;
+
+                   
                     $notification = new NotificationController();
                     $notification->sendPushRiderNotification(
                         $device_token,

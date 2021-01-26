@@ -175,12 +175,14 @@ class RiderLocationController extends Controller
         $id = auth::guard('api')->user()->id;
          // ! Rider Total sum
         $rider = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->first();
+        if ($rider->status != deliverd) {
+            return response()->json("User status is not deliverd");
+        }
         // ! Rider Today sum
         $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->whereDate('created_at', Carbon::today())->first();
-        
         $rider_sum = $rider->sum('commision');
         $rider_sum_now = $rider->whereDate('created_at', Carbon::today())->sum('commision');
-      
+        
       
             // //one month / 30 days
             // $date = Carbon::now()->subDays(30);
