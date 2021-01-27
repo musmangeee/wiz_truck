@@ -57,6 +57,8 @@ Route::group([
         Route::get('booking_list', 'Api\BookingController@index');
         Route::post('booking_update/{id}', 'Api\BookingController@update');
         Route::post('booking_destroy/{id}', 'Api\BookingController@destroy');
+        Route::get('specific_booking', 'Api\BookingController@specific_booking');
+        Route::post('business_booking', 'Api\BusinessBookingController@store');
         
     });
 });

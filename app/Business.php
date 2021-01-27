@@ -50,4 +50,5 @@ class Business extends Model
     {
         return $this->hasOne('App\BusinessDocument', 'business_id');
     }
+    
 }

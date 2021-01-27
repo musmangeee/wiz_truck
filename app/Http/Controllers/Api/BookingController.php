@@ -12,13 +12,15 @@ class BookingController extends Controller
 {
     public function index()
     {
-       $booking = Booking::all();
+        
+       $booking = Booking::with('packages')->get();
+       
        return response()->json([
         'status' => true,
         'message' => 'Get booking Event',
         'event' => $booking,
         
-    ]);
+       ]);
 
     }
     public function store(Request $request)
@@ -32,7 +34,7 @@ class BookingController extends Controller
                 'message' => 'Event is already in exist'
 
             ]);
-            
+
         }
   
         $validator = Validator::make($request->all(), [
@@ -92,6 +94,17 @@ class BookingController extends Controller
         return response()->json([
             'status' =>true,
             'message' => 'Event Deleted Successfully!',
+            'product' => $booking,
+            
+            
+        ]);
+    }
+    public function specific_booking(Request $request){
+        $user = Auth::guard('api')->user();
+        $booking = Booking::where('user_id', $user->id)->get();
+        return response()->json([
+            'status' =>true,
+            'message' => 'Event get Successfully!',
             'product' => $booking,
             
             
