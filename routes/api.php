@@ -46,7 +46,7 @@ Route::group([
         Route::post('accept_order', 'Api\ProductOrderController@accept_order');
         Route::post('cancel_order', 'Api\ProductOrderController@cancel_order');
         Route::post('deliver_order', 'Api\ProductOrderController@deliver_order');
-      // Route::post('pickup_order', 'Api\ProductOrderController@pickup_order');
+        // Route::post('pickup_order', 'Api\ProductOrderController@pickup_order');
         Route::post('completed_order', 'Api\ProductOrderController@completed_order');
         Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update'); //
         Route::post('order_exists', 'Api\Restaurant\OrderManagementController@order_exists');
@@ -58,7 +58,6 @@ Route::group([
         Route::get('booking_list', 'Api\BookingController@index');
         Route::post('booking_update/{id}', 'Api\BookingController@update');
         Route::post('booking_destroy/{id}', 'Api\BookingController@destroy');
-        
     });
 });
 
@@ -101,9 +100,7 @@ Route::prefix('rider')->group(function () {
     Route::get('orderTrack', 'Api\Rider\RiderLocationController@orderTrack');
     Route::get('riderEarning', 'Api\Rider\RiderLocationController@riderEarning');
     Route::post('pickup_order', 'Api\Rider\RiderLocationController@pickup_order');
-    Route::post('deliver_order', 'Api\Rider\RiderLocationController@deliver_order'); 
-
-
+    Route::post('deliver_order', 'Api\Rider\RiderLocationController@deliver_order');
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -135,7 +132,9 @@ Route::get('list_package', 'Api\PackageController@index');
 
 
 
+
 // Route::get('commission', 'Api\ProductOrderController@commission');
 
 
 Route::delete('dlt', 'Api\Rider\RiderLocationController@dltrider');
+

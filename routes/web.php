@@ -119,9 +119,9 @@ Route::prefix('admin')->group(function () {
         Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
         Route::get('show_subscribe', 'SubscriptionController@index');
         Route::post('/subscribe', 'SubscriptionController@processSubscription');
-              // welcome page only for subscribed users
+        // welcome page only for subscribed users
         Route::get('/welcome', 'SubscriptionController@showWelcome')->middleware('subscribed');
-   
+
 
         //  Route::post('/subscribe', 'SubscriptionController@processSubscription');
         // welcome page only for subscribed users
@@ -139,4 +139,3 @@ Route::get('location', 'SearchController@searchlocation');
 
 Route::get('business/document', 'BusinessDocumentController@index')->name('business_document');
 Route::post('business/documents', 'BusinessDocumentController@store')->name('business_document.store');
-
