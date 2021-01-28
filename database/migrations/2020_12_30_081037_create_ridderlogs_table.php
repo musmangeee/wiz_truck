@@ -16,7 +16,8 @@ class CreateRidderlogsTable extends Migration
         Schema::create('ridderlogs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('order_id');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            // $table->unsignedBigInteger('order_id');
             $table->string('commision')->default(0);
             $table->integer('seen')->default(0);
             $table->string('status');

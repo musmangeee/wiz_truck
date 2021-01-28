@@ -1,12 +1,53 @@
-@extends('layouts.frontend')
+@extends('layouts.business')
 
 @section('content')
+{{-- @include('business.partials.business_banner') --}}
+
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="container-fluid">
+  
+        <!-- Body -->
+        <div class="header-body">
+            <div class="row align-items-end">
+                <div class="col">
+
+                    <!-- Pretitle -->
+                    <h6 class="header-pretitle">
+                        Business Documents
+                    </h6>
+
+                    <!-- Title -->
+                    <h1 class="header-title">
+                       
+                        Please Submit User Business Documents
+                    </h1>
+
+                </div>
+                {{-- <div class="col-auto">
+
+                    <!-- Button -->
+                    <a href="#!" class="btn btn-primary lift">
+                        Write a Review
+                    </a>
+
+                </div> --}}
+            </div>
+            <!-- / .row -->
+        </div>
+        <!-- / .header-body -->
+
+    </div>
+</div>
+<!-- / .header -->
+
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8">
 
             <!-- Header -->
-            <div class="header mt-md-5">
+            {{-- <div class="header mt-md-5">
                 <div class="header-body">
                     <div class="row align-items-center">
                         <div class="col">
@@ -24,7 +65,7 @@
                         </div>
                     </div> <!-- / .row -->
                 </div>
-            </div>
+            </div> --}}
              @if(Session::has('success'))
              <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
              @endif

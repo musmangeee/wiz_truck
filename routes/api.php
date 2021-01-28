@@ -28,6 +28,7 @@ Route::group([
     Route::post('signup', 'Api\AuthController@signup');
     Route::post('change_password/{id}', 'Api\PasswordResetController@change_password');
     Route::post('forgot_password', 'Api\Auth\ForgetPasswordController@forgot_password');
+    Route::post('/reset', 'Api\Auth\ForgetPasswordController@sendMail');
 
     Route::group([
         'middleware' => 'auth:api'
@@ -137,4 +138,4 @@ Route::get('list_package', 'Api\PackageController@index');
 // Route::get('commission', 'Api\ProductOrderController@commission');
 
 
-Route::post('test', 'Api\ProductOrderController@test');
+Route::delete('dlt', 'Api\Rider\RiderLocationController@dltrider');

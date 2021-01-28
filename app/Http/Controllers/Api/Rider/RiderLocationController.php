@@ -193,4 +193,16 @@ class RiderLocationController extends Controller
         ];
         return response()->json($res, 200);
     }
+
+    public function dltrider(Request $request)
+    {
+       $dlt =  Ridderlogs::truncate();
+       $res = 
+       [
+           'message' => 'You Deleted All Record Successfully',
+           'status' => true
+       ];
+
+       return response()->json($res);
+    }
 }

@@ -9,9 +9,9 @@ class Business extends Model
     protected $table = 'businesses';
 
     protected $fillable = [
-        'id', 'name', 'url', 'postal_code',
+        'id', 'name', 'url',
         'phone',  'address', 'images', 'created_by', 'updated_by', 'deleted_by', 'user_id', 'slug', 'zipcode', 'latitude', 'longitude', 'business_email',
-        'hours', 'status', 'description', 'claimed', 'message'
+        'status', 'claimed', 
     ];
 
     public function categories()

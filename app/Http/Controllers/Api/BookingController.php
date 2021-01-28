@@ -37,6 +37,7 @@ class BookingController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
+       
         $booking = Booking::create([
             'user_id' => $user->id,
             'package_id' => $request->package_id,
@@ -44,7 +45,6 @@ class BookingController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'total_person' => $request->total_person,
-
         ]);
 
 

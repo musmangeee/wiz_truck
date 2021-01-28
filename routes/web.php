@@ -20,8 +20,9 @@ use App\User;
  * Login & Registration Routes
  */
 
-Auth::routes(['verify' => false]);
+Auth::routes(['verify' => true]);
 
+// ! Google Auth Routes
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
     ->name('login.provider')
     ->where('driver', implode('|', config('auth.socialite.drivers')));
@@ -51,7 +52,7 @@ Route::get('autocomplete_business', 'SearchController@autocomplete_business')->n
 Route::get('autocomplete_city', 'SearchController@autocomplete_city')->name('autocomplete_city');
 Route::get('autocomplete_town', 'SearchController@autocomplete_town')->name('autocomplete_town');
 Route::get('list_cities', 'SearchController@list_cities')->name('list_cities');
-Route::group(['middleware' => ['check_business_role', 'check_admin_role']], function () {
+Route::group(['middleware' => ['check_business_role', 'check_admin_role','verified']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('write_a_review', 'DefaultUser\ReviewController@writeareview')->name('search.business');
@@ -72,7 +73,7 @@ Route::group(['middleware' => ['check_business_role', 'check_admin_role']], func
 });
 //! Business routes
 Route::prefix('business')->group(function () {
-    Route::group(['middleware' => ['check_business_role', 'role:restaurant']], function () {
+    Route::group(['middleware' => ['check_business_role', 'role:restaurant','verified']], function () {
         Route::get('/', 'BusinessUser\BusinessController@index')->name('individual.business.index');
         Route::get('setting', 'BusinessUser\BusinessController@setting');
         Route::get('business/reviews', 'BusinessUser\BusinessController@index');

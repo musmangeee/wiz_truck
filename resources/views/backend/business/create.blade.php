@@ -49,12 +49,12 @@
                                 City
                             </label>
 
-                            <!-- Input -->
+                            {{-- <!-- Input -->
                             <select class="custom-select signup_city" data-toggle="select" name="city_id" required>
                                 @foreach($cities as $city)
                                     <option value="{{ $city['id'] }}">{{ $city['name'] }}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
 
                         </div>
                         <!-- Team name -->

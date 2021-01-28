@@ -36,6 +36,7 @@
         <form role="form" action="{{route('order.update',$order->id)}}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
             @csrf
+            
 
             <!-- Project name -->
               <!-- User Id Field -->
