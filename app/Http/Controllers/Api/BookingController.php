@@ -51,21 +51,23 @@ class BookingController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
-       
-        $booking = Booking::create([
-            'user_id' => $request->user()->id,
-            'package_id' => $request->package_id,
-            'status' => $request->status,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'start_time'=>$request->start_time,
-            'end_time' => $request->end_time,
-            'total_person' => $request->total_person,
-        ]);
- 
-         
-       
 
+        if ($request->payer == 'host') 
+        {
+            $booking = Booking::create([
+                'user_id' => $request->user()->id,
+                'package_id' => $request->package_id,
+                'status' => $request->status,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'start_time'=>$request->start_time,
+                'end_time' => $request->end_time,
+                'total_person' => $request->total_person,
+            ]);
+        }
+        
+
+        
 
         return response()->json([
             'status' => true,
@@ -76,7 +78,7 @@ class BookingController extends Controller
    }
     public function update(Request $request , $id)
     {
-        
+
         $input = $request->all();
         $booking = Booking::find($id);
         $booking->update($input); 

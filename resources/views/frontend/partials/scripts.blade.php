@@ -27,8 +27,9 @@
 <script src="{{ URL::asset('backend/assets/js/custom.js') }}"></script>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdAAjnKyYtVFYkgoTM5a5viCFgbWCspUA&libraries=places" >
-</script>
+       
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKCWfdUQDXxWBbfUp0JZ5p0LYbZWPXJ44&libraries=places" >
+</script> --}}
 
 <script>
     (function () {
