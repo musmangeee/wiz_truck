@@ -33,10 +33,6 @@ class ProductOrderController extends Controller
         ]);
     }
 
-
-
-
-
     public function create_order(Request $request)
 
     {
@@ -51,7 +47,7 @@ class ProductOrderController extends Controller
 
             ]);
         }
-
+        
         $order = array();
 
         $validator =  Validator::make($request->all(), [
@@ -192,9 +188,9 @@ class ProductOrderController extends Controller
         }
 
         return response()->json([
-            'status' => $status,
+            'status'  => $status,
             'message' => $message,
-            'order' => $order,
+            'order'   => $order,
         ]);
     }
 

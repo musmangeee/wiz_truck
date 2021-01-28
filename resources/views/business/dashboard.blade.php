@@ -41,7 +41,7 @@
 
   <!-- CARDS -->
   <div class="container-fluid">
-    @if(Auth::user()->business->business_document->w9_form_status ==1)
+    @if(isset(Auth::user()->business->business_document->w9_form_status ))
     <div class="alert alert-warning" role="alert">
         Your request is currently under review. we will notify you soon.
     </div>
