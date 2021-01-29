@@ -177,23 +177,33 @@ class RiderLocationController extends Controller
     {
         $id = auth::guard('api')->user()->id;
          // ! Rider Total sum
-        $rider = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->first();
-        // ! Rider Today sum
-        $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'delivered')->whereDate('created_at', Carbon::today())->first();
-        $rider_sum = $rider->sum('commision');
-        $rider_sum_now = $rider->whereDate('created_at', Carbon::today())->sum('commision');
+        $rider_total = Ridderlogs::where('user_id',$id)->where('status' , 'deliver')->sum('commision');
+        $rider = Ridderlogs::where('user_id',$id)->where('status' , 'deliver')->get();
         
-    
+        // $rider_sum=[];
+        // foreach($rider as $r)
+        // {
+        //     $rider_sum = $rider->sum('commision');
+        // }
+        // ! Rider Today sum
+        $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'deliver')->whereDate('created_at', Carbon::today())->get();
+        $rider_sum_now = [];
+        foreach($rider_now as $r)
+        {
+            $rider_sum_now = $rider_now->sum('commision');
+        }
         // ! Response     
         $res = [
             'status' => true,
             'message' => "Rider total earning.", 
-            'RiderTotalEarning' => $rider_sum,
-            'RiderTodayEarning' =>  $rider_sum_now
+            'RiderTotalEarning' => $rider_total,
+            'RiderTodayEarning' =>  $rider_sum_now,
+            'RiderLogs' => $rider,
+            
         ];
         return response()->json($res, 200);
     }
-
+  
     public function dltrider(Request $request)
     {
        $dlt =  Ridderlogs::truncate();

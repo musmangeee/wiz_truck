@@ -53,6 +53,7 @@ class BookingController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
+
         
         $booking = Booking::create([
             'user_id' => $request->user()->id,
@@ -65,11 +66,7 @@ class BookingController extends Controller
             'total_person' => $request->total_person,
         ]);
  
-         
-       
-
-
-        return response()->json([
+         return response()->json([
             'status' => true,
             'message' => 'Event Created successfully',
             'booking' => $booking,
@@ -78,7 +75,7 @@ class BookingController extends Controller
    }
     public function update(Request $request , $id)
     {
-        
+
         $input = $request->all();
         $booking = Booking::find($id);
         $booking->update($input); 
