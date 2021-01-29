@@ -61,7 +61,9 @@ Route::group([
 
         Route::get('specific_booking', 'Api\BookingController@specific_booking');
         Route::post('business_booking', 'Api\BusinessBookingController@store');
-        
+
+        Route::post('rider_review', 'Api\Rider\RiderReviewController@store');
+        Route::get('rider_review_list', 'Api\Rider\RiderReviewController@index');
 
     });
 });

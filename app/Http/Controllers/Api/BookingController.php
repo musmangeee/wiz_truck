@@ -25,9 +25,11 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
+
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
          
+
         if (Booking::where(['user_id' => $input['user_id'], 'status' => 0])->exists()) {
             return response()->json([
 
@@ -51,7 +53,7 @@ class BookingController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
-       
+        
         $booking = Booking::create([
             'user_id' => $request->user()->id,
             'package_id' => $request->package_id,

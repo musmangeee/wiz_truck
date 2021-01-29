@@ -78,9 +78,11 @@
         </div>
     </div>
     <div class="footer_bottom">
+  
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-sm-7">
+                    
                     <p class="mb-0 f_400">© <a href="https://wiztruck.com/">Weanio Technologies</a> 2020 All rights reserved.</p>
                 </div>
             </div>
