@@ -57,4 +57,21 @@ class OrderAPIController extends Controller
         ]);
 
     }
+
+    public function businessOrderHistory()
+    {
+        $id = auth::guard('api')->user()->id;
+        // ! Get business form id
+        $business = Business::where('user_id',$id)->first();
+        $business_orders_sum = Order::where('business_id',$business->id)->where('status' , 'deliver')->sum('total');
+        $user_orders = Order::where('business_id',$business->id)->where('status' , 'deliver')->get();
+         $res = [
+            'status' => true,
+            'message' => "Business earning.", 
+            'BusinessTotalEarning' =>  $business_orders_sum,
+            'Businessorders' => $user_orders
+           
+        ];
+        return response()->json($res, 200);
+    }
 }

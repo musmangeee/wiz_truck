@@ -157,6 +157,10 @@ class ProductOrderController extends Controller
                 // return $loc;
 
                 $comission = ($order->total * 12.5 / 100);
+
+                // if ($comission < 0.5) {
+
+                // }
                 // $distance = 1;
 
                 foreach ($loc as $location) {
