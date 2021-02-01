@@ -16,7 +16,7 @@ class RiderReviewController extends Controller
         $user = Auth::guard('api')->user();
          
         $riderlog = Ridderlogs::where('user_id',$user->id)->first();
-        
+      
         $review=[];
         
         if(!$riderlog == null)
@@ -40,7 +40,7 @@ class RiderReviewController extends Controller
            
             'ridderlog_id'=>'required|integer',
             'text'=> 'required',
-            'stars'=>'required',
+            'stars'=>'required|max:5|min:1',
         ]);
            
         if ($validator->fails()) {

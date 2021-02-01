@@ -243,8 +243,8 @@ class ProductOrderController extends Controller
                 $order->save();
                 // ! Sending push notification
                 $notification = new NotificationController();
-                $notification->sendNotification('Order Cancled', $order->user->device_token);
-                $notification->sendNotification('Order Cancled', $business->user->device_token);
+                $notification->sendNotification('Order Canceled', $order->user->device_token);
+                $notification->sendNotification('Order Canceled', $business->user->device_token);
                 $message = "The order have been delivered";
             } else {
                 $message = "You have no order associated with your business email.";
