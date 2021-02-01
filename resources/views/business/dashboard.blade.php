@@ -40,7 +40,7 @@
   <!-- / .header -->
 
   <!-- CARDS -->
-  <div class="container-fluid">
+  <div class="container-fluid"> 
     @if(isset(Auth::user()->business->business_document->w9_form_status ))
     <div class="alert alert-warning" role="alert">
         Your request is currently under review. we will notify you soon.
@@ -52,7 +52,7 @@
         <a href="{{route('business_document')}}">Submit Here.</a>
     </div>
 @endif
-
+ 
       <div class="row">
           <div class="col-12 col-lg-6 col-xl">
 

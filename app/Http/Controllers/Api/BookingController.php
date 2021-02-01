@@ -25,9 +25,11 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
+
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
          
+
         if (Booking::where(['user_id' => $input['user_id'], 'status' => 0])->exists()) {
             return response()->json([
 
@@ -52,24 +54,19 @@ class BookingController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        if ($request->payer == 'host') 
-        {
-            $booking = Booking::create([
-                'user_id' => $request->user()->id,
-                'package_id' => $request->package_id,
-                'status' => $request->status,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
-                'start_time'=>$request->start_time,
-                'end_time' => $request->end_time,
-                'total_person' => $request->total_person,
-            ]);
-        }
         
-
-        
-
-        return response()->json([
+        $booking = Booking::create([
+            'user_id' => $request->user()->id,
+            'package_id' => $request->package_id,
+            'status' => $request->status,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'start_time'=>$request->start_time,
+            'end_time' => $request->end_time,
+            'total_person' => $request->total_person,
+        ]);
+ 
+         return response()->json([
             'status' => true,
             'message' => 'Event Created successfully',
             'booking' => $booking,

@@ -21,7 +21,12 @@ class CreateBookingsTable extends Migration
             $table->string('start_date');
             $table->integer('total_person');
             $table->string('end_date');
+
+            $table->time('start_time');
+            $table->time('end_time');
+
             $table->string('payer');
+
             $table->timestamps();
         });
     }

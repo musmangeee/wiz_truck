@@ -61,7 +61,9 @@ Route::group([
 
         Route::get('specific_booking', 'Api\BookingController@specific_booking');
         Route::post('business_booking', 'Api\BusinessBookingController@store');
-        
+
+        Route::post('rider_review', 'Api\Rider\RiderReviewController@store');
+        Route::get('rider_review_list', 'Api\Rider\RiderReviewController@index');
 
     });
 });
@@ -131,16 +133,11 @@ Route::middleware('auth:api')->group(function () {
         Route::post('accepted_event', 'Api\Event\EventAPIController@accepted_event');
     });
 });
-
-
 Route::get('list_event', 'Api\EventController@index');
 Route::get('list_package', 'Api\PackageController@index');
 
-
-
-
-// Route::get('commission', 'Api\ProductOrderController@commission');
-
-
+// !Truncate
 Route::delete('dlt', 'Api\Rider\RiderLocationController@dltrider');
 
+Route::get('userOrderHistory', 'Api\UserOrderController@userOrderHistory');
+Route::get('businessOrderHistory', 'Api\Business\OrderAPIController@businessOrderHistory');

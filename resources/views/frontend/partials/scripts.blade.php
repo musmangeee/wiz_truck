@@ -19,8 +19,8 @@
 <script src="{{ URL::asset('backend/assets/js/theme.min.js') }}"></script>
 <script src="{{ URL::asset('backend/assets/js/dashkit.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-<script type="text/javascript"
-        src="https://maps.google.com/maps/api/js?key=AIzaSyBKCWfdUQDXxWBbfUp0JZ5p0LYbZWPXJ44&sensor=TRUEORFALSE"></script>
+{{-- <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key=AIzaSyBKCWfdUQDXxWBbfUp0JZ5p0LYbZWPXJ44&sensor=TRUEORFALSE"></script> --}}
 <script>
     var path = "{{ url('/') }}";
 </script>
@@ -28,13 +28,15 @@
 
 
        
-{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKCWfdUQDXxWBbfUp0JZ5p0LYbZWPXJ44&libraries=places" >
-</script> --}}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKCWfdUQDXxWBbfUp0JZ5p0LYbZWPXJ44&libraries=places" >
+</script>
 
 <script>
-    (function () {
+     (function () {
     var locatorSection = document.getElementById("locator-input-section")
     var input = document.getElementById("autocomplete");
+
+   
 
 
     function init() {
@@ -63,17 +65,6 @@
                 setAddressToInputField(address.results[0].formatted_address)
             }
             console.log(address);
-            var lat = address['results'][0]['geometry']['location']['lat'];
-            var longitude = address['results'][0]['geometry']['location']['lng'];
-
-            console.log(location);
-        
-        var lati = lat;
-        document.getElementById("latitude").value = lati;
-        var longi = longitude;
-        document.getElementById("longitude").value = longi;  
-
-           
         };
         xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyCdAAjnKyYtVFYkgoTM5a5viCFgbWCspUA", true);
         xhttp.send();
@@ -86,30 +77,18 @@
     }
 
     var defaultBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(45.4215296, -75.6971931),
+        new google.maps.LatLng(8.012723612718569, -1.2205180068975356),
     );
 
     var options = {
         bounds: defaultBounds
     };
-    var places = new google.maps.places.Autocomplete(input, options);
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
     
-    
-     
-        // var address = place.formatted_address;
-        // console.log(place,address);
-        // var latitude = place.geometry.location.lat();
-        // var longitude = place.geometry.location.lng();
-      
-        // var lati = latitude;
-        // document.getElementById("latitude").value = lati;
-        // var longi = longitude;
-        // document.getElementById("longitude").value = longi;  
 
     init()
 
 })();
-
 </script>
 
 

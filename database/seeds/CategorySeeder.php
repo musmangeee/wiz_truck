@@ -15,7 +15,8 @@ class CategorySeeder extends Seeder
 
         $categories = [
             ['name' => 'Burger','icon' => 'fas fa-hamburger','image' => 'food2.jpg'],
-           
+            ['name' => 'Burger','icon' => 'fas fa-hamburger','image' => 'food3.jpg'],
+            ['name' => 'Burger','icon' => 'fas fa-hamburger','image' => 'food4.png'],
         ];
 
         \Illuminate\Support\Facades\DB::table('categories')->insert($categories);
