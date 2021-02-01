@@ -36,10 +36,10 @@ class ReviewController extends Controller
         {
             
           $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer',
+            
             'business_id'=>'required|integer',
             'text'=> 'required',
-            'stars'=>'required',
+            'stars'=>'required|max:5|min:1',
         ]);
            
         if ($validator->fails()) {
@@ -48,7 +48,7 @@ class ReviewController extends Controller
         $review = new Review();
         $review->user_id = $request->user()->id;
         $review->business_id = $request->business_id;
-        $review->text = $request->message;
+        $review->text = $request->text;
         $review->stars = $request->stars;
         $review->save();
         return response()->json([
