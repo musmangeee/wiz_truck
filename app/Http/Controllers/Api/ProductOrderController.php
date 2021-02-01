@@ -139,10 +139,14 @@ class ProductOrderController extends Controller
                 $status = true;
                 $order->save();
 
-                // ! Sending push notification
+                if (Order::where(['business_id' => $business->id, 'id' => $request->order_id,'status' => 'deliver'])->first()) {
+                     // ! Sending push notification
+                     
                 $notification = new NotificationController();
                 $notification->sendNotification('Order Accepted', $order->user->device_token);
                 $notification->sendNotification('Order Accepted', $business->user->device_token);
+               
+                }
                 $message = "The order have been accepted";
 
                 $latitude  = $business->latitude;
@@ -242,14 +246,15 @@ class ProductOrderController extends Controller
             $message = "You have no business account associated with your email.";
         } else {
             $order = Order::where(['business_id' => $business->id, 'id' => $request->order_id])->first();
+           
             if ($order != null) {
                 $order->status = "deliver";
                 $status = true;
                 $order->save();
                 // ! Sending push notification
                 $notification = new NotificationController();
-                $notification->sendNotification('Order Cancled', $order->user->device_token);
-                $notification->sendNotification('Order Cancled', $business->user->device_token);
+                $notification->sendNotification('Order Deliver', $order->user->device_token);
+                $notification->sendNotification('Order Deliver', $business->user->device_token);
                 $message = "The order have been delivered";
             } else {
                 $message = "You have no order associated with your business email.";
