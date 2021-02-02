@@ -63,7 +63,7 @@ class FrontEndController extends Controller
     {
 
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
+        $data = [];
 
 
         return view('frontend.faq', compact('data'));
@@ -73,7 +73,7 @@ class FrontEndController extends Controller
     {
 
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
+        $data = [];
 
 
         return view('frontend.privacy_policy', compact('data'));
@@ -83,7 +83,7 @@ class FrontEndController extends Controller
     {
 
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
+        $data = [];
 
 
         return view('frontend.terms_conditions', compact('data'));
