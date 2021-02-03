@@ -82,7 +82,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('busines.reviews')}}">
                         <i class="fe fe-star"></i> My Reviews
                     </a>
                 </li>

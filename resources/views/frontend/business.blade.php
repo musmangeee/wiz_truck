@@ -17,7 +17,7 @@
 
 
     <section style="margin-top:9rem;">
-        
+       
         <div style="
         background-image: url({{asset('public/business_images/'.$business->images[0]['name']) }});
         height: 230px;
@@ -25,11 +25,13 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;"></div>
-        
-        
+       
+       <button class="btn btn-primary btn-lg float-right mt-5" data-toggle="modal" data-target="#staticBackdrop">Book Event</button>
 
         <div class="container mt-5">
+          
             <div class="row" >
+               
                 <div class="col-md-8"  style="position:relative">
                   
                     <h1 class="header-title business-title mb-0">{{ $business->name }}
@@ -42,6 +44,7 @@
                                         class="fa fa-info-circle pr-1"></i>Unclaimed</a>
                         @endif
                     </h1>
+                
                     <div class="row">
                         <div class="col-auto">
                             <a href="{{ url('write_a_review/'. $business->id) }}">
@@ -236,6 +239,613 @@
                         </div>
                     @endforeach
                 </div>
+              
+
+            
+
+
+
+            {{-- model --}}
+
+
+            <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                   
+                    <div class="modal-body">
+                   
+                        <form class="tab-content py-6" id="wizardSteps" action="{{route('booking.store')}}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+            
+                      <div class="tab-pane fade show active" id="wizardStepOne" role="tabpanel"
+                           aria-labelledby="wizardTabOne">
+            
+                          <!-- Header -->
+                          <div class="row justify-content-center">
+                              <div class="col-12 col-md-10  text-center">
+            
+                                  <!-- Pretitle -->
+                                  <h6 class="mb-4 text-uppercase text-muted">
+                                      Step 1 of 8
+                                  </h6>
+            
+                                  <!-- Title -->
+                                  <h1 class="mb-3">
+                                    Who's Paying
+                                  </h1>
+            
+                        
+                              </div>
+                          </div> <!-- / .row -->
+            
+                          <!-- Team name -->
+                          <div class="form-group signup_town">
+                          </div>
+            
+                        <div class="row">
+                          
+                          <!-- Team description -->
+                          <div class="form-group">
+            
+                            <!-- Label -->
+                            <div class="card" style="width: 18rem; margin-right:35px; margin-left:20px;">
+                                <div class="card-body" style="text-align: center">
+                                    <img src="{{asset('public/images/user.png')}}" style="height:50px"/>
+                                 
+                                  <p class="card-text">Host</p>
+                                  <input class="form-check-input" type="radio" name="payer" id="flexRadioDefault1" value="host">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Host
+                                </label>
+                                </div>
+                              </div>
+                             
+                            
+                        </div>
+            
+                             <div class="form-group">
+            
+                            <!-- Label -->
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body" style="text-align: center">
+                                 
+                                 <img src="{{asset('public/images/people.png')}}" style="height:50px"/>
+                                  <p class="card-text">Guests</p>
+                                  <input class="form-check-input" type="radio" name="payer" id="flexRadioDefault2" checked value="guest">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                       Guest
+                                    </label>
+                                </div>
+                              </div>
+                            
+                        </div>
+            
+                    </div>
+            
+            
+                         
+                           <input type="hidden"  class="form-control"
+                          placeholder="" id="pzcode" >
+            
+                          <input type="hidden"  class="form-control"
+                          placeholder="" id="selCountry" >
+            
+                          <input type="hidden"  class="form-control"
+                          placeholder="" id="pstate" name='state'>
+            
+                          <input type="hidden"  class="form-control"
+                          placeholder="" id="pCity" name='city'>
+            
+                          <input type="hidden"  class="form-control"
+                          placeholder="" id="txtPlaces" >
+            
+                          <input type="hidden"  class="form-control"
+                          placeholder="" id="plati" name="latitude">
+            
+                          <input type="hidden" class="form-control"
+                          placeholder="" id="plongi" name="longitude">
+            
+                        
+                        
+            
+            
+                       
+            
+            
+            
+            
+                          <!-- Divider -->
+                          <hr class="my-5">
+            
+                          <!-- Footer -->
+                          <div class="row align-items-center">
+                              <div class="col-auto">
+            
+                                  <!-- Button -->
+                                  <button class="btn btn-lg btn-white" type="reset">Cancel</button>
+            
+                              </div>
+                              <div class="col text-center">
+            
+                                  <!-- Step -->
+                                  <h6 class="text-uppercase text-muted mb-0">Step 1 of 8</h6>
+            
+                              </div>
+                              <div class="col-auto">
+            
+                                  <!-- Button -->
+                                  <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                     href="#wizardStepTwo">Continue</a>
+            
+                              </div>
+                          </div>
+            
+                      </div>
+            
+                      {{-- Section 2  --}}
+            
+                      <div class="tab-pane fade" id="wizardStepTwo" role="tabpanel" aria-labelledby="wizardTabTwo">
+            
+                          <!-- Header -->
+                          <div class="row justify-content-center">
+                              <div class="col-12 col-md-10  text-center">
+            
+                                  <!-- Pretitle -->
+                                  <h6 class="mb-4 text-uppercase text-muted">
+                                      Step 2 of 8
+                                  </h6>
+            
+                                  <!-- Title -->
+                                  <h1 class="mb-3">
+                                    Where is your event?
+                                  </h1>
+            
+                             
+            
+                              </div>
+                          </div> <!-- / .row -->
+            
+                  
+                   
+                
+                          <!-- Team description -->
+                          <div class="form-group">
+            
+                              <!-- Label -->
+                              {{-- <label class="mb-1">
+                                  Business Phone Number
+                              </label> --}}
+            
+                              <textarea type="text" name="address" class="form-control" placeholder="Event Address"
+                                     required></textarea>
+                          </div>
+                                <!-- Team description -->
+                          <div class="form-group">
+                                <input type="number" name="zip_code" class="form-control" placeholder="Zip Code" >
+                          </div>
+            
+                            <!-- Team description -->
+                          <!-- Divider -->
+                          <hr class="my-5">
+            
+                          <!-- Footer -->
+                          <div class="row align-items-center">
+                              <div class="col-auto">
+            
+                                  <!-- Button -->
+                                  <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepOne">Back</a>
+            
+                              </div>
+                              <div class="col text-center">
+                                     <!-- Step -->
+                                  <h6 class="text-uppercase text-muted mb-0">Step 2 of 8</h6>
+            
+                              </div>
+                              <div class="col-auto">
+            
+                                  <!-- Button -->
+                                  <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                     href="#wizardStepThree">Continue</a>
+            
+                              </div>
+                          </div>
+            
+                      </div>
+                        
+
+
+                      <div class="tab-pane fade" id="wizardStepThree" role="tabpanel" aria-labelledby="wizardTabThree">
+            
+                          <!-- Header -->
+                          <div class="row justify-content-center">
+                              <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+            
+                                  <!-- Pretitle -->
+                                  <h6 class="mb-4 text-uppercase text-muted">
+                                      Step 3 of 8
+                                  </h6>
+            
+                                  <!-- Title -->
+                                  <h1 class="mb-3">
+                                    Event Date
+                                  </h1>
+            
+            
+                              </div>
+                          </div> <!-- / .row -->
+            
+            
+                          <!-- Divider -->
+                          <hr class="mt-5 mb-5">
+            
+                          <div class="col-md-12">
+              
+                         <div class="form-group">
+                             <label>Start Date</label>
+                            <input type="date" class="form-control" name="start_date"  required placeholder="Start Date">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                           <input type="date" class="form-control" name="end_date"  required placeholder="End Date">
+                       </div>
+                         <div class="form-group">
+                            <label>Start time</label>
+                            <input type="time" class="form-control" name="start_time"  required placeholder="Start Time">
+                        </div>
+            
+                         <div class="form-group">
+                            <label>End time</label>
+                            <input type="time" class="form-control" name="end_time"  required placeholder="End Time">
+                        </div>
+            
+                    
+            
+                          
+                           
+            
+                          </div> <!-- / .row -->
+            
+                          <!-- Divider -->
+                          <hr class="my-5">
+            
+                          <!-- Footer -->
+                          <div class="row align-items-center">
+                              <div class="col-auto">
+            
+                                  <!-- Button -->
+                                  <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+            
+                              </div>
+                              <div class="col text-center">
+            
+                                  <!-- Step -->
+                                  <h6 class="text-uppercase text-muted mb-0">Step 3 of 8</h6>
+            
+                              </div>
+                              <div class="col-auto">
+            
+                                  <!-- Button -->
+                                  {{-- !! --}}
+
+                                  <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                  href="#wizardStepfour">Continue</a>
+         
+                                  {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
+            
+                              </div>
+                          </div>
+                          {{--  --}}
+            
+                      </div>
+
+
+                      <div class="tab-pane fade" id="wizardStepfour" role="tabpanel" aria-labelledby="wizardTabThree">
+            
+                        <!-- Header -->
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+          
+                                <!-- Pretitle -->
+                                <h6 class="mb-4 text-uppercase text-muted">
+                                    Step 4 of 8
+                                </h6>
+          
+                                <!-- Title -->
+                                <h1 class="mb-3">
+                                    Occasion
+                                </h1>
+          
+          
+                            </div>
+                        </div> <!-- / .row -->
+          
+          
+                        <!-- Divider -->
+                        <hr class="mt-5 mb-5">
+          
+                        <div class="col-md-12">
+            
+                            
+                   
+                        <div class="radio">
+                            <label><input type="radio" name="occasion" value="concert" checked> &nbsp; Concert</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="occasion" value="festival">&nbsp; Festival</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="occasion" value="individual">&nbsp; An individual business
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="occasion" value="non-profit">&nbsp; Non-profit event
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="occasion" value="sport">&nbsp;Sporting event
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="occasion" value="school">&nbsp; School event</label>
+                          </div>
+                        </div> <!-- / .row -->
+          
+                        <!-- Divider -->
+                        <hr class="my-5">
+          
+                        <!-- Footer -->
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+          
+                                <!-- Button -->
+                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+          
+                            </div>
+                            <div class="col text-center">
+          
+                                <!-- Step -->
+                                <h6 class="text-uppercase text-muted mb-0">Step 4 of 8</h6>
+          
+                            </div>
+                            <div class="col-auto">
+          
+                                <!-- Button -->
+                                {{-- !! --}}
+
+                                <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                href="#wizardStepfive">Continue</a>
+       
+                                {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
+          
+                            </div>
+                        </div>
+                        {{--  --}}
+          
+                    </div>
+                     
+                   
+
+
+
+                    <div class="tab-pane fade" id="wizardStepfive" role="tabpanel" aria-labelledby="wizardTabThree">
+                       <!-- Header -->
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                               <!-- Pretitle -->
+                                <h6 class="mb-4 text-uppercase text-muted">
+                                    Step 5 of 8
+                                </h6>
+                                     <!-- Title -->
+                                <h1 class="mb-3">
+                                    Eaters
+                                </h1>
+                            </div>
+                        </div> <!-- / .row -->
+                        <!-- Divider -->
+                        <hr class="mt-5 mb-5">
+                         <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Eaters</label>
+                                <input type="number" class="form-control" name="eaters"  required placeholder="Eaters">
+                            </div> 
+                        </div> <!-- / .row -->
+                        <!-- Divider -->
+                        <hr class="my-5">
+                        <!-- Footer -->
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <!-- Button -->
+                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                            </div>
+                            <div class="col text-center">
+                            <!-- Step -->
+                            <h6 class="text-uppercase text-muted mb-0">Step 5 of 8</h6>
+                                </div>
+                            <div class="col-auto">
+                                <!-- Button -->
+                                {{-- !! --}}
+                                    <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                href="#wizardStepsix">Continue</a>
+                                    {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
+                            </div>
+                        </div>
+                        {{--  --}}
+                    </div>
+
+
+
+
+                    <div class="tab-pane fade" id="wizardStepsix" role="tabpanel" aria-labelledby="wizardTabThree">
+                        <!-- Header -->
+                         <div class="row justify-content-center">
+                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                <!-- Pretitle -->
+                                 <h6 class="mb-4 text-uppercase text-muted">
+                                    Step 6 of 8
+                                 </h6>
+                                      <!-- Title -->
+                                 <h1 class="mb-3">
+                                    What are we serving?
+                                 </h1>
+                             </div>
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+
+
+
+                       
+                         <hr class="mt-5 mb-5">
+                          <div class="col-md-12">
+                             <div class="form-group">
+                                @foreach ($menus as $key => $menu)
+                                <div class="form-check">
+                                   
+                                    <input class="form-check-input" name="menu_id[]" type="checkbox" value="{{$menu->id}}" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                       {{$menu->name}}
+                                    </label>
+                                  </div>
+                                  @endforeach
+                                
+                                
+                                 
+                             </div> 
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="my-5">
+                         <!-- Footer -->
+                         <div class="row align-items-center">
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                             </div>
+                             <div class="col text-center">
+                             <!-- Step -->
+                             <h6 class="text-uppercase text-muted mb-0">Step 6 of 8</h6>
+                                 </div>
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 {{-- !! --}}
+                                     <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                 href="#wizardStepseven">Continue</a>
+                                     {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
+                             </div>
+                         </div>
+                         {{--  --}}
+                     </div>
+
+
+
+                     {{-- six  --}}
+                     <div class="tab-pane fade" id="wizardStepseven" role="tabpanel" aria-labelledby="wizardTabThree">
+                        <!-- Header -->
+                         <div class="row justify-content-center">
+                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                <!-- Pretitle -->
+                                 <h6 class="mb-4 text-uppercase text-muted">
+                                    Step 7 of 8
+                                 </h6>
+                                      <!-- Title -->
+                                 <h1 class="mb-3">
+                                     User Details
+                                 </h1>
+                             </div>
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="mt-5 mb-5">
+                          <div class="col-md-12">
+                             <div class="form-group">
+                                 <label>Phone Number</label>
+                                 <input type="number" class="form-control" name="phone_number"  required placeholder="Phone Number">
+                             </div> 
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="my-5">
+                         <!-- Footer -->
+                         <div class="row align-items-center">
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                             </div>
+                             <div class="col text-center">
+                             <!-- Step -->
+                             <h6 class="text-uppercase text-muted mb-0">Step 7 of 8</h6>
+                                 </div>
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 {{-- !! --}}
+                                     <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                 href="#wizardStepeight">Continue</a>
+                                     {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
+                             </div>
+                         </div>
+                         {{--  --}}
+                     </div>
+ 
+                     <div class="tab-pane fade" id="wizardStepeight" role="tabpanel" aria-labelledby="wizardTabThree">
+                        <!-- Header -->
+                         <div class="row justify-content-center">
+                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                <!-- Pretitle -->
+                                 <h6 class="mb-4 text-uppercase text-muted">
+                                    Step 8 of 8
+                                 </h6>
+                                      <!-- Title -->
+                                 <h1 class="mb-3">
+                                     Final Details
+                                 </h1>
+                             </div>
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="mt-5 mb-5">
+                          <div class="col-md-12">
+                             <div class="form-group">
+                                 <label>Final Details</label>
+                                 <input type="test" class="form-control" name="final_detail" placeholder="Additional Question">
+                             </div> 
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="my-5">
+                         <!-- Footer -->
+                         <div class="row align-items-center">
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                             </div>
+                             <div class="col text-center">
+                             <!-- Step -->
+                             <h6 class="text-uppercase text-muted mb-0">Step 8 of 8</h6>
+                                 </div>
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 {{-- !! --}}
+                                    
+                                     <button class="btn btn-lg btn-primary" type="submit">Create</button>
+                             </div>
+                         </div>
+                         {{--  --}}
+                     </div>
+ 
+
+
+
+
+                  </form>
+            
+                        
+                    </div>
+                   
+                </div>
+                </div>
+            </div>
+
+
+  {{-- model end --}}
                 <div class="col-md-4 mt-n5">
                     <div class="sticky-top pt-5">
                         <div class="card">

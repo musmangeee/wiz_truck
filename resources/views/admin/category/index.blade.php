@@ -24,7 +24,7 @@
                         <div class="col-auto">
 
                             <!-- Button -->
-                            <a href="{{route('business_category.create')}}" class="btn btn-primary lift">
+                            <a href="{{route('business_category.create')}}" class="btn btn-warning lift">
                                 Create New Category
                             </a>
 
