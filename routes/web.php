@@ -142,4 +142,4 @@ Route::get('business/document', 'BusinessDocumentController@index')->name('busin
 Route::post('business/documents', 'BusinessDocumentController@store')->name('business_document.store');
 
 
-Route::post('booking', 'AdminUser\EventController@store')->name('booking.store');
+Route::post('booking', 'BookingController@store')->name('booking.store');

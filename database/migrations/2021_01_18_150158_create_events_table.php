@@ -15,18 +15,8 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('payer');
-            $table->string('address');
-            $table->integer('zip_code');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->string('occasion');
-            $table->integer('eaters');
-            $table->unsignedBigInteger('menu_id');
-            $table->string('phone_number');
-            $table->string('final_detail');
+            $table->string('name');
+            $table->float('price_per_person');
             $table->timestamps();
         });
     }

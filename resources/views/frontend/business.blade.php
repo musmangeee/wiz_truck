@@ -25,9 +25,15 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;"></div>
-       
-       <button class="btn btn-primary btn-lg float-right mt-5" data-toggle="modal" data-target="#staticBackdrop">Book Event</button>
+       @if(Auth::check())
+        <button class="btn btn-primary btn-lg float-right mt-5" data-toggle="modal" data-target="#staticBackdrop">Book Event</button>
+       @else
+       <a href="{{ route ('login')}}" class="btn btn-primary btn-lg float-right mt-5">Book Event</a>
 
+       @endif
+    
+
+       
         <div class="container mt-5">
           
             <div class="row" >
@@ -271,14 +277,16 @@
             
                                   <!-- Pretitle -->
                                   <h6 class="mb-4 text-uppercase text-muted">
-                                      Step 1 of 8
+                                      Step 1 of 9
                                   </h6>
             
                                   <!-- Title -->
                                   <h1 class="mb-3">
                                     Who's Paying
                                   </h1>
-            
+                                  
+                                 <input type="hidden" name="business_id" value="{{$business->id}}">
+                                
                         
                               </div>
                           </div> <!-- / .row -->
@@ -298,15 +306,13 @@
                                     <img src="{{asset('public/images/user.png')}}" style="height:50px"/>
                                  
                                   <p class="card-text">Host</p>
-                                  <input class="form-check-input" type="radio" name="payer" id="flexRadioDefault1" value="host">
+                                  <input class="form-check-input" type="radio" name="payer" id="flexRadioDefault1" required value="host">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Host
                                 </label>
                                 </div>
                               </div>
-                             
-                            
-                        </div>
+                         </div>
             
                              <div class="form-group">
             
@@ -316,7 +322,7 @@
                                  
                                  <img src="{{asset('public/images/people.png')}}" style="height:50px"/>
                                   <p class="card-text">Guests</p>
-                                  <input class="form-check-input" type="radio" name="payer" id="flexRadioDefault2" checked value="guest">
+                                  <input class="form-check-input" type="radio" name="payer" required id="flexRadioDefault2" checked value="guest">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                        Guest
                                     </label>
@@ -326,40 +332,7 @@
                         </div>
             
                     </div>
-            
-            
-                         
-                           <input type="hidden"  class="form-control"
-                          placeholder="" id="pzcode" >
-            
-                          <input type="hidden"  class="form-control"
-                          placeholder="" id="selCountry" >
-            
-                          <input type="hidden"  class="form-control"
-                          placeholder="" id="pstate" name='state'>
-            
-                          <input type="hidden"  class="form-control"
-                          placeholder="" id="pCity" name='city'>
-            
-                          <input type="hidden"  class="form-control"
-                          placeholder="" id="txtPlaces" >
-            
-                          <input type="hidden"  class="form-control"
-                          placeholder="" id="plati" name="latitude">
-            
-                          <input type="hidden" class="form-control"
-                          placeholder="" id="plongi" name="longitude">
-            
-                        
-                        
-            
-            
-                       
-            
-            
-            
-            
-                          <!-- Divider -->
+                     <!-- Divider -->
                           <hr class="my-5">
             
                           <!-- Footer -->
@@ -373,7 +346,7 @@
                               <div class="col text-center">
             
                                   <!-- Step -->
-                                  <h6 class="text-uppercase text-muted mb-0">Step 1 of 8</h6>
+                                  <h6 class="text-uppercase text-muted mb-0">Step 1 of 9</h6>
             
                               </div>
                               <div class="col-auto">
@@ -397,7 +370,7 @@
             
                                   <!-- Pretitle -->
                                   <h6 class="mb-4 text-uppercase text-muted">
-                                      Step 2 of 8
+                                      Step 2 of 9
                                   </h6>
             
                                   <!-- Title -->
@@ -421,12 +394,12 @@
                                   Business Phone Number
                               </label> --}}
             
-                              <textarea type="text" name="address" class="form-control" placeholder="Event Address"
+                              <textarea type="text" name="address" class="form-control" required placeholder="Event Address"
                                      required></textarea>
                           </div>
                                 <!-- Team description -->
                           <div class="form-group">
-                                <input type="number" name="zip_code" class="form-control" placeholder="Zip Code" >
+                                <input type="number" name="zip_code" class="form-control" required placeholder="Zip Code" >
                           </div>
             
                             <!-- Team description -->
@@ -443,7 +416,7 @@
                               </div>
                               <div class="col text-center">
                                      <!-- Step -->
-                                  <h6 class="text-uppercase text-muted mb-0">Step 2 of 8</h6>
+                                  <h6 class="text-uppercase text-muted mb-0">Step 2 of 9</h6>
             
                               </div>
                               <div class="col-auto">
@@ -467,7 +440,7 @@
             
                                   <!-- Pretitle -->
                                   <h6 class="mb-4 text-uppercase text-muted">
-                                      Step 3 of 8
+                                      Step 3 of 9
                                   </h6>
             
                                   <!-- Title -->
@@ -524,7 +497,7 @@
                               <div class="col text-center">
             
                                   <!-- Step -->
-                                  <h6 class="text-uppercase text-muted mb-0">Step 3 of 8</h6>
+                                  <h6 class="text-uppercase text-muted mb-0">Step 3 of 9</h6>
             
                               </div>
                               <div class="col-auto">
@@ -552,7 +525,7 @@
           
                                 <!-- Pretitle -->
                                 <h6 class="mb-4 text-uppercase text-muted">
-                                    Step 4 of 8
+                                    Step 4 of 9
                                 </h6>
           
                                 <!-- Title -->
@@ -573,25 +546,25 @@
                             
                    
                         <div class="radio">
-                            <label><input type="radio" name="occasion" value="concert" checked> &nbsp; Concert</label>
+                            <label><input type="radio" name="occasion" required value="concert" checked> &nbsp; Concert</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="occasion" value="festival">&nbsp; Festival</label>
+                            <label><input type="radio" name="occasion" required value="festival">&nbsp; Festival</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="occasion" value="individual">&nbsp; An individual business
+                            <label><input type="radio" name="occasion" required value="individual">&nbsp; An individual business
                             </label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="occasion" value="non-profit">&nbsp; Non-profit event
+                            <label><input type="radio" name="occasion" required value="non-profit">&nbsp; Non-profit event
                             </label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="occasion" value="sport">&nbsp;Sporting event
+                            <label><input type="radio" name="occasion"required value="sport">&nbsp;Sporting event
                             </label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="occasion" value="school">&nbsp; School event</label>
+                            <label><input type="radio" name="occasion" required value="school">&nbsp; School event</label>
                           </div>
                         </div> <!-- / .row -->
           
@@ -609,7 +582,7 @@
                             <div class="col text-center">
           
                                 <!-- Step -->
-                                <h6 class="text-uppercase text-muted mb-0">Step 4 of 8</h6>
+                                <h6 class="text-uppercase text-muted mb-0">Step 4 of 9</h6>
           
                             </div>
                             <div class="col-auto">
@@ -631,18 +604,68 @@
                    
 
 
+                    
+
 
                     <div class="tab-pane fade" id="wizardStepfive" role="tabpanel" aria-labelledby="wizardTabThree">
+                        <!-- Header -->
+                         <div class="row justify-content-center">
+                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                <!-- Pretitle -->
+                                 <h6 class="mb-4 text-uppercase text-muted">
+                                     Step 5 of 9
+                                 </h6>
+                                      <!-- Title -->
+                                 <h1 class="mb-3">
+                                     Eaters
+                                 </h1>
+                             </div>
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="mt-5 mb-5">
+                          <div class="col-md-12">
+                             <div class="form-group">
+                                 <label>Eaters</label>
+                                 <input type="number" class="form-control" name="eaters"  required placeholder="Eaters">
+                             </div> 
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="my-5">
+                         <!-- Footer -->
+                         <div class="row align-items-center">
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                             </div>
+                             <div class="col text-center">
+                             <!-- Step -->
+                             <h6 class="text-uppercase text-muted mb-0">Step 5 of 9</h6>
+                                 </div>
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 {{-- !! --}}
+                                     <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                 href="#wizardStepsix">Continue</a>
+                                     {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
+                             </div>
+                         </div>
+                         {{--  --}}
+                     </div>
+ 
+
+
+
+                    <div class="tab-pane fade" id="wizardStepsix" role="tabpanel" aria-labelledby="wizardTabThree">
                        <!-- Header -->
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                <!-- Pretitle -->
                                 <h6 class="mb-4 text-uppercase text-muted">
-                                    Step 5 of 8
+                                    Step 6 of 9
                                 </h6>
                                      <!-- Title -->
                                 <h1 class="mb-3">
-                                    Eaters
+                                    Event
                                 </h1>
                             </div>
                         </div> <!-- / .row -->
@@ -650,10 +673,51 @@
                         <hr class="mt-5 mb-5">
                          <div class="col-md-12">
                             <div class="form-group">
-                                <label>Eaters</label>
-                                <input type="number" class="form-control" name="eaters"  required placeholder="Eaters">
+                               <div class="row">
+                                <div class="card" style="margin-right:40px; margin-left:30px;">
+                                    <div class="card-header"style="
+                                    width: 14rem">
+                                      <h3 class="text-center">Standard</h3>
+                                      <h5></h5>
+                                    </div>
+                                                            
+                                    <div class="card-body">
+                                      <h5 class="card-title text-center">Packages</h5>
+                                      @foreach ($standard_packages as $key => $s_package)
+                                   
+                                      <div class="mt-5">
+                                        
+                                            <input type="radio" name="package_id" value="{{$s_package->id}}" checked> &nbsp;<label>{{$s_package->name}}</label><br/>
+                                            
+                                        </div>
+                                      @endforeach  
+                                    </div>
+                                    <div>  
+                            </div>                       
+                                
+                                </div> 
+                                 {{-- card2 --}}
+                                 <div class="card">
+                                    <div class="card-header" style="
+                                    width: 16rem">
+                                      <h3 class="text-center">VIP</h3>
+
+                                    </div>
+                                                            
+                                    <div class="card-body">
+                                      <h5 class="card-title text-center">Packages</h5>
+                                      @foreach ($vip_packages as $key => $v_package)
+                                      <div class="mt-5">
+                                        <input type="radio" name="package_id" value="{{$v_package->id}}" checked> &nbsp; <label>{{$v_package->name}}</label><br/>
+                                      
+                                    </div>    
+                                    @endforeach   
+                                    </div>
+                                </div>
+                               </div>
                             </div> 
-                        </div> <!-- / .row -->
+                        </div>
+                         <!-- / .row -->
                         <!-- Divider -->
                         <hr class="my-5">
                         <!-- Footer -->
@@ -664,13 +728,13 @@
                             </div>
                             <div class="col text-center">
                             <!-- Step -->
-                            <h6 class="text-uppercase text-muted mb-0">Step 5 of 8</h6>
+                            <h6 class="text-uppercase text-muted mb-0">Step 6 of 9</h6>
                                 </div>
                             <div class="col-auto">
                                 <!-- Button -->
                                 {{-- !! --}}
                                     <a class="btn btn-lg btn-primary" data-toggle="wizard"
-                                href="#wizardStepsix">Continue</a>
+                                href="#wizardStepseven">Continue</a>
                                     {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
                             </div>
                         </div>
@@ -680,13 +744,13 @@
 
 
 
-                    <div class="tab-pane fade" id="wizardStepsix" role="tabpanel" aria-labelledby="wizardTabThree">
+                    <div class="tab-pane fade" id="wizardStepseven" role="tabpanel" aria-labelledby="wizardTabThree">
                         <!-- Header -->
                          <div class="row justify-content-center">
                              <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                 <!-- Pretitle -->
                                  <h6 class="mb-4 text-uppercase text-muted">
-                                    Step 6 of 8
+                                    Step 7 of 9
                                  </h6>
                                       <!-- Title -->
                                  <h1 class="mb-3">
@@ -726,13 +790,13 @@
                              </div>
                              <div class="col text-center">
                              <!-- Step -->
-                             <h6 class="text-uppercase text-muted mb-0">Step 6 of 8</h6>
+                             <h6 class="text-uppercase text-muted mb-0">Step 7 of 9</h6>
                                  </div>
                              <div class="col-auto">
                                  <!-- Button -->
                                  {{-- !! --}}
                                      <a class="btn btn-lg btn-primary" data-toggle="wizard"
-                                 href="#wizardStepseven">Continue</a>
+                                 href="#wizardStepeight">Continue</a>
                                      {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
                              </div>
                          </div>
@@ -742,13 +806,13 @@
 
 
                      {{-- six  --}}
-                     <div class="tab-pane fade" id="wizardStepseven" role="tabpanel" aria-labelledby="wizardTabThree">
+                     <div class="tab-pane fade" id="wizardStepeight" role="tabpanel" aria-labelledby="wizardTabThree">
                         <!-- Header -->
                          <div class="row justify-content-center">
                              <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                 <!-- Pretitle -->
                                  <h6 class="mb-4 text-uppercase text-muted">
-                                    Step 7 of 8
+                                    Step 8 of 9
                                  </h6>
                                       <!-- Title -->
                                  <h1 class="mb-3">
@@ -774,26 +838,26 @@
                              </div>
                              <div class="col text-center">
                              <!-- Step -->
-                             <h6 class="text-uppercase text-muted mb-0">Step 7 of 8</h6>
+                             <h6 class="text-uppercase text-muted mb-0">Step 8 of 9</h6>
                                  </div>
                              <div class="col-auto">
                                  <!-- Button -->
                                  {{-- !! --}}
                                      <a class="btn btn-lg btn-primary" data-toggle="wizard"
-                                 href="#wizardStepeight">Continue</a>
+                                 href="#wizardStepnine">Continue</a>
                                      {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
                              </div>
                          </div>
                          {{--  --}}
                      </div>
  
-                     <div class="tab-pane fade" id="wizardStepeight" role="tabpanel" aria-labelledby="wizardTabThree">
+                     <div class="tab-pane fade" id="wizardStepnine" role="tabpanel" aria-labelledby="wizardTabThree">
                         <!-- Header -->
                          <div class="row justify-content-center">
                              <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                 <!-- Pretitle -->
                                  <h6 class="mb-4 text-uppercase text-muted">
-                                    Step 8 of 8
+                                    Step 9 of 9
                                  </h6>
                                       <!-- Title -->
                                  <h1 class="mb-3">
@@ -819,7 +883,7 @@
                              </div>
                              <div class="col text-center">
                              <!-- Step -->
-                             <h6 class="text-uppercase text-muted mb-0">Step 8 of 8</h6>
+                             <h6 class="text-uppercase text-muted mb-0">Step 9 of 9</h6>
                                  </div>
                              <div class="col-auto">
                                  <!-- Button -->
