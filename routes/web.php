@@ -76,8 +76,9 @@ Route::prefix('business')->group(function () {
     Route::group(['middleware' => ['check_business_role', 'role:restaurant','verified']], function () {
         Route::get('/', 'BusinessUser\BusinessController@index')->name('individual.business.index');
         Route::get('setting', 'BusinessUser\BusinessController@setting');
-        Route::get('business/reviews', 'BusinessUser\BusinessController@index');
+        Route::get('business/reviews', 'BusinessUser\BusinessController@reviews')->name('busines.reviews');;
         Route::get('business/order', 'Order\OrderController@index');
+       
     });
 });
 //! Auth Logins for ridder & bussines
@@ -139,3 +140,6 @@ Route::get('location', 'SearchController@searchlocation');
 
 Route::get('business/document', 'BusinessDocumentController@index')->name('business_document');
 Route::post('business/documents', 'BusinessDocumentController@store')->name('business_document.store');
+
+
+Route::post('booking', 'BookingController@store')->name('booking.store');

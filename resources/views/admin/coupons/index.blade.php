@@ -24,7 +24,7 @@
                         <div class="col-auto">
 
                             <!-- Button -->
-                            <a href="{{route('coupon.create')}}" class="btn btn-primary lift">
+                            <a href="{{route('coupon.create')}}" class="btn btn-warning lift">
                                 Create New
                             </a>
 

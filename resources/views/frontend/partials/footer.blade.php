@@ -31,8 +31,8 @@
                         <h3 class="f-title f_600 t_color f_size_18">Download</h3>
                         <ul class="list-unstyled f_list">
                             <li><a href="#">Company</a></li>
-                            <li><a href="#"> <img src="storage/playstore.png" height="40px"> </a></li>
-                            <li><a href="#"> <img src="storage/appstore.svg"> </a></li>
+                            <a href="#"> <img src="public/storage/playstore.jpg" height="25px"></a>
+                            <a href="#"> <img src="public/storage/appstore.png" height="25px"></a>
                         </ul>
                     </div>
                 </div>
@@ -40,9 +40,10 @@
                     <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
                         <h3 class="f-title f_600 t_color f_size_18">About Us</h3>
                         <ul class="list-unstyled f_list">
-                            <li><a href="#">Create a Business Account</a></li>
-                            <li><a href="#">Add Your Restaurants</a></li>
-                            <li><a href="#">Signup to deliver</a></li>
+                      
+                            <li><a href="{{ route('Businessregister') }}">Create a Business Account</a></li>
+                           
+                            <li><a href="{{ url('/login') }}">Login to User</a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,9 +53,8 @@
                         <ul class="list-unstyled f_list">
                             <li><a href="{{url('faq')}}">FAQ</a></li>
                             <li><a href="{{url('terms_conditions')}}">Term &amp; conditions</a></li>
-                            <li><a href="#">View all cities</a></li>
-                            <li><a href="#">View all countries</a></li>
-                            <li><a href="#">Support Policy</a></li>
+                           
+                            
                             <li><a href="{{url('privacy_policy')}}">Privacy</a></li>
                         </ul>
                     </div>

@@ -2,19 +2,11 @@
 
 @section('content')
 @include('frontend.partials.default_banner')
-<section>
-    <div class="container my-5">
+<section style="margin-top: 10rem">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
-
-
-
-
-
-
-
-
-                <div class="accordion" id="accordionExample">
+               <div class="accordion" id="accordionExample">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
@@ -44,3 +36,4 @@
 @section('script')
 <script src="{{ URL::asset('backend/assets/js/maps.js') }}"></script>
 @endsection
+

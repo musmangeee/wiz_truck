@@ -24,7 +24,7 @@ class ProductOrderController extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        $order = Order::where('user_id', $user->id)->where('status', '!=', 'deliver')->with('restaurant')->first();
+        $order = Order::where('user_id', $user->id)->whereNotIn('status', ['deliver','cancel'])->with('restaurant')->first();
         return response()->json([
             'status' => true,
             'message' => 'Order get Successfully',
@@ -33,6 +33,7 @@ class ProductOrderController extends Controller
         ]);
     }
 
+    
     public function create_order(Request $request)
 
     {
@@ -40,7 +41,7 @@ class ProductOrderController extends Controller
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
 
-        if (Order::where(['user_id' => $input['user_id'], 'status' => 'pending'])->exists()) {
+        if (Order::where('user_id' , $input['user_id'] )->whereIn('status', ['pending','pickup','accept'])->exists()) {
             return response()->json([
 
                 'message' => 'order is already in exist'

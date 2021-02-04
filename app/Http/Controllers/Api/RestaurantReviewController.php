@@ -11,11 +11,13 @@ class RestaurantReviewController extends Controller
 {
     public function index(Request $request, $id)
     {
-        $business = Business::where('id', $id)->with('reviews')->first();
+        
+        $review = Review::where('business_id', $id)->with('user')->get();
+   
         return response()->json([
             'status' =>true,
             'message' => 'Successfully!',
-            'business' => $business,
+            'business' => $review,
             
             
         ]);

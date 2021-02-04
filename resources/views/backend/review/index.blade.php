@@ -4,7 +4,7 @@
 
     @include('frontend.partials.default_banner')
 
-    <div class="container mt-5">
+    <div class="container " style="margin-top: 12rem">
         <div class="card-columns">
             @foreach($reviews as $review)
 

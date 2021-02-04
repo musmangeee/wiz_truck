@@ -2,7 +2,10 @@
 
 @section('content')
 
-    <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin" style="
+    margin-top: 1rem;
+    padding: 1rem;
+">
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="role">Dashboard</a></li>
@@ -10,7 +13,7 @@
             </ol>
         </nav>
         <div class="d-flex align-items-center flex-wrap text-nowrap">
-            <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-icon-text">
+            <a href="{{ route('permissions.create') }}" class="btn btn-warning btn-icon-text">
                 <i class="btn-icon-prepend" data-feather="plus"></i>
                 Create New Permission
             </a>

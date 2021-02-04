@@ -78,7 +78,7 @@
                 <form action="{{route('search')}}" method="GET" class="col-12">
                    
                    
-                    <div class="input-group mb-3 mt-5"  id="locator-input-section">
+                    <div class="input-group mb-3 mt-3"  id="locator-input-section">
                         <input type="text" id="autocomplete" class="autocomplete_locations form-control" name="location" placeholder="Enter Your Address" autocomplete="off">
                        
                         <input type="hidden" id="longitude" name="longitude">
@@ -90,29 +90,8 @@
                         </div>
                     </div>
 
-                    <ul class="nav justify-content-center mt-4">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" href="#">
-                                Find Foodtruck Now
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" href="#">
-                                Book Event
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" href="#">
-                                Get the App You’ll love it!
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav justify-content-center mt-4">
-                        <li class="nav-item">
-                            <h2 class="text-white"> Get the App You’ll love it!</h2>
-                            
-                        </li>
-                    </ul>
+                   
+                   
                 </form>
             </div>
 
