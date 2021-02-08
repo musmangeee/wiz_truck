@@ -49,15 +49,15 @@
                         <th scope="col">#</th>
                         <th scope="col">Payar</th>
                         <th scope="col">address</th>
-                        <th scope="col">zip_code</th>
-                        <th scope="col">start_date</th>
-                        <th scope="col">end_date</th>
-                        <th scope="col">start_time</th>
-                        <th scope="col">end_time</th>
+                        <th scope="col">zip code</th>
+                        <th scope="col">start date</th>
+                        <th scope="col">end date</th>
+                        <th scope="col">start time</th>
+                        <th scope="col">end time</th>
                         <th scope="col">occasion</th>
                         <th scope="col">eaters</th>
-                        <th scope="col">phone_number</th>
-                        <th scope="col">final_detail</th>
+                        <th scope="col">phone number</th>
+                        <th scope="col">final detail</th>
 
                         {{-- <th scope="col">Details</th> --}}
                         <th scope="col">Action</th>

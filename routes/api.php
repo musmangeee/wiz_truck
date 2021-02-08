@@ -65,9 +65,10 @@ Route::group([
         Route::get('rider_review_list', 'Api\Rider\RiderReviewController@index');
         
         Route::post('specific_business', 'Api\BookingController@specific_business');
-
-          
-
+        Route::post('accept_event', 'Api\BookingController@accept_event');
+        Route::get('pending_event', 'Api\BookingController@pending_event');
+        Route::get('accepted_event_list', 'Api\BookingController@accepted_event_list');
+        Route::post('cancelled_event', 'Api\BookingController@cancelled_event');
 
 
     });

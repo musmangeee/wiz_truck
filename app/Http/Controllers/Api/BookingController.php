@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Event;
 use App\Booking;
 use App\Business;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use App\Http\Controllers\Api\Notification\NotificationController;
 class BookingController extends Controller
 {
     public function index()
@@ -129,7 +130,7 @@ class BookingController extends Controller
         
        $message=[];
        $user = Auth::guard('api')->user();
-       $booking = Booking::where(['user_id' => $user->id, 'business_id' => $request ->business_id])->first();
+       $booking = Booking::where(['user_id' => $user->id, 'business_id' => $request ->business_id])->whereIn('status', ['accepted','pending'])->get();
  
        if ($booking == true) {
         return response()->json([
@@ -161,6 +162,93 @@ class BookingController extends Controller
             'booking' => $booking,
         ]);
     }
+    public function accept_event(Request $request)
+    {
+        $user = $request->user();
+        $message = "";
+        $status = false;
+        $business = Business::where('user_id', $user->id)->first();
+    
+        if ($business == null) {
+            $message = "You have no business account associated with your email.";
+        } else {
+            $event = Booking::where(['business_id' => $business->id, 'id' => $request->event_id])->with('package','event')->first();
+        
+            if ($event != null) {
+                $event->status = "accepted";
+                $status = true;
+                $event->save();
 
+                //  // ! Sending push notification
+                //  $notification = new NotificationController();
+                //  $notification->sendNotification('Event Accepted', $event->user->device_token);
+                //  $notification->sendNotification('Event Accepted', $business->user->device_token);
+                 
+                $message = "The Event have been accepted";
+            } else {
+                $message = "You have no Event associated with your business email.";
+            }
+        }
+            return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'event' => $event,
+        ]);
+    }
+    public function pending_event(Request $request)
+    {
+        $user = $request->user();
+        $business = Business::where('user_id', $user->id)->first();
+        $event = Booking::where(['business_id'=> $business->id,'status' =>'pending'])->with('package','event')->get();
+       
+        return response()->json([
+            'status' => true,
+            'message' => 'Events get Successfully',
+            'event' => $event,
+        ]);
+    } 
+    public function accepted_event_list(Request $request)
+    {
+        $user = $request->user();
+        $business = Business::where('user_id', $user->id)->first();
+        $event = Booking::where(['business_id'=> $business->id,'status' =>'accepted'])->with('package','event')->get();
+       
+        return response()->json([
+            'status' => true,
+            'message' => 'Events get Successfully',
+            'event' => $event,
+        ]);
+    }
+    
+    public function cancelled_event(Request $request)
+    {
+        $user = $request->user();
+        $message = "";
+        $status = false;
+        $business = Business::where('user_id', $user->id)->first();
+        
+        if ($business == null) {
+            $message = "You have no business account associated with your email.";
+        } else {
+            $event = Booking::where(['business_id' => $business->id, 'id' => $request->event_id])->first();
+        
+            if ($event != null) {
+                $event->status = "cancelled";
+                $status = true;
+                $event->save();
+                $message = "The Event have been cancelled";
+            } else {
+                $message = "You have no Event associated with your business email.";
+            }
+      
+        }
+   
+            return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'event' => null,
+        ]);
+    }
+    
 
 }

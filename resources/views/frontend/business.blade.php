@@ -15,6 +15,12 @@
 
 </script>
 
+@if(Session::has('success'))
+<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
+@endif
+@if(Session::has('error'))
+<p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
+@endif
 
     <section style="margin-top:9rem;">
        
@@ -27,9 +33,7 @@
         background-size: cover;"></div>
      
        
-       @if(Session::has('error'))
-       <p class="alert {{ Session::get('alert-class', 'alert-warning') }}">{{ Session::get('error') }}</p>
-       @endif
+    
 
        
         <div class="container mt-5">
@@ -256,7 +260,6 @@
 
   
   <!-- Modal -->
-
 
 
 
@@ -926,9 +929,9 @@
   
                 <div class="col-md-4 mt-n5">
                     @if(Auth::check())
-                    <button class="btn btn-block btn-lg btn-primary float-right mb-3 mt-5" data-toggle="modal" data-target="#staticBackdrop">Book Event</button>
+                    <button class="btn btn-primary btn-block mt-5" data-toggle="modal" data-target="#staticBackdrop">Book Event</button>
                    @else
-                   <a href="{{ route ('login')}}" class="btn btn-primary btn-lg float-right mt-5">Book Event</a>
+                   <a href="{{ route ('login')}}" class="btn btn-primary btn-block mt-5">Book Event</a>
             
                    @endif
                     <div class="pt-5">
