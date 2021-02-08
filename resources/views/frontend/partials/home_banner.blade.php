@@ -10,7 +10,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('frontend/img/logos/logo-2.png') }}" alt="">
                 </a>
-                <ul class="navbar-nav mr-auto ml-5">
+                <ul class="navbar-nav mr-auto ml-6">
                     @guest
                     <div class="row d-lg-none">
                         <a href="{{route('login')}}" class="nav-link">Login</a>

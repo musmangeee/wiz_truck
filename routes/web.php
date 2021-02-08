@@ -20,7 +20,7 @@ use App\User;
  * Login & Registration Routes
  */
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 // ! Google Auth Routes
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
@@ -85,7 +85,7 @@ Route::prefix('business')->group(function () {
 Route::get('checkout', 'CheckoutController@index')->name('frontend.checkout');
 Route::group(['middleware' => ['guest']], function () {
     Route::get('/business/login', 'BusinessUser\LoginController@login')->name('Businesslogin');
-    Route::get('/business/register', 'BusinessUser\LoginController@register')->name('register');
+    Route::get('/business/register', 'BusinessUser\LoginController@register')->name('b_register');
     Route::post('/business/register', 'BusinessUser\Auth\RegisterController@register')->name('Businessregister');
     Route::get('/ridder/login', 'BusinessUser\LoginController@Ridderlogin');
     Route::get('/ridder/login', 'BusinessUser\LoginController@Ridderregister')->name('ridderSignup');
@@ -113,6 +113,8 @@ Route::prefix('admin')->group(function () {
         Route::post('claim_business', 'AdminUser\BusinessClaimController@claim_business')->name('admin.claim_business');
         Route::resource('subscription', 'AdminUser\SubscriptionController');
         Route::resource('events', 'AdminUser\EventController');
+        Route::get('booking_list', 'BookingController@index')->name('booking_list.index');
+       
         Route::resource('package', 'AdminUser\PackageController');
         Route::get('/subscribe', 'SubscriptionController@index');
         Route::get('/subscribe', 'SubscriptionController@showSubscription');

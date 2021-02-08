@@ -17,7 +17,9 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $bookings = Booking::paginate(10);
+      
+        return view ('admin.Events.index' , compact('bookings'));
     }
 
     /**
@@ -41,13 +43,21 @@ class BookingController extends Controller
        
       
         $user_id = Auth::user()->id;
+        if (Booking::where(['user_id' => $user_id, 'business_id' => $request ->business_id])->exists()) {
+            
+
+              return redirect()->back()->with('success' ,'Event is already in exist from this Restaurant');
+               
+        
+
+        }
         
        $pack = Package::where('id',$request->package_id)->first();
        $event_id = $pack->event_id;
        $validator = Validator::make($request->all(), [
         'package_id' => 'required', 
         'business_id' =>'required',
-        'event_id' => 'required',
+     
         'payer' => 'required',
         'address' => 'required',
         'zip_code' => 'required',
@@ -87,7 +97,7 @@ class BookingController extends Controller
             'phone_number' => $request ->phone_number , 
             'final_detail'  => $request ->final_detail,  
         ]);
-       return redirect()->back();
+       return redirect()->back()->with('success','Event book successfully.');
 
     }
 
@@ -110,7 +120,7 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.Events.edit');
     }
 
     /**
