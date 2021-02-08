@@ -25,13 +25,11 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;"></div>
-       @if(Auth::check())
-        <button class="btn btn-primary btn-lg float-right mt-5" data-toggle="modal" data-target="#staticBackdrop">Book Event</button>
-       @else
-       <a href="{{ route ('login')}}" class="btn btn-primary btn-lg float-right mt-5">Book Event</a>
-
+     
+       
+       @if(Session::has('error'))
+       <p class="alert {{ Session::get('alert-class', 'alert-warning') }}">{{ Session::get('error') }}</p>
        @endif
-    
 
        
         <div class="container mt-5">
@@ -258,10 +256,23 @@
 
   
   <!-- Modal -->
+
+
+
+
+
+
+
+
             <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                 <div class="modal-content">
-                   
+                    <div class="modal-header border-0">
+                       
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
                     <div class="modal-body">
                    
                         <form class="tab-content py-6" id="wizardSteps" action="{{route('booking.store')}}" method="POST"
@@ -274,7 +285,7 @@
                           <!-- Header -->
                           <div class="row justify-content-center">
                               <div class="col-12 col-md-10  text-center">
-            
+               
                                   <!-- Pretitle -->
                                   <h6 class="mb-4 text-uppercase text-muted">
                                       Step 1 of 9
@@ -305,7 +316,7 @@
                                 <div class="card-body" style="text-align: center">
                                     <img src="{{asset('public/images/user.png')}}" style="height:50px"/>
                                  
-                                  <p class="card-text">Host</p>
+                                  <p class="card-text"></p>
                                   <input class="form-check-input" type="radio" name="payer" id="flexRadioDefault1" required value="host">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Host
@@ -321,8 +332,8 @@
                                 <div class="card-body" style="text-align: center">
                                  
                                  <img src="{{asset('public/images/people.png')}}" style="height:50px"/>
-                                  <p class="card-text">Guests</p>
-                                  <input class="form-check-input" type="radio" name="payer" required id="flexRadioDefault2" checked value="guest">
+                                  <p class="card-text"></p>
+                                  <input class="form-check-input" type="radio" name="payer" required id="flexRadioDefault2" value="guest">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                        Guest
                                     </label>
@@ -546,7 +557,7 @@
                             
                    
                         <div class="radio">
-                            <label><input type="radio" name="occasion" required value="concert" checked> &nbsp; Concert</label>
+                            <label><input type="radio" name="occasion" required value="concert"> &nbsp; Concert</label>
                           </div>
                           <div class="radio">
                             <label><input type="radio" name="occasion" required value="festival">&nbsp; Festival</label>
@@ -687,7 +698,7 @@
                                    
                                       <div class="mt-5">
                                         
-                                            <input type="radio" name="package_id" value="{{$s_package->id}}" checked> &nbsp;<label>{{$s_package->name}}</label><br/>
+                                            <input type="radio" name="package_id" value="{{$s_package->id}}"> &nbsp;<label>{{$s_package->name}}</label><br/>
                                             
                                         </div>
                                       @endforeach  
@@ -708,7 +719,7 @@
                                       <h5 class="card-title text-center">Packages</h5>
                                       @foreach ($vip_packages as $key => $v_package)
                                       <div class="mt-5">
-                                        <input type="radio" name="package_id" value="{{$v_package->id}}" checked> &nbsp; <label>{{$v_package->name}}</label><br/>
+                                        <input type="radio" name="package_id" value="{{$v_package->id}}"> &nbsp; <label>{{$v_package->name}}</label><br/>
                                       
                                     </div>    
                                     @endforeach   
@@ -769,7 +780,7 @@
                                 @foreach ($menus as $key => $menu)
                                 <div class="form-check">
                                    
-                                    <input class="form-check-input" name="menu_id[]" type="checkbox" value="{{$menu->id}}" id="flexCheckDefault">
+                                    <input class="form-check-input" name="menu_id[]" type="checkbox" value="{{$menu->name}}" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                        {{$menu->name}}
                                     </label>
@@ -910,12 +921,21 @@
 
 
   {{-- model end --}}
+
+ 
+  
                 <div class="col-md-4 mt-n5">
-                    <div class="sticky-top pt-5">
+                    @if(Auth::check())
+                    <button class="btn btn-block btn-lg btn-primary float-right mb-3 mt-5" data-toggle="modal" data-target="#staticBackdrop">Book Event</button>
+                   @else
+                   <a href="{{ route ('login')}}" class="btn btn-primary btn-lg float-right mt-5">Book Event</a>
+            
+                   @endif
+                    <div class="pt-5">
                         <div class="card">
                             <div class="card-body">
 
-                                <!-- List group -->
+                           <!-- List group -->
                                 <div class="list-group list-group-flush my-n3">
                                     <div class="list-group-item">
                                         <div class="row align-items-center">

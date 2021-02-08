@@ -93,6 +93,11 @@
                         <i class="fe fe-clipboard"></i> Coupon
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('booking_list.index') }}">
+                        <i class="fe fe-clipboard"></i> Event
+                    </a>
+                </li>
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('business_category.index') }}">
@@ -106,12 +111,7 @@
                         <i class="fe fe-calendar"></i>Events
                     </a>
                 </li> --}}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('events.index') }}" >
-                        <i class="fe fe-calendar"></i>Events
-                    </a>
-                </li>
-
+               
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('package.index') }}" >
                         <i class="fe fe-box"></i>Package

@@ -58,12 +58,17 @@ Route::group([
         Route::get('booking_list', 'Api\BookingController@index');
         Route::post('booking_update/{id}', 'Api\BookingController@update');
         Route::post('booking_destroy/{id}', 'Api\BookingController@destroy');
-
+        Route::post('check_booking', 'Api\BookingController@check_booking');
         Route::get('specific_booking', 'Api\BookingController@specific_booking');
         Route::post('business_booking', 'Api\BusinessBookingController@store');
-
         Route::post('rider_review', 'Api\Rider\RiderReviewController@store');
         Route::get('rider_review_list', 'Api\Rider\RiderReviewController@index');
+        
+        Route::post('specific_business', 'Api\BookingController@specific_business');
+
+          
+
+
 
     });
 });

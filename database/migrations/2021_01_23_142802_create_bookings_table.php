@@ -19,6 +19,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('business_id');
             $table->unsignedBigInteger('event_id')->nullable();
+            $table->string('status')->default('booked');
             $table->string('payer');
             $table->string('address');
             $table->integer('zip_code');

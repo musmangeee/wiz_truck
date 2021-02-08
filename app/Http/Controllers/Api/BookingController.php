@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Booking;
+use App\Business;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,6 @@ class BookingController extends Controller
             'address' => 'required',
             'zip_code' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
             'occasion' => 'required',
@@ -80,10 +80,6 @@ class BookingController extends Controller
             'phone_number' => $request ->phone_number , 
             'final_detail'  => $request ->final_detail,  
         ]);
- 
-         
-       
-
 
         return response()->json([
             'status' => true,
@@ -128,4 +124,43 @@ class BookingController extends Controller
             
         ]);
     }
+
+    public function check_booking(Request $request){
+        
+       $message=[];
+       $user = Auth::guard('api')->user();
+       $booking = Booking::where(['user_id' => $user->id, 'business_id' => $request ->business_id])->first();
+ 
+       if ($booking == true) {
+        return response()->json([
+
+            'message' => 'Event is already in exist from this Restaurant',
+            'booking'=>$booking,
+
+        ]);
+       }
+       else{
+           return response()->json([
+            'message' => 'There in no booking register in this restaurant',
+             'booking'=>$booking,
+            ]);
+            
+           }        
+    
+
+
+    }
+
+    public function specific_business(Request $request){
+       
+        $booking = Booking::where('business_id', $request->business_id)->with('package','event')->get();
+        
+        
+        return response()->json([
+            'status' =>true,
+            'booking' => $booking,
+        ]);
+    }
+
+
 }

@@ -29,12 +29,12 @@
 }
 
 .total-reviews {
-    line-height: 48px;
+    line-height: 48px; 
     padding: 0;
 }
 
 .wiztruck-hero {
-    height: 60vh;
+    height: 45vh !important; 
 }
 
 .navbar-brand-img,

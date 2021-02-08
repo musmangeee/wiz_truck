@@ -10,8 +10,12 @@ class Booking extends Model
     protected $casts = [
         'menu_id' =>'array'
     ];
-    public function packages()
+    public function package()
     {
-        return $this->belongsTo('App\Package','package_id');
+        return $this->belongsTo('App\Package');
+    }
+    public function event()
+    {
+        return $this->belongsTo('App\Event');
     }
 }
