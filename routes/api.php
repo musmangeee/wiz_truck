@@ -151,4 +151,6 @@ Route::get('list_package', 'Api\PackageController@index');
 
 
 Route::delete('dlt', 'Api\Rider\RiderLocationController@dltrider');
+Route::get('userOrderHistory', 'Api\UserOrderController@userOrderHistory');
+Route::get('businessOrderHistory', 'Api\Business\OrderAPIController@businessOrderHistory');
 
