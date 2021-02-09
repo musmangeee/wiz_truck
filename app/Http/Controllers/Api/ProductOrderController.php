@@ -140,10 +140,14 @@ class ProductOrderController extends Controller
                 $status = true;
                 $order->save();
 
-                // ! Sending push notification
+                if (Order::where(['business_id' => $business->id, 'id' => $request->order_id,'status' => 'deliver'])->first()) {
+                     // ! Sending push notification
+                     
                 $notification = new NotificationController();
                 $notification->sendNotification('Order Accepted', $order->user->device_token);
                 $notification->sendNotification('Order Accepted', $business->user->device_token);
+               
+                }
                 $message = "The order have been accepted";
 
                 $latitude  = $business->latitude;
@@ -154,18 +158,12 @@ class ProductOrderController extends Controller
                 ->having('distance', '<=', 10)
                 ->orderBy('distance')
                 ->get();
-
-                // return $loc;
-
+                // ! Commission
                 $comission = ($order->total * 12.5 / 100);
-
-                // if ($comission < 0.5) {
-
-                // }
-                // $distance = 1;
-
+                // ! Get nearby riders
                 foreach ($loc as $location) {
-                    
+                    $distance = number_format((float)$location->distance, 1, '.', '');
+                    // dump($distance);
                     $device_token = User::where('id', $location->user_id)->value('device_token');
                     $notification = new NotificationController();
                     $notification->sendPushRiderNotification(
@@ -179,19 +177,9 @@ class ProductOrderController extends Controller
                         $location->longitude,
                         $order->id,
                         $comission,
-                        $location->distance
+                        $distance
                     );
                 }
-
-                // foreach ($rider as $r) {
-                // //   return $r;
-
-                // $device_token = User::where('id' , $r->user_id)->first()->device_token;
-
-                // $notification = new NotificationController();
-
-                // $notification->sendNotification('Order Accepted',$device_token);
-                // }
             } else {
                 $message = "You have no order associated with your business email.";
             }
@@ -247,14 +235,17 @@ class ProductOrderController extends Controller
             $message = "You have no business account associated with your email.";
         } else {
             $order = Order::where(['business_id' => $business->id, 'id' => $request->order_id])->first();
+           
             if ($order != null) {
                 $order->status = "deliver";
                 $status = true;
                 $order->save();
                 // ! Sending push notification
                 $notification = new NotificationController();
-                $notification->sendNotification('Order Canceled', $order->user->device_token);
-                $notification->sendNotification('Order Canceled', $business->user->device_token);
+                
+                $notification->sendNotification('Order Deliver', $order->user->device_token);
+                $notification->sendNotification('Order Deliver', $business->user->device_token);
+
                 $message = "The order have been delivered";
             } else {
                 $message = "You have no order associated with your business email.";
@@ -404,23 +395,5 @@ class ProductOrderController extends Controller
             'order' => $order,
         ]);
     }
-
-    public function calculateDistance($lat1, $lon1, $lat2, $lon2, $unit)
-    {
-
-        $theta = $lon1 - $lon2;
-        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-        $dist = acos($dist);
-        $dist = rad2deg($dist);
-        $miles = $dist * 60 * 1.1515;
-        $unit = strtoupper($unit);
-
-        if ($unit == "K") {
-            return ($miles * 1.609344);
-        } else if ($unit == "N") {
-            return ($miles * 0.8684);
-        } else {
-            return $miles;
-        }
-    }
+    
 }

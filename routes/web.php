@@ -95,6 +95,7 @@ Route::prefix('admin')->group(function () {
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/', 'AdminController@index')->name('admin.index');
         Route::resource('users', 'UserController');
+        Route::resource('menuAdmin', 'MenuController');
         Route::resource('roles', 'RoleController');
         Route::resource('permissions', 'PermissionController');
         Route::resource('business', 'AdminUser\BusinessController');

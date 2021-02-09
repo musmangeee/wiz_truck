@@ -92,7 +92,7 @@ class BusinessController extends Controller
                     'business_id' => $business->id,
                     'image_id' => $image->id
                 ]);
-                dd($business_image);
+                
             }
         }
 
