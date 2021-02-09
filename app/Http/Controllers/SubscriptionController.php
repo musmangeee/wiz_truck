@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-require_once('../vendor/autoload.php');
+// require_once('../vendor/autoload.php');
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -340,7 +340,7 @@
                 <div class="card-header no-border">
                     <h3 class="card-title">Menu</h3>
                     <div class="card-tools">
-                        <a href="{{ route('business.index') }}" class="btn btn-tool btn-sm"><i class="fa fa-bars"></i>
+                        {{-- <a href="{{ route('business.index') }}" class="btn btn-tool btn-sm"><i class="fa fa-bars"></i> --}}
                         </a>
                     </div>
                 </div>
@@ -356,10 +356,12 @@
                                 @foreach ($menus as $menu)
                                 <tr>                                
                                     <td>{{$menu->name}}</td>
-                                    <td> <a href="{{route('menu.edit', $menu->id)}}"
+                                    
+                                    <td> <a href="{{route('menuAdmin.edit', $menu->id)}}"
                                         class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
-                                     <form action="{{ route('menu.destroy', $menu->id)}}" method="post"
+                                     <form action="{{ route('menuAdmin.destroy', $menu->id)}}" method="post"
                                            class="d-inline-block">
+                                           
                                          @csrf
                                          @method('DELETE')
                                          <button class="btn btn-danger btn-sm lift" type="submit"><i class="fe fe-trash"></i>
@@ -377,7 +379,7 @@
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
 
         <div class="col-lg-12">
             <div class="card">
@@ -398,7 +400,8 @@
                         </thead>
                         <tbody>
                                 @foreach ($menus as $menu)
-                                <tr>                                
+                                <tr>         
+                                    Manu                       
                                     <td>{{$menu->name}}</td>
                                     <td> <a href="{{route('menu.edit', $menu->id)}}"
                                         class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
@@ -419,7 +422,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 </div>

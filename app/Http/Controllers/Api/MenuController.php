@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Menu;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -49,6 +50,8 @@ class MenuController extends Controller
             return response()->json(['error' => 'menu already exists']);
         }
         $data = $request->all();
+        $data['name'] = Str::upper($data['name']);
+       
         $menus = Menu::create($data);
         return response()->json($menus, 201);
     }
@@ -76,9 +79,12 @@ class MenuController extends Controller
         $menu->fill($request->only([
             'name',
         ]));
+
         if ($menu->isClean()) {
             return response()->json(['error' => 'You need to specify any different value to update'], 422);
         }
+
+        $menu['name'] = Str::upper($menu['name']);
         $menu->save();
         return response()->json($menu);
     }
