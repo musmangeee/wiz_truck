@@ -171,11 +171,12 @@ class BookingController extends Controller
         $message = "";
         $status = false;
         $business = Business::where('user_id', $user->id)->first();
-    
+         dd($business);
         if ($business == null) {
+
             $message = "You have no business account associated with your email.";
         } else {
-            $event = Booking::where(['business_id' => $business->id, 'id' => $request->event_id])->with('package','event')->first();
+            $event = Booking::where(['business_id' => $business->id, 'id' => $request->event_id])->first();
         
             if ($event != null) {
                 $event->status = "accepted";
@@ -188,7 +189,9 @@ class BookingController extends Controller
                 //  $notification->sendNotification('Event Accepted', $business->user->device_token);
                  
                 $message = "The Event have been accepted";
+
             } else {
+
                 $message = "You have no Event associated with your business email.";
             }
         }
