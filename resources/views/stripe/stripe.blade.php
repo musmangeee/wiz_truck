@@ -14,7 +14,7 @@
         }
         .display-tr {
             display: table-row;
-        }
+        }   
         .display-td {
             display: table-cell;
             vertical-align: middle;

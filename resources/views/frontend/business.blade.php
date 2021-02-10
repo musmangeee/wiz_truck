@@ -1,5 +1,40 @@
 @extends('layouts.frontend')
 
+@section('style')
+<style>
+    /**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+    .StripeElement {
+        box-sizing: border-box;
+        height: 40px;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: white;
+        box-shadow: 0 1px 3px 0 #e6ebf1;
+        -webkit-transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease;
+    }
+
+    .StripeElement--focus {
+        box-shadow: 0 1px 3px 0 #cfd7df;
+    }
+
+    .StripeElement--invalid {
+        border-color: #fa755a;
+    }
+
+    .StripeElement--webkit-autofill {
+        background-color: #fefde5 !important;
+    }
+</style>
+
+@endsection
+
+
+
 
 @section('content')
     @include('frontend.partials.default_banner')
@@ -14,6 +49,9 @@
      });
 
 </script>
+
+
+
 
 @if(Session::has('success'))
 <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
@@ -33,7 +71,6 @@
         background-size: cover;"></div>
      
        
-    
 
        
         <div class="container mt-5">
@@ -278,8 +315,13 @@
                       </div>
                     <div class="modal-body">
                    
-                        <form class="tab-content py-6" id="wizardSteps" action="{{route('booking.store')}}" method="POST"
-                        enctype="multipart/form-data">
+                       
+
+               
+
+                <form class="tab-content py-6" role="form" id="wizardSteps" action="{{route('booking.store')}}" method="POST"
+                        enctype="multipart/form-data" data-cc-on-file="false" data-stripe-publishable-key="pk_test_51HJOqaFbtkGc4x7hioioAihztNfPkMtbGymnFayhWp9n8EKVY8kGgjMruOhdb65YEtCdzNthxB1lu6QSfiNvzlkD00l3jeG0QN" name="frmStripe" id="frmstripe"
+                       >
                         @csrf
             
                       <div class="tab-pane fade show active" id="wizardStepOne" role="tabpanel"
@@ -539,7 +581,7 @@
           
                                 <!-- Pretitle -->
                                 <h6 class="mb-4 text-uppercase text-muted">
-                                    Step 4 of 9
+                                    Step 4 of 10
                                 </h6>
           
                                 <!-- Title -->
@@ -590,13 +632,13 @@
                             <div class="col-auto">
           
                                 <!-- Button -->
-                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepthree">Back</a>
           
                             </div>
                             <div class="col text-center">
           
                                 <!-- Step -->
-                                <h6 class="text-uppercase text-muted mb-0">Step 4 of 9</h6>
+                                <h6 class="text-uppercase text-muted mb-0">Step 4 of 10</h6>
           
                             </div>
                             <div class="col-auto">
@@ -621,61 +663,20 @@
                     
 
 
+                 
+
+
+
+
+
+
                     <div class="tab-pane fade" id="wizardStepfive" role="tabpanel" aria-labelledby="wizardTabThree">
-                        <!-- Header -->
-                         <div class="row justify-content-center">
-                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
-                                <!-- Pretitle -->
-                                 <h6 class="mb-4 text-uppercase text-muted">
-                                     Step 5 of 9
-                                 </h6>
-                                      <!-- Title -->
-                                 <h1 class="mb-3">
-                                     Eaters
-                                 </h1>
-                             </div>
-                         </div> <!-- / .row -->
-                         <!-- Divider -->
-                         <hr class="mt-5 mb-5">
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                 <label>Eaters</label>
-                                 <input type="number" class="form-control" name="eaters"  required placeholder="Eaters">
-                             </div> 
-                         </div> <!-- / .row -->
-                         <!-- Divider -->
-                         <hr class="my-5">
-                         <!-- Footer -->
-                         <div class="row align-items-center">
-                             <div class="col-auto">
-                                 <!-- Button -->
-                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
-                             </div>
-                             <div class="col text-center">
-                             <!-- Step -->
-                             <h6 class="text-uppercase text-muted mb-0">Step 5 of 9</h6>
-                                 </div>
-                             <div class="col-auto">
-                                 <!-- Button -->
-                                 {{-- !! --}}
-                                     <a class="btn btn-lg btn-primary" data-toggle="wizard"
-                                 href="#wizardStepsix">Continue</a>
-                                     {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
-                             </div>
-                         </div>
-                         {{--  --}}
-                     </div>
- 
-
-
-
-                    <div class="tab-pane fade" id="wizardStepsix" role="tabpanel" aria-labelledby="wizardTabThree">
                        <!-- Header -->
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                <!-- Pretitle -->
                                 <h6 class="mb-4 text-uppercase text-muted">
-                                    Step 6 of 9
+                                    Step 5 of 10
                                 </h6>
                                      <!-- Title -->
                                 <h1 class="mb-3">
@@ -701,7 +702,7 @@
                                    
                                       <div class="mt-5">
                                         
-                                            <input type="radio" name="package_id" value="{{$s_package->id}}"> &nbsp;<label>{{$s_package->name}}</label><br/>
+                                            <input type="radio" class="get_package_id" name="package_id" value="{{$s_package->id}}"> &nbsp;<label>{{$s_package->name}}</label><br/>
                                             
                                         </div>
                                       @endforeach  
@@ -722,7 +723,7 @@
                                       <h5 class="card-title text-center">Packages</h5>
                                       @foreach ($vip_packages as $key => $v_package)
                                       <div class="mt-5">
-                                        <input type="radio" name="package_id" value="{{$v_package->id}}"> &nbsp; <label>{{$v_package->name}}</label><br/>
+                                        <input type="radio" class="get_package_id" name="package_id" value="{{$v_package->id}}"> &nbsp; <label>{{$v_package->name}}</label><br/>
                                       
                                     </div>    
                                     @endforeach   
@@ -738,23 +739,72 @@
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <!-- Button -->
-                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                                <input type="button" id="btn" value="Show Selected Value">
+                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepfour">Back</a>
                             </div>
                             <div class="col text-center">
                             <!-- Step -->
-                            <h6 class="text-uppercase text-muted mb-0">Step 6 of 9</h6>
+                            <h6 class="text-uppercase text-muted mb-0">Step 5 of 10</h6>
                                 </div>
                             <div class="col-auto">
                                 <!-- Button -->
                                 {{-- !! --}}
                                     <a class="btn btn-lg btn-primary" data-toggle="wizard"
-                                href="#wizardStepseven">Continue</a>
+                                href="#wizardStepsix">Continue</a>
                                     {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
                             </div>
                         </div>
                         {{--  --}}
                     </div>
 
+
+
+
+                    <div class="tab-pane fade" id="wizardStepsix" role="tabpanel" aria-labelledby="wizardTabThree">
+                        <!-- Header -->
+                         <div class="row justify-content-center">
+                             <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                <!-- Pretitle -->
+                                 <h6 class="mb-4 text-uppercase text-muted">
+                                     Step 5 of 9
+                                 </h6>
+                                      <!-- Title -->
+                                 <h1 class="mb-3">
+                                     Eaters
+                                 </h1>
+                             </div>
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="mt-5 mb-5">
+                          <div class="col-md-12">
+                             <div class="form-group">
+                                 <label>Eaters</label>
+                                 <input type="number" class="form-control" name="eaters"  required placeholder="Eaters" id="test">
+                             </div> 
+                         </div> <!-- / .row -->
+                         <!-- Divider -->
+                         <hr class="my-5">
+                         <!-- Footer -->
+                         <div class="row align-items-center">
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepfive">Back</a>
+                             </div>
+                             <div class="col text-center">
+                             <!-- Step -->
+                             <h6 class="text-uppercase text-muted mb-0">Step 6 of 10</h6>
+                                 </div>
+                             <div class="col-auto">
+                                 <!-- Button -->
+                                 {{-- !! --}}
+                                     <a class="btn btn-lg btn-primary" id="get_package" data-toggle="wizard"
+                                 href="#wizardStepseven">Continue</a>
+                                     {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
+                             </div>
+                         </div>
+                         {{--  --}}
+                     </div>
+ 
 
 
 
@@ -800,7 +850,7 @@
                          <div class="row align-items-center">
                              <div class="col-auto">
                                  <!-- Button -->
-                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepsix">Back</a>
                              </div>
                              <div class="col text-center">
                              <!-- Step -->
@@ -848,7 +898,7 @@
                          <div class="row align-items-center">
                              <div class="col-auto">
                                  <!-- Button -->
-                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepseven">Back</a>
                              </div>
                              <div class="col text-center">
                              <!-- Step -->
@@ -864,6 +914,10 @@
                          </div>
                          {{--  --}}
                      </div>
+
+
+
+
  
                      <div class="tab-pane fade" id="wizardStepnine" role="tabpanel" aria-labelledby="wizardTabThree">
                         <!-- Header -->
@@ -893,28 +947,109 @@
                          <div class="row align-items-center">
                              <div class="col-auto">
                                  <!-- Button -->
-                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepTwo">Back</a>
+                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepeight">Back</a>
                              </div>
                              <div class="col text-center">
                              <!-- Step -->
-                             <h6 class="text-uppercase text-muted mb-0">Step 9 of 9</h6>
+                             <h6 class="text-uppercase text-muted mb-0">Step 9 of 10</h6>
                                  </div>
                              <div class="col-auto">
                                  <!-- Button -->
                                  {{-- !! --}}
+                                 <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                 href="#wizardStepten">Continue</a>
                                     
-                                     <button class="btn btn-lg btn-primary" type="submit">Create</button>
                              </div>
                          </div>
                          {{--  --}}
                      </div>
  
+  {{-- six  --}}
+
+
+                    <div class="tab-pane fade" id="wizardStepten" role="tabpanel" aria-labelledby="wizardTabThree">
+                        <!-- Header -->
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                <!-- Pretitle -->
+                                <h6 class="mb-4 text-uppercase text-muted">
+                                    Step 10 of 10
+                                </h6>
+                                    <!-- Title -->
+                                <h1 class="mb-3">
+                                    Payment Details
+                                </h1>
+                            </div>
+                        </div> <!-- / .row -->
+                        <!-- Divider -->
+                        <hr class="mt-5 mb-5">
+                        <div class="col-md-12">
+                            {{-- payment --}}
+                            <div class="row">
+                                <div class="col-lg-12 form-group">
+                                    <label>Name on Card</label>
+                                    <input class="form-control" size="4" type="text">
+                                </div>
+                            
+                            
+                                <div class="col-lg-12 form-group">
+                                    <label>Card Number</label>
+                                    <input autocomplete="off" class="form-control" size="20" type="text" name="card_no">
+                                </div>
+                            
+                            
+                                <div class="col-lg-4 form-group">
+                                    <label>CVC</label>
+                                    <input autocomplete="off" class="form-control" placeholder="ex. 311" size="3" type="text" name="cvv">
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label>Expiration Month</label>
+                                    <input class="form-control" placeholder="MM" size="2" type="text" name="expiry_month">
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label>Expiration Year </label>
+                                    <input class="form-control" placeholder="YYYY" size="4" type="text" name="expiry_year">
+                                </div>
+                            </div>
+                            
+                     
+    
+                          
+                       
+                            {{-- endpayment --}}
+
+                        </div> <!-- / .row -->
+                        <!-- Divider -->
+                        <hr class="my-5">
+                        <!-- Footer -->
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <!-- Button -->
+                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepeight">Back</a>
+                            </div>
+                            <div class="col text-center">
+                            <!-- Step -->
+                            <h6 class="text-uppercase text-muted mb-0">Step 9 of 10</h6>
+                                </div>
+                            <div class="col-auto">
+                                <!-- Button -->
+                                {{-- !! --}}
+                                {{-- <a class="btn btn-lg btn-primary" data-toggle="wizard"
+                                href="#wizardStepten">Continue</a> --}}
+
+                                <button class="btn btn-lg btn-primary" id="complete-order" type="submit">Create</button>
+                                    
+                            </div>
+                        </div>
+                        {{--  --}}
+                    </div>
+
 
 
 
 
                   </form>
-            
+                  
                         
                     </div>
                    
@@ -1027,4 +1162,103 @@
 
 
 @endsection
+@section('script')
 <!-- Libs JS -->
+
+{{-- <script>
+    cardElement.mount('#card-element');
+</script> --}}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+// $("#get_package").click(function(){
+//     var package = $('.get_package_id').val();
+//     console.log(package);
+
+// });
+        // Create a Stripe client
+            var stripe = Stripe('');
+            
+                // Create an instance of Elements
+                var elements = stripe.elements();
+            
+                // Custom styling can be passed to options when creating an Element.
+                // (Note that this demo uses a wider set of styles than the guide below.)
+                var style = {
+                    base: {
+                        color: '#32325d',
+                        lineHeight: '18px',
+                        fontFamily: '"Roboto", Helvetica Neue", Helvetica, sans-serif',
+                        fontSmoothing: 'antialiased',
+                        fontSize: '16px',
+                        '::placeholder': {
+                            color: '#aab7c4'
+                        }
+                    },
+                    invalid: {
+                        color: '#fa755a',
+                        iconColor: '#fa755a'
+                    }
+                };
+            
+                // Create an instance of the card Element
+                var card = elements.create('card', {
+                    style: style
+                });
+            
+                // Add an instance of the card Element into the `card-element` <div>
+                card.mount('#card-element');
+            
+                // Handle real-time validation errors from the card Element.
+                card.addEventListener('change', function(event) {
+                    var displayError = document.getElementById('card-errors');
+                    if (event.error) {
+                        displayError.textContent = event.error.message;
+                    } else {
+                        displayError.textContent = '';
+                    }
+                });
+            
+                // Handle form submission
+                var form = document.getElementById('wizardSteps');
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+            
+                    // Disable the submit button to prevent repeated clicks
+                    // document.getElementById('save_add').disabled = true;
+            
+                    var options = {
+                        name: document.getElementById('name_on_card').value,
+            
+                    }
+            
+                    stripe.createToken(card, options).then(function(result) {
+                        if (result.error) {
+                            // Inform the user if there was an error
+                            var errorElement = document.getElementById('card-errors');
+                            errorElement.textContent = result.error.message;
+            
+                            // Enable the submit button
+                            document.getElementById('complete-order').disabled = false;
+                        } else {
+                            // Send the token to your server
+                            stripeTokenHandler(result.token);
+                        }
+                    });
+                });
+            
+                function stripeTokenHandler(token) {
+                    // Insert the token ID into the form so it gets submitted to the server
+                    var form = document.getElementById('wizardSteps');
+                    var hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', 'stripeToken');
+                    hiddenInput.setAttribute('value', token.id);
+                    form.appendChild(hiddenInput);
+            
+                    // Submit the form
+                    form.submit();
+                }
+            </script>
+
+
+@endsection

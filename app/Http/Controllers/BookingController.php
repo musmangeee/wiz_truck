@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Session;
+use Stripe;
+   
 use App\Booking;
 use App\Package;
 use Illuminate\Http\Request;
@@ -20,6 +22,12 @@ class BookingController extends Controller
         $bookings = Booking::paginate(10);
       
         return view ('admin.Events.index' , compact('bookings'));
+    }
+    public function indext()
+    {
+       
+      
+        return view ('frontend.payment');
     }
 
     /**
@@ -40,8 +48,51 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-       
-      
+        $this->validate($request, [
+            'card_no' => 'required',
+            'expiry_month' => 'required',
+            'expiry_year' => 'required',
+            'cvv' => 'required',
+
+            'package_id' => 'required', 
+            'business_id' =>'required',
+         
+            'payer' => 'required',
+            'address' => 'required',
+            'zip_code' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'occasion' => 'required',
+            'eaters' => 'required',
+            'menu_id'=> 'required',
+            'phone_number' => 'required',
+            'final_detail' => 'required',
+        ]);
+
+        $stripe = Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        try {
+            $response = \Stripe\Token::create(array(
+                "card" => array(
+                    "number"    => $request->input('card_no'),
+                    "exp_month" => $request->input('expiry_month'),
+                    "exp_year"  => $request->input('expiry_year'),
+                    "cvc"       => $request->input('cvv')
+                )));
+            if (!isset($response['id'])) {
+                return redirect()->route('addmoney.paymentstripe');
+            }
+            $charge = \Stripe\Charge::create([
+                'card' => $response['id'],
+                'currency' => 'USD',
+                'amount' =>  100 * 100,
+                'description' => 'Event Booked',
+            ]);
+
+            if($charge['status'] == 'succeeded') {
+                
+
         $user_id = Auth::user()->id;
         if (Booking::where(['user_id' => $user_id, 'business_id' => $request ->business_id])->exists()) {
             
@@ -54,32 +105,11 @@ class BookingController extends Controller
         
        $pack = Package::where('id',$request->package_id)->first();
        $event_id = $pack->event_id;
-       $validator = Validator::make($request->all(), [
-        'package_id' => 'required', 
-        'business_id' =>'required',
-     
-        'payer' => 'required',
-        'address' => 'required',
-        'zip_code' => 'required',
-        'start_date' => 'required',
-        'end_date' => 'required',
-        'start_time' => 'required',
-        'end_time' => 'required',
-        'occasion' => 'required',
-        'eaters' => 'required',
-        'menu_id'=> 'required',
-        'phone_number' => 'required',
-        'final_detail' => 'required',
-        
-    ]);
-
-    if ($validator->fails()) {
+        if ($validator->fails()) {
         return response()->json(['error' => $validator->errors()], 401);
-    }
+      }
      
-
-
-        $booking = Booking::create([
+             $booking = Booking::create([
             'user_id' => $user_id,
             'package_id' => $request->package_id,
             'business_id' =>$request ->business_id,
@@ -98,6 +128,18 @@ class BookingController extends Controller
             'final_detail'  => $request ->final_detail,  
         ]);
        return redirect()->back()->with('success','Event book successfully.');
+
+            } 
+        }
+        catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+
+
+
+
+
 
     }
 

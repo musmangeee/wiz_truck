@@ -15,7 +15,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.5",
-        "laravel/cashier": "^12.6",
+        "laravel/cashier": "^12.8",
         "laravel/framework": "^7.0",
         "laravel/passport": "v9",
         "laravel/socialite": "^5.1",
@@ -24,8 +24,7 @@
         "lcobucci/jwt": "3.3.3",
         "orangehill/iseed": "^3.0",
         "sendgrid/sendgrid": "~7",
-        "spatie/laravel-permission": "^3.11",
-        "stripe/stripe-php": "^7.67"
+        "spatie/laravel-permission": "^3.11"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

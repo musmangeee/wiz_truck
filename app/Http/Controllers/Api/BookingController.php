@@ -236,7 +236,7 @@ class BookingController extends Controller
         if ($business == null) {
             $message = "You have no business account associated with your email.";
         } else {
-            $event = Booking::where(['business_id' => $business->id, 'id' => $request->event_id])->first();
+            $event = Booking::where(['business_id' => $business->id, 'id' => $request->booking_id])->first();
         
             if ($event != null) {
                 $event->status = "cancelled";

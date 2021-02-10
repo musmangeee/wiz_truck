@@ -146,3 +146,4 @@ Route::post('business/documents', 'BusinessDocumentController@store')->name('bus
 
 
 Route::post('booking', 'BookingController@store')->name('booking.store');
+Route::get('payment', 'BookingController@indext');

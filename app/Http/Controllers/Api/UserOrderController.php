@@ -36,7 +36,7 @@ class UserOrderController extends Controller
             'status' => true,
             'message' => "User's earning.", 
             'UserTotalEarning' =>  $user_orders_sum ,
-            'Userorders' => $user_orders
+            'User_orders' => $user_orders
            
         ];
         return response()->json($res, 200);

@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
 <title>WizTruck</title>
+
 @include('frontend.partials.head')
 
 <body>
