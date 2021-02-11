@@ -31,7 +31,186 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKCWfdUQDXxWBbfUp0JZ5p0LYbZWPXJ44&libraries=places" >
 </script>
 
+
+
+    
 <script>
+$(document).ready(function() {    
+    
+
+    
+    
+
+
+    $('#get_package').hide();
+    $('#eater_id').keyup(function(){
+        var package = $('input[name="package_id"]:checked').val();
+        var eaters = $('#eater_id').val();
+        var payer = $('input[name="payer"]:checked').val();
+        var booking_fee = 0;
+        if(package == 1)
+        {
+           
+                
+            if(eaters >= 20 && eaters <= 49){
+                $('#get_package').show();
+                if(payer == 'host'){
+                    booking_fee = 39.99 + (10 * eaters);
+                    console.log(booking_fee);
+                }else{
+                    booking_fee = 39.99;
+                   console.log(booking_fee); 
+                }
+
+                }else{
+                $('#get_package').hide();
+            }
+           
+        }
+        if(package == 2)
+        {
+           
+            if(eaters >= 50 && eaters <= 99){
+                $('#get_package').show();
+                
+                if(payer == 'host'){
+                    booking_fee = 59.99 + (10 * eaters);
+                    console.log(booking_fee);
+                }else{
+                    booking_fee = 59.99;
+                   console.log(booking_fee); 
+                }
+            }else{
+                $('#get_package').hide();
+            }
+        
+        }
+        if(package == 3)
+        {
+            
+            if(eaters >= 100){
+                $('#get_package').show();
+               
+                if(payer == 'host'){
+                    booking_fee = 79.99 + (10 * eaters);
+                    console.log(booking_fee);
+                }else{
+                    booking_fee = 79.99;
+                   console.log(booking_fee); 
+                }
+            }else{
+                $('#get_package').hide();
+            }
+        
+        }
+        if(package == 4)
+        {
+           
+            if(eaters >= 20 && eaters <= 49){
+                $('#get_package').show();
+              
+                if(payer == 'host'){
+                    booking_fee = 99.99 + (20 * eaters);
+                    console.log(booking_fee);
+                }else{
+                    booking_fee = 99.99;
+                   console.log(booking_fee); 
+                }
+            }else{
+                $('#get_package').hide();
+            }
+        
+        }
+        if(package == 5)
+        {
+            
+            if(eaters >= 50 && eaters <= 99){
+                $('#get_package').show();
+               
+                if(payer == 'host'){
+                    booking_fee = 149.99 + (20 * eaters);
+                    console.log(booking_fee);
+                }else{
+                    booking_fee = 149.99;
+                   console.log(booking_fee); 
+                }
+            }else{
+                $('#get_package').hide();
+            }
+        
+        }
+        if(package == 6)
+        {
+          
+            if(eaters >= 100){
+                $('#get_package').show();
+              
+                if(payer == 'host'){
+                    booking_fee = 199.99 + (20 * eaters);
+                    console.log(booking_fee);
+                }else{
+                    booking_fee = 199.99;
+                   console.log(booking_fee); 
+                }
+            }else{
+                $('#get_package').hide();
+            }
+        
+        }
+
+        $('#booking_fee').val(booking_fee)
+    //    var temp = $('#booking_fee').val();
+      
+      document.getElementById("booking_fee").value=booking_fee;
+      
+    })
+});
+
+// $('#get_package').on('click', function(e){
+// var package = $('input[name="package_id"]:checked').val();
+
+// var eaters = $('#eater_id').val();
+
+// if(package == 1)
+// {
+//     $(this).tab()
+//     $
+//     if(eaters >= 20 && eaters <= 49){
+//         console.log(e.target);
+//         $(e.target).hide()
+//         console.log('Valid')
+
+//     }else
+//     {
+//         $('#wizardStepseven').removeClass('active').removeClass('show')
+//         $('#wizardStepsix').tab('show')
+//     }
+   
+// }
+// // else if(package == 2 && eaters < 50 && eaters >99)
+// // {
+// //    console.log("You much select between 50 to 99");
+// // }
+// // else if(package == 3 && eaters  >=  100)
+// // {
+// //    console.log("Your Select more than 100");
+// // }
+// // if(package == 4 && eaters < 20 && eaters > 49)
+// // {
+// //    console.log("You much select between 20 to 49");
+// // }
+// // else if(package == 5 && eaters < 50 && eaters >99)
+// // {
+// //    console.log("You much select between 50 to 99");
+// // }
+// // else if(package == 6 && eaters >= 100)
+// // {
+// //    console.log("Your Select more than 100");
+// // }
+
+
+// });
+
      (function () {
     var locatorSection = document.getElementById("locator-input-section")
     var input = document.getElementById("autocomplete");

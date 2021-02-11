@@ -185,25 +185,25 @@
         <div class="modal-body">
             <form>
                 <div class="form-check mt-4">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                <input class="" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                 <label class="form-check-label" for="exampleRadios1">
                   pepsi
                 </label>
                 </div>
               <div class="form-check mt-4">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <input class="" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                 <label class="form-check-label" for="exampleRadios2">
                   7upMirinda
                 </label>
               </div>
               <div class="form-check mt-4">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <input class="" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                 <label class="form-check-label" for="exampleRadios2">
                   Mirinda
                 </label>
               </div>
               <div class="form-check mt-4">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <input class="" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                 <label class="form-check-label" for="exampleRadios2">
                   Dew
                 </label>
@@ -319,7 +319,7 @@
 
                
 
-                <form class="tab-content py-6" role="form" id="wizardSteps" action="{{route('booking.store')}}" method="POST"
+                <form class="tab-content" role="form" id="wizardSteps" action="{{route('booking.store')}}" method="POST"
                         enctype="multipart/form-data" data-cc-on-file="false" data-stripe-publishable-key="pk_test_51HJOqaFbtkGc4x7hioioAihztNfPkMtbGymnFayhWp9n8EKVY8kGgjMruOhdb65YEtCdzNthxB1lu6QSfiNvzlkD00l3jeG0QN" name="frmStripe" id="frmstripe"
                        >
                         @csrf
@@ -510,34 +510,32 @@
             
             
                           <!-- Divider -->
-                          <hr class="mt-5 mb-5">
-            
-                          <div class="col-md-12">
+                          
+                       <div class="form-row">
               
-                         <div class="form-group">
+                         <div class="form-group col-12 col-md-6 mb-3">
                              <label>Start Date</label>
                             <input type="date" class="form-control" name="start_date"  required placeholder="Start Date">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-12 col-md-6 mb-3">
                             <label>End Date</label>
                            <input type="date" class="form-control" name="end_date"  required placeholder="End Date">
                        </div>
-                         <div class="form-group">
+                         <div class="form-group col-12 col-md-6 mb-3">
                             <label>Start time</label>
                             <input type="time" class="form-control" name="start_time"  required placeholder="Start Time">
                         </div>
             
-                         <div class="form-group">
+                         <div class="form-group col-12 col-md-6 mb-3">
                             <label>End time</label>
                             <input type="time" class="form-control" name="end_time"  required placeholder="End Time">
                         </div>
             
                     
-            
+                       </div>
                           
                            
             
-                          </div> <!-- / .row -->
             
                           <!-- Divider -->
                           <hr class="my-5">
@@ -632,7 +630,7 @@
                             <div class="col-auto">
           
                                 <!-- Button -->
-                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepthree">Back</a>
+                                <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepThree">Back</a>
           
                             </div>
                             <div class="col text-center">
@@ -685,18 +683,23 @@
                             </div>
                         </div> <!-- / .row -->
                         <!-- Divider -->
-                        <hr class="mt-5 mb-5">
+                      
                          <div class="col-md-12">
                             <div class="form-group">
                                <div class="row">
                                 <div class="card" style="margin-right:40px; margin-left:30px;">
                                     <div class="card-header"style="
                                     width: 14rem">
-                                      <h3 class="text-center">Standard</h3>
+                                      <h3 class="text-center" style="
+                                      margin-left: 23px;
+                                      margin-top: 13px;
+                                  ">
+                                     Standard</h3>
                                       <h5></h5>
                                     </div>
                                                             
                                     <div class="card-body">
+                                        <input type="hidden" name="booking_fee" value="" id="booking_fee">
                                       <h5 class="card-title text-center">Packages</h5>
                                       @foreach ($standard_packages as $key => $s_package)
                                    
@@ -708,7 +711,7 @@
                                       @endforeach  
                                     </div>
                                     <div>  
-                            </div>                       
+                                   </div>                       
                                 
                                 </div> 
                                  {{-- card2 --}}
@@ -716,15 +719,13 @@
                                     <div class="card-header" style="
                                     width: 16rem">
                                       <h3 class="text-center">VIP</h3>
-
                                     </div>
-                                                            
-                                    <div class="card-body">
+                                     <div class="card-body">
                                       <h5 class="card-title text-center">Packages</h5>
                                       @foreach ($vip_packages as $key => $v_package)
                                       <div class="mt-5">
                                         <input type="radio" class="get_package_id" name="package_id" value="{{$v_package->id}}"> &nbsp; <label>{{$v_package->name}}</label><br/>
-                                      
+                                            
                                     </div>    
                                     @endforeach   
                                     </div>
@@ -734,12 +735,12 @@
                         </div>
                          <!-- / .row -->
                         <!-- Divider -->
-                        <hr class="my-5">
+                      
                         <!-- Footer -->
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <!-- Button -->
-                                <input type="button" id="btn" value="Show Selected Value">
+                        
                                 <a class="btn btn-lg btn-white" data-toggle="wizard" href="#wizardStepfour">Back</a>
                             </div>
                             <div class="col text-center">
@@ -775,11 +776,11 @@
                              </div>
                          </div> <!-- / .row -->
                          <!-- Divider -->
-                         <hr class="mt-5 mb-5">
+                     
                           <div class="col-md-12">
                              <div class="form-group">
                                  <label>Eaters</label>
-                                 <input type="number" class="form-control" name="eaters"  required placeholder="Eaters" id="test">
+                                 <input type="number" class="form-control" name="eaters"  required placeholder="Eaters" id="eater_id">
                              </div> 
                          </div> <!-- / .row -->
                          <!-- Divider -->
@@ -797,6 +798,7 @@
                              <div class="col-auto">
                                  <!-- Button -->
                                  {{-- !! --}}
+                                 
                                      <a class="btn btn-lg btn-primary" id="get_package" data-toggle="wizard"
                                  href="#wizardStepseven">Continue</a>
                                      {{-- <button class="btn btn-lg btn-primary" type="submit">Create</button> --}}
@@ -833,7 +835,7 @@
                                 @foreach ($menus as $key => $menu)
                                 <div class="form-check">
                                    
-                                    <input class="form-check-input" name="menu_id[]" type="checkbox" value="{{$menu->name}}" id="flexCheckDefault">
+                                    <input class="" name="menu_id[]" type="checkbox" value="{{$menu->name}}" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                        {{$menu->name}}
                                     </label>
@@ -1159,106 +1161,6 @@
 
         </div>
     </section>
-
-
-@endsection
-@section('script')
-<!-- Libs JS -->
-
-{{-- <script>
-    cardElement.mount('#card-element');
-</script> --}}
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-// $("#get_package").click(function(){
-//     var package = $('.get_package_id').val();
-//     console.log(package);
-
-// });
-        // Create a Stripe client
-            var stripe = Stripe('');
-            
-                // Create an instance of Elements
-                var elements = stripe.elements();
-            
-                // Custom styling can be passed to options when creating an Element.
-                // (Note that this demo uses a wider set of styles than the guide below.)
-                var style = {
-                    base: {
-                        color: '#32325d',
-                        lineHeight: '18px',
-                        fontFamily: '"Roboto", Helvetica Neue", Helvetica, sans-serif',
-                        fontSmoothing: 'antialiased',
-                        fontSize: '16px',
-                        '::placeholder': {
-                            color: '#aab7c4'
-                        }
-                    },
-                    invalid: {
-                        color: '#fa755a',
-                        iconColor: '#fa755a'
-                    }
-                };
-            
-                // Create an instance of the card Element
-                var card = elements.create('card', {
-                    style: style
-                });
-            
-                // Add an instance of the card Element into the `card-element` <div>
-                card.mount('#card-element');
-            
-                // Handle real-time validation errors from the card Element.
-                card.addEventListener('change', function(event) {
-                    var displayError = document.getElementById('card-errors');
-                    if (event.error) {
-                        displayError.textContent = event.error.message;
-                    } else {
-                        displayError.textContent = '';
-                    }
-                });
-            
-                // Handle form submission
-                var form = document.getElementById('wizardSteps');
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-            
-                    // Disable the submit button to prevent repeated clicks
-                    // document.getElementById('save_add').disabled = true;
-            
-                    var options = {
-                        name: document.getElementById('name_on_card').value,
-            
-                    }
-            
-                    stripe.createToken(card, options).then(function(result) {
-                        if (result.error) {
-                            // Inform the user if there was an error
-                            var errorElement = document.getElementById('card-errors');
-                            errorElement.textContent = result.error.message;
-            
-                            // Enable the submit button
-                            document.getElementById('complete-order').disabled = false;
-                        } else {
-                            // Send the token to your server
-                            stripeTokenHandler(result.token);
-                        }
-                    });
-                });
-            
-                function stripeTokenHandler(token) {
-                    // Insert the token ID into the form so it gets submitted to the server
-                    var form = document.getElementById('wizardSteps');
-                    var hiddenInput = document.createElement('input');
-                    hiddenInput.setAttribute('type', 'hidden');
-                    hiddenInput.setAttribute('name', 'stripeToken');
-                    hiddenInput.setAttribute('value', token.id);
-                    form.appendChild(hiddenInput);
-            
-                    // Submit the form
-                    form.submit();
-                }
-            </script>
 
 
 @endsection

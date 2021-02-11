@@ -48,15 +48,15 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+     
+        
         $this->validate($request, [
             'card_no' => 'required',
             'expiry_month' => 'required',
             'expiry_year' => 'required',
             'cvv' => 'required',
-
             'package_id' => 'required', 
             'business_id' =>'required',
-         
             'payer' => 'required',
             'address' => 'required',
             'zip_code' => 'required',
@@ -86,7 +86,7 @@ class BookingController extends Controller
             $charge = \Stripe\Charge::create([
                 'card' => $response['id'],
                 'currency' => 'USD',
-                'amount' =>  100 * 100,
+                'amount' =>  $request->booking_fee * 100,
                 'description' => 'Event Booked',
             ]);
 
