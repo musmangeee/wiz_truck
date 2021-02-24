@@ -120,7 +120,7 @@ class ProductOrderController extends Controller
         ]);
     }
 
-    public function accept_order(Request $request, $radius = 2000)
+    public function accept_order(Request $request, $radius = 14000)
     {
 
         $user = $request->user();
@@ -154,8 +154,8 @@ class ProductOrderController extends Controller
                 $longitude =  $business->longitude;
 
                 // ! Get nearby Riders & there distance
-                $loc = Location::selectRaw('user_id,longitude,latitude, ( 6367 * acos( cos( radians( ? ) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians( ? ) ) + sin( radians( ? ) ) * sin( radians( latitude ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
-                ->having('distance', '<=', 10)
+              $loc = Location::selectRaw('user_id,longitude,latitude, ( 6367 * acos( cos( radians( ? ) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians( ? ) ) + sin( radians( ? ) ) * sin( radians( latitude ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
+                ->having('distance', '<', $radius)
                 ->orderBy('distance')
                 ->get();
                 // ! Commission

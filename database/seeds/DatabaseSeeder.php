@@ -1,5 +1,6 @@
 <?php
 
+use App\Order;
 use Illuminate\Database\Seeder;
 
 
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
        // $this->call(RiderSeeder::class);
        $this->call(EventSeeder::class);
         $this->call(PackageSeeder::class);
+      //  $this->call(OrderSeeder::class);
 
        
 
@@ -45,7 +47,7 @@ class DatabaseSeeder extends Seeder
         //          
         //        });
 
-        // factory(Order::class, 2000)->create();
+      //  factory(Order::class, 2000)->create();
 
         //  factory(App\Review::class, 2000)->create();
           

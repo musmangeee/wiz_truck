@@ -97,7 +97,7 @@
                                      data-rate-value="@if(sizeof($business->reviews) > 1){{ floor((($business->reviews->sum('stars')/sizeof($business->reviews))*2)/2 ) }} @else 0 @endif"></div>
                             </a>
                         </div>
-                        <div class="col text-secondary total-reviews">
+                        <div class="col text-secondary total-reviews" style="margin-top: -11px">
                             {{ sizeof($business->reviews) }} Reviews Total
                         </div>
                     </div>
@@ -273,6 +273,10 @@
                                         </div>
                                     </div> <!-- / .row -->
                                 </div>
+
+
+
+                                
 
                                 <!-- Text -->
 
@@ -699,8 +703,9 @@
                                     </div>
                                                             
                                     <div class="card-body">
+                                        
                                         <input type="hidden" name="booking_fee" value="" id="booking_fee">
-                                      <h5 class="card-title text-center">Packages</h5>
+                                      <h5 class="card-title text-center mt-1">Packages</h5>
                                       @foreach ($standard_packages as $key => $s_package)
                                    
                                       <div class="mt-5">
@@ -721,7 +726,8 @@
                                       <h3 class="text-center">VIP</h3>
                                     </div>
                                      <div class="card-body">
-                                      <h5 class="card-title text-center">Packages</h5>
+                           
+                                      <h5 class="card-title text-center mt-1">Packages</h5>
                                       @foreach ($vip_packages as $key => $v_package)
                                       <div class="mt-5">
                                         <input type="radio" class="get_package_id" name="package_id" value="{{$v_package->id}}"> &nbsp; <label>{{$v_package->name}}</label><br/>

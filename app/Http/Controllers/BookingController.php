@@ -48,9 +48,9 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-     
+        $validator = validator::make($request->all(), [
+            
         
-        $this->validate($request, [
             'card_no' => 'required',
             'expiry_month' => 'required',
             'expiry_year' => 'required',
@@ -105,6 +105,7 @@ class BookingController extends Controller
         
        $pack = Package::where('id',$request->package_id)->first();
        $event_id = $pack->event_id;
+
         if ($validator->fails()) {
         return response()->json(['error' => $validator->errors()], 401);
       }

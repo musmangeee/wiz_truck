@@ -130,6 +130,8 @@ Route::prefix('admin')->group(function () {
         //  Route::post('/subscribe', 'SubscriptionController@processSubscription');
         // welcome page only for subscribed users
         Route::get('/welcome', 'SubscriptionController@showWelcome')->middleware('subscribed');
+
+        Route::resource('ridderlogs', 'RidderlogsController');
     });
 });
 //! cart

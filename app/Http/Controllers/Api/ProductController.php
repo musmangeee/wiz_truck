@@ -48,13 +48,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         
-        $rules = [
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'menu_id'=>'required',
+            $rules = [
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'menu_id'=>'required',
 
-        ];
+            ];
 
         $this->validate($request, $rules);
         $data = $request->all();
@@ -74,7 +74,7 @@ class ProductController extends Controller
             
         //     $d_data = base64_decode($d_data);
            
-        //     Storage::disk('local')->put($base64_image, $d_data);
+        //  0   Storage::disk('local')->put($base64_image, $d_data);
             
         // }
         
@@ -124,18 +124,35 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
-    {
-        $product->fill($request->only([
-            'name',
-            'description',
-            'price',
-            'discount',
-        ]));
-        if ($product->isClean()) {
-            return response()->json(['error' => 'You need to specify any different value to update'], 422);
+    public function update(Request $request, $id)
+    { 
+
+
+        $product = Product::findOrFail($id);
+        
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'menu_id'=>'required',
+        ];
+        $data = $request->all();
+        if ($file = $request->image) {
+
+        $this->validate($request, $rules);
+       
+     
+        $path = 'business_product\image_' . time() . '.png';
+        $file_name = 'image_' . time() . '.png';
+
+        Storage::disk('public')->put($path, base64_decode($request->image));
+        $base64_image =$request->image; //your base64 encoded data
+        $data['image'] = $file_name;
+
         }
-        $product->save();
+        
+        $product->update($data);
+         
         return response()->json($product);
     }
 

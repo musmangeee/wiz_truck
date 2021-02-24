@@ -75,6 +75,7 @@ Route::group([
 });
 
 Route::apiResource('products', 'Api\ProductController');
+Route::put('product_update/{id}','Api\ProductController@update');
 Route::apiResource('menus', 'Api\MenuController');
 Route::apiResource('categories', 'Api\CategoryController');
 Route::apiResource('businesses', 'Api\BusinessController');

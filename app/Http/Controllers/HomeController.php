@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Business;
-use App\BusinessCategory;
-use App\Http\Controllers\Helper\HelperController;
-use App\Mail\VerifyEmail;
-use App\Review;
 use App\Order;
+use App\Review;
+use App\Business;
+use App\Ridderlogs;
+use App\BusinessCategory;
+use App\Mail\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Helper\HelperController;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user()->id;
-
+      //  $ridderlogs = Ridderlogs::where('user_id', $user)->first();
         $business = Business::where('user_id', $user)->first();
         $orders = Order::where('business_id', $business->id)->get()->count();
         $completed_order = Order::where('status', 1)->get()->count();

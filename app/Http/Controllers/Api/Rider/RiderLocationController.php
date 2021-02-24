@@ -75,7 +75,7 @@ class RiderLocationController extends Controller
         } else {
             $rider =   new Ridderlogs();
             $commision = Order::find($order_id)->total;
-            // dd($commision);
+          
             $commision = ($commision * 12.5 / 100);
             $rider->commision = $commision;
             $rider->user_id = $user;

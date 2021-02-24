@@ -144,7 +144,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active text-white" href="#">
-                                Get the App You’ll love it!
+                                
                             </a>
                         </li>
                     </ul>
