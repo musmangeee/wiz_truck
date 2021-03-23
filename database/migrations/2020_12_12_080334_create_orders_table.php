@@ -26,6 +26,12 @@ class CreateOrdersTable extends Migration
             $table->float('total');
             $table->string('status')->default("pending");
             $table->string('payment_method');
+            $table->string('rider_earning');
+            $table->string('foodtruck_earning');
+            $table->string('service_charges');
+            $table->string('tip');
+            $table->string('tax_charges');
+            $table->string('payment_id')->nullable();
             $table->integer('payment_status')->default(0);
             $table->timestamps();
         });

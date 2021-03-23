@@ -2,9 +2,10 @@
    
 namespace App\Http\Controllers;
    
-use Illuminate\Http\Request;
-use Session;
 use Stripe;
+use Session;
+use App\Order;
+use Illuminate\Http\Request;
    
 class StripePaymentController extends Controller
 {
@@ -25,7 +26,6 @@ class StripePaymentController extends Controller
      */
     public function stripePost(Request $request)
     {
-        dd($request->all());
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
                 "amount" => 100 * 100,
@@ -38,4 +38,5 @@ class StripePaymentController extends Controller
           
         return back();
     }
+ 
 }

@@ -490,10 +490,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.input-images').imageUploader();
-            var options = {
-        types: ['(regions)']
-    }
+           
         google.maps.event.addDomListener(window, 'load', function() {
         var places = new google.maps.places.Autocomplete(document
             .getElementById('location'),options);

@@ -163,7 +163,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
        
         /*
@@ -234,8 +233,6 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
-
-        
 
     ],
 

@@ -88,7 +88,13 @@ class ProductOrderController extends Controller
             'total' => $request->total,
             'payment_method' => $request->payment_method,
             'payment_status' => $request->payment_status,
-
+            // ! new fields
+            'rider_earning' => $request->rider_earning,
+            'foodtruck_earning' => $request->foodtruck_earning,
+            'service_charges' => $request->service_charges,
+            'tip' => $request->tip,
+            'tax_charges' => $request->tax_charges,
+            'payment_id' => $request->payment_id,
         ]);
 
         foreach ($request->products as $product) {

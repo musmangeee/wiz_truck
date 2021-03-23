@@ -26,10 +26,6 @@ class UserOrderController extends Controller
         $id = auth::guard('api')->user()->id;
         $user_orders = Order::where('user_id',$id)->where('status' , 'deliver')->get();
         $user_orders_sum = Order::where('user_id',$id)->where('status' , 'deliver')->sum('total');
-        // foreach($user_orders as $user)
-        // {
-        //     $user_sum = $user->sum('total');
-        // }
 
          // ! Response     
          $res = [

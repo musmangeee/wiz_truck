@@ -177,16 +177,10 @@ class RiderLocationController extends Controller
     {
         $id = auth::guard('api')->user()->id;
          // ! Rider Total sum
-        $rider_total = Ridderlogs::where('user_id',$id)->where('status' , 'deliver')->sum('commision');
-        $rider = Ridderlogs::where('user_id',$id)->where('status' , 'deliver')->get();
-        
-        // $rider_sum=[];
-        // foreach($rider as $r)
-        // {
-        //     $rider_sum = $rider->sum('commision');
-        // }
+        $rider_total = Ridderlogs::where('user_id',$id)->where('status' , 'null')->sum('commision');
+        $rider = Ridderlogs::where('user_id',$id)->where('status' , 'null')->get();
         // ! Rider Today sum
-        $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'deliver')->whereDate('created_at', Carbon::today())->get();
+        $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'null')->whereDate('created_at', Carbon::today())->get();
         $rider_sum_now = [];
         foreach($rider_now as $r)
         {
