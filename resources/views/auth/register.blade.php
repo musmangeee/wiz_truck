@@ -25,7 +25,7 @@
                 </p>
 
                 <!-- Form -->
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
                      <div class="form-group">
 
@@ -89,22 +89,28 @@
                         </div>
                     </div>
                     <div class="form-group">
-
                         <!-- Label -->
                         <label>
                             Confirm Password
                         </label>
-
                         <!-- Input group -->
                         <div class="input-group input-group-merge">
-
                             <!-- Input -->
                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Enter confirm password">
-
-
                             <!-- Icon -->
-                            
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label>
+                            Upload Image
+                        </label>
+                        <!-- Input group -->
+                        <div class="">
+                            <!-- Input -->
+                           <input type="file" class="form-control" name="image" >
+                            <!-- Icon -->
                         </div>
                     </div>
 
