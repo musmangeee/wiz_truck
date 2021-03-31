@@ -31,6 +31,7 @@
 
     <!-- CARDS -->
     <div class="container-fluid">
+
         @if(Session::has('success'))
             <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
         @endif
@@ -39,6 +40,7 @@
         @endif
 
         <div class="card">
+            
             <div class="card-body">
                 <table class="table table-sm table-nowrap">
                     <thead>
@@ -50,12 +52,14 @@
                         <th scope="col">Verified</th>
                         <th scope="col">Claimed</th>
                         <th scope="col">Created</th>
+                        {{-- <th scope="col">Details</th> --}}
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($business as $b)
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $b->name }}</td>
                             <td>{{ $b->phone }}</td>
                             <td>{{ $b->url }}</td>
@@ -77,7 +81,24 @@
                                 </td>
                                 <td>@if($b->claimed == 0) Not Claimed @else Claimed @endif </td>
                                 <td>{{  \Carbon\Carbon::parse($b->created_at)->diffForhumans()  }}</td>
-                        </tr>
+                                {{-- <td> <a href="{{route('business.edit', $b->id)}}"
+                                    class="btn btn-info btn-sm lift far fa-info-circle"></a></td> --}}
+                                    
+                                    <td>
+                                        <a href="{{route('business.show', $b->id)}}"
+                                            class="btn btn-primary btn-sm lift"><i class="fe fe-eye"></i></a>
+                                        <a href="{{route('business.edit', $b->id)}}"
+                                            class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
+                                            
+                                        <form action="{{ route('business.destroy', $b->id)}}" method="post"
+                                            class="d-inline-block">
+                                          @csrf
+                                          @method('DELETE')
+                                          <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
+                                          </button>
+                                      </form>
+                                    </td>
+                            </tr>
                     @endforeach
                     </tbody>
                 </table>

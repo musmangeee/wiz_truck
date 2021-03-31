@@ -13,7 +13,6 @@ class OrderController extends Controller
 {
     public function business_order(Request $request, $id)
     {
-
         $business = Business::where('id',$id)->paginate(10);
         $order = Order::where('business_id',$id)->with('user')->get();
         return response()->json([
@@ -21,9 +20,6 @@ class OrderController extends Controller
             'message' => 'Successfully!!!!',
             'order' => $order, 
         ]);
-
-        
-        
     }
 
     public function user_order(Request $request, $id)
@@ -36,9 +32,5 @@ class OrderController extends Controller
             'message' => 'Successfully!',
             'order' => $order,
         ]);
-
-        
     }
-
-
 }

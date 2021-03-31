@@ -113,9 +113,8 @@ class BusinessController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
-        $cities = City::all();
-        return view('backend.business.create', compact('cities', 'categories'));
+     
+        return view('backend.business.create');
     }
 
     public function claim_business($slug)

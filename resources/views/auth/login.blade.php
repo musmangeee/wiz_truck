@@ -77,8 +77,12 @@
                         </small>
                     </div>
 
-                    {{--<a href="{{ route('login.provider', 'google') }}"--}}
-                        {{--class="btn btn-white mt-4 w-100 border-light lift"> <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="" class="mr-3">{{ __('Continue with Google') }}</a>--}}
+                    <a href="{{ route('login.provider', 'google') }}"
+                       class="btn btn-white mt-4 w-100 border-light lift"> <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="" class="mr-3">{{ __('Continue with Google') }}</a> 
+
+                     
+               </div>
+           </div>
 
                 </form>
 

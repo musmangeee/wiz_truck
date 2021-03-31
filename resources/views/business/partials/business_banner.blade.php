@@ -48,7 +48,7 @@
                                             <img src=" {{ auth()->user()->avatar }}" alt="avatar-img rounded-circle" width="32" height="32"
                                                  style="margin-right: 8px;; border-radius: 50%">
                                             @else
-                                            <span class="avatar-title rounded-circle">@php echo explode(" ", Auth::user()->name)[0][0] . explode(" ", Auth::user()->name)[1][0];  @endphp</span>
+                                            <span class="avatar-title rounded-circle">@php echo explode(" ", Auth::user()->name)[0][0] ;  @endphp</span>
                                             @endif
                                         </div>
 

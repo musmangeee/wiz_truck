@@ -193,7 +193,7 @@
 
                 {{-- <a href="#" class="btn btn-block btn-primary">
                     Create project
-                </a> --}}
+                </a>  --}}
                 <a href="{{route('business.index')}}" class="btn btn-block btn-link text-muted">
                     Cancel this Business
                 </a>

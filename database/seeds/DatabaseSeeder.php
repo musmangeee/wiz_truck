@@ -1,6 +1,8 @@
 <?php
 
+use App\Order;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,17 +13,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+      
+        
         $this->call(PermissionTableSeeder::class);
         $this->call(RoleTableSeeder::class);
         $this->call(UserTableSeeder::class);
-       
+        $this->call(BusinessImageSeeder::class);
         $this->call(BusinessTableSeeder::class);
         $this->call(BusinessCategorySeeder::class);
         $this->call(CategorySeeder::class);
-       
+        $this->call(ImageSeeder::class);
         $this->call(MenuSeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(OrderSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+       
+        $this->call(ProductOrderSeeder::class);
+        $this->call(NotificationSeeder::class);
+       // $this->call(OrderSeeder::class);
+        $this->call(CoupanTableSeeder::class);
+       // $this->call(RiderSeeder::class);
+       $this->call(EventSeeder::class);
+        $this->call(PackageSeeder::class);
+      //  $this->call(OrderSeeder::class);
+
+       
+
         /*
          * Factories
          */
@@ -29,8 +44,17 @@ class DatabaseSeeder extends Seeder
         // factory(App\User::class, 200)->create();
         // factory(App\Business::class, 2000)->create();
         //        factory(App\Review::class, 10000)->create()->each(function ($business) {
-        //
+        //          
         //        });
+
+      //  factory(Order::class, 2000)->create();
+
+        //  factory(App\Review::class, 2000)->create();
+          
+              
+ 
+
+
 
 
         foreach (\App\Business::all() as $b) {

@@ -20,4 +20,3 @@
  <script src="{{ URL::asset('backend/assets/js/theme.min.js') }}"></script>
  <script src="{{ URL::asset('backend/assets/js/dashkit.min.js') }}"></script>
 
-

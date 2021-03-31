@@ -73,21 +73,59 @@
 
             </div>
         </nav>
-        <div class="row h-100 mb-3">
-            <form action="{{route('search')}}" method="GET" class="col-12">
-                <div class="input-group mb-3 main-search">
-                    <input type="text" class="autocomplete_find form-control" name="find" autocomplete="off" placeholder="tacos, cheap dinner, Max’s">
+        <div class="container h-100 text-centermt-3">
+            <div class="row h-100 justify-content-center align-items-center">
+                <form action="{{route('search')}}" method="GET" class="col-12">
                    
-                    <div class="input-group-prepend">
-                        <button class="btn btn-primary rounded-right" type="submit"><i class="fe fe-search mx-3"></i></button>
+                   
+                    <div class="input-group mb-3 mt-3"  id="locator-input-section">
+                        <input type="text" id="autocomplete" class="autocomplete_locations form-control" name="location" placeholder="Enter Your Address" autocomplete="off">
+                       
+                        <input type="hidden" id="longitude" name="longitude">
+                        <input type="hidden" id="latitude" name="latitude">
+
+                        <div class="input-group-prepend">
+                            <i aria-hidden="true" class="dot circle outline link icon" id="locator-button" style="margin-top:10%"></i>
+                            <button class="btn btn-primary rounded-right" type="submit"><i class="fe fe-search mx-3"></i></button>
+                        </div>
                     </div>
-                </div>
 
+                   
+                   
+                </form>
+            </div>
 
-            </form>
-           
         </div>
 
     </div>
 
 </header>
+
+@section('script')
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        function set_location() {
+            let location = $('#location').val();
+            console.log(location)
+            $.ajax({
+                url: "{{route('search')}}",
+                type: 'GET',
+                // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                data: {
+                    location: location,
+                },
+                success: function(data) {
+
+                }
+            })
+        }
+
+        set_location()
+
+        $('#location').on('change', function() {
+            set_location()
+        });
+    });
+</script>
+@endsection

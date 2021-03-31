@@ -62,16 +62,68 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('notification.index') }}">
+                        <i class="fe fe-bell"></i>Notification
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('ridderlogs.index') }}">
+                        <i class="fe fe-bell"></i>Ridder logs
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('business.index') }}">
-                        <i class="fe fe-briefcase"></i> Business
+                        <i class="fe fe-shopping-cart"></i> Food Truck
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('business.reviews') }}">
+                        <i class="fe fe-shopping-bag"></i> Food Truck Reviews
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('products.index') }}">
+                        <i class="fe fe-briefcase"></i> Foods
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('order.index') }}">
+                        <i class="fe fe-box"></i> Orders
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('coupon.index') }}">
+                        <i class="fe fe-clipboard"></i> Coupon
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('booking_list.index') }}">
+                        <i class="fe fe-clipboard"></i> Event
                     </a>
                 </li>
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('business_category.index') }}">
-                        <i class="fe fe-tag"></i>Categories
+                        <i class="fe fe-align-justify"></i>Categories
                     </a>
                 </li>
+
+                 
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fe fe-calendar"></i>Events
+                    </a>
+                </li> --}}
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('package.index') }}" >
+                        <i class="fe fe-box"></i>Package
+                    </a>
+                </li>
+
+                
                
                 </li>
                 <li class="nav-item">
@@ -90,7 +142,11 @@
                         <i class="fe fe-shield"></i> Permissions
                     </a>
                 </li>
+
+             
             </ul>
+
+            
 
 
 

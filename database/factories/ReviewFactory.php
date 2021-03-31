@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Review::class, function (Faker $faker) {
     return [
-        'user_id' => rand(1,50),
+        'user_id' => rand(1,4),
         'business_id' => \App\Business::all()->random(1)->first()['id'],
         'stars' => rand(1,5),
         'text' => $faker->text,

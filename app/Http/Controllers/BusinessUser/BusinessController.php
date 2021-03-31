@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\BusinessUser;
 
+use App\User;
+use Validate;
+use App\Review;
+use App\Business;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Helper\HelperController;
-use App\Business;
-use App\User;
-use Validate;
 
 class BusinessController extends Controller
 {
@@ -30,9 +31,6 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        
-         
-       
         return view('business.index');
     }
 
@@ -105,7 +103,17 @@ class BusinessController extends Controller
 
     public function reviews()
     {
-
+        $user = Auth::user();
+        $business = $user->business;
+        
+        $review=[];
+        if(!$business==null)
+        {
+            $review = Review::where('business_id',$business->id)->paginate(5);    
+        
+        }
+       
+        return view('business.reviews', compact('review'));
     }
 
     public function setting()

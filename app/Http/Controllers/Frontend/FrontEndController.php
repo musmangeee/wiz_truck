@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Frontend;
 
 
+use App\User;
 use App\Review;
 use App\Business;
 use App\Category;
 use App\Subscription;
-use App\BusinessCategory;
 use App\BusinessImage;
+use App\BusinessCategory;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\HelperController;
-use Illuminate\Http\Request;
 
 
 class FrontEndController extends Controller
@@ -20,20 +21,18 @@ class FrontEndController extends Controller
 
     public function index()
     {
-           
+
         $helper = new HelperController();
-        $restaurants = Business::take(3)->with('images','categories')->get();
-                
-           
+        $restaurants = Business::take(3)->with('images', 'categories', 'reviews')->get();
         $pref_wallpaper = $helper->get_prefer_wallpaper();
         $data = [];
         $data['pref_wallpaper'] = $pref_wallpaper;
-  
-        $data['random_categories'] = Category::where('parent_id', NULL)->get()->random(4);
+
+        $data['random_categories'] = Category::where('parent_id', NULL)->get();
         $data['categories'] = Category::all();
         $data['categories_list'] = Category::where('parent_id', NULL)->get();
 
-        return view('frontend.index', compact('data','restaurants'));
+        return view('frontend.index', compact('data', 'restaurants'));
     }
 
 
@@ -57,15 +56,15 @@ class FrontEndController extends Controller
         $input = $request->all();
 
         $subscription = Subscription::create($input);
-        return redirect()->back()->with('success','Email subscribe successfully');
+        return redirect()->back()->with('success', 'Email subscribe successfully');
     }
 
     public function faq()
     {
 
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
-        
+        $data = [];
+
 
         return view('frontend.faq', compact('data'));
     }
@@ -74,8 +73,8 @@ class FrontEndController extends Controller
     {
 
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
-        
+        $data = [];
+
 
         return view('frontend.privacy_policy', compact('data'));
     }
@@ -84,10 +83,9 @@ class FrontEndController extends Controller
     {
 
         $helper = new HelperController();
-        $data = $helper->main_menu_data();
-        
+        $data = [];
+
 
         return view('frontend.terms_conditions', compact('data'));
     }
-
 }

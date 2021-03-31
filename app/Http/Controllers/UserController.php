@@ -58,6 +58,7 @@ class UserController extends Controller
 
 
         $input = $request->all();
+        
         $input['password'] = Hash::make($input['password']);
 
         try {

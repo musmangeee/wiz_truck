@@ -2,7 +2,10 @@
 
 @section('content')
 
-    <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin" style="
+    margin-top: 1rem;
+    padding: 1rem;
+">
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="role">Dashboard</a></li>
@@ -10,7 +13,7 @@
             </ol>
         </nav>
         <div class="d-flex align-items-center flex-wrap text-nowrap">
-            <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-icon-text">
+            <a href="{{ route('permissions.create') }}" class="btn btn-warning btn-icon-text">
                 <i class="btn-icon-prepend" data-feather="plus"></i>
                 Create New Permission
             </a>
@@ -69,7 +72,7 @@
                                         {{ \Carbon\Carbon::parse($permission->updated_at)->diffForhumans() }}
                                     </td>
                                     <td>
-                                        <form class="d-inline-block" action="{{ route('permissions.destroy',$permission->id) }}" method="POST">
+                                        {{-- <form class="d-inline-block" action="{{ route('permissions.destroy',$permission->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn social-btn btn-danger btn-xs">
@@ -78,7 +81,17 @@
                                         </form>
                                         <a href="{{ route('permissions.edit',$permission->id) }}" class="btn social-btn btn-warning btn-xs">
                                             <i class="mdi mdi-pencil"></i>
-                                        </a>
+                                        </a> --}}
+
+                                        <form action="{{ route('permissions.destroy',$permission->id)}}" method="post"
+                                            class="d-inline-block">
+                                          @csrf
+                                          @method('DELETE')   
+                                          <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
+                                          </button>
+                                      </form>
+                                        <a href="{{route('permissions.edit',$permission->id)}}"
+                                            class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

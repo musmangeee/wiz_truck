@@ -24,7 +24,7 @@
                         <div class="col-auto">
 
                             <!-- Button -->
-                            <a href="{{route('business_category.create')}}" class="btn btn-primary lift">
+                            <a href="{{route('business_category.create')}}" class="btn btn-warning lift">
                                 Create New Category
                             </a>
 
@@ -50,10 +50,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Image</th>
                             <th>Category</th>
                             <th>Image</th>
-                            <th>Created At</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -73,7 +71,7 @@
 
 
                                 </td>
-                                <td>{{$item->created_at}}</td>
+                                
                                 <td>
                                     <a href="{{route('business_category.edit', $item->id)}}"
                                        class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
@@ -88,6 +86,7 @@
                             </tr>
                         @endforeach
                         </tbody>
+                        {{ $businessCategory->links() }}
                     </table>
                 </div>
             </div>

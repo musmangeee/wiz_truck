@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers\AdminUser;
 
+use App\User;
+use App\Image;
+use App\Review;
 use App\Business;
-use App\BusinessCategory;
-use App\BusinessImage;
-use App\Category;
 
-use App\Http\Controllers\Controller;
+use App\Category;
+use App\BusinessImage;
+use App\BusinessCategory;
+use App\BusinessDocument;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Menu;
+use App\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use App\Image;
 
 class BusinessController extends Controller
 {
@@ -36,7 +41,7 @@ class BusinessController extends Controller
     public function create()
     {
         $category = Business::all();
-       
+
         $categories = Category::all();
         return view('admin.business.create', compact('category', 'categories'));
     }
@@ -62,13 +67,12 @@ class BusinessController extends Controller
         unset($data['images']);
         unset($data['categoires']);
         $data['user_id'] = Auth::user()->id;
-        $data['slug'] = strtolower(str_replace(' ', '-', preg_replace("/[^ \w]+/", "", $request->name)) . '-' .City::where('id', $request->city_id)->first()->name);
+        $data['slug'] = strtolower(str_replace(' ', '-', preg_replace("/[^ \w]+/", "", $request->name)) . '-' . City::where('id', $request->city_id)->first()->name);
         $business = Business::create($data);
         $business->save();
 
 
-        foreach($request->categories as $category)
-        {
+        foreach ($request->categories as $category) {
             $bc = new BusinessCategory();
             $bc->business_id = $business->id;
             $bc->category_id = $category;
@@ -88,10 +92,10 @@ class BusinessController extends Controller
                     'business_id' => $business->id,
                     'image_id' => $image->id
                 ]);
-                dd($business_image);
+                
             }
         }
-    
+
 
 
         return redirect()->route('business.index');
@@ -105,7 +109,17 @@ class BusinessController extends Controller
      */
     public function show($id)
     {
-        //
+        $business = Business::find($id);
+        $menus = Menu::where('business_id', $id)->get();
+        $business_documents = BusinessDocument::where('business_id', $id)->get();
+        $total_orders = Order::where('business_id', $id)->sum('total');
+        $order = Order::where('business_id', $id)->count();
+        $pending = Order::where('business_id', $id)->where('status', 'pending')->count();
+        $canceled = Order::where('business_id', $id)->where('status', 'canceled')->count();
+
+
+
+        return view('admin.business.show', compact('business_documents', 'total_orders', 'order', 'pending', 'canceled', 'business', 'menus'));
     }
 
     /**
@@ -118,7 +132,7 @@ class BusinessController extends Controller
     {
         $business = Business::find($id);
         $category = BusinessCategory::all();
-        return view('backend.business.edit', compact('business', 'category'));
+        return view('admin.business.detail', compact('business', 'category'));
     }
 
     /**
@@ -184,5 +198,35 @@ class BusinessController extends Controller
         return redirect()->back();
     }
 
+    public function reviews()
+    {
+        // $review = User::where('id')->with('reviews')->get();
+        $review = Review::paginate(10);
+        // dd($review);
+        return view('admin.business.reviews', compact('review'));
+    }
+    public function editreviews($id)
+    {
+        $review = Review::find($id);
+        $user = User::all();
+        $business = Business::all();
+        return view('admin.business.editreviews', compact('user', 'business', 'review'));
+    }
+    public function updateReviews(Request $request, $id)
+    {
+        $input = $request->all();
+        $Ingredient = Review::findOrFail($id);
+        $Ingredient->update($input);
+        return redirect()->back();
+    }
+    public function dltReviews($id)
+    {
+        $Ingredient = Review::findOrFail($id);
+        $Ingredient->delete();
+        return redirect()->back();
+    }
 
+    public function download(Request $request)
+    {
+    }
 }

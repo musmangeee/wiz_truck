@@ -26,12 +26,6 @@
             enctype="multipart/form-data">
             @csrf
 
-
-         
-
-    
-
-
           <div class="tab-pane fade show active" id="wizardStepOne" role="tabpanel"
                aria-labelledby="wizardTabOne">
 
@@ -190,7 +184,7 @@
                   </label> --}}
 
                   <input type="text" name="phone" class="form-control" placeholder=" Phone Number"
-                         data-mask="(000) 000-0000" required >
+                         data-mask="000-000-0000" required >
               </div>
 
 
@@ -466,6 +460,7 @@
                   <div class="col-auto">
 
                       <!-- Button -->
+                      {{-- !! --}}
                       <button class="btn btn-lg btn-primary" type="submit">Create</button>
 
                   </div>
@@ -495,20 +490,17 @@
 
     <script>
         $(document).ready(function () {
-            $('.input-images').imageUploader();
-            var options = {
-        types: ['(regions)']
-    }
-            google.maps.event.addDomListener(window, 'load', function() {
+           
+        google.maps.event.addDomListener(window, 'load', function() {
         var places = new google.maps.places.Autocomplete(document
             .getElementById('location'),options);
          google.maps.event.addListener(places, 'place_changed', function() {
-        var place = places.getPlace();
+         var place = places.getPlace();
      
         var address = place.formatted_address;
         console.log(place,address);
 
-        var  value = address.split(",");
+        var value = address.split(",");
         count=value.length;
         country=value[count-1];
         state=value[count-2];

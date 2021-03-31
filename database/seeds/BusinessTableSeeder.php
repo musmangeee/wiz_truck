@@ -17,72 +17,26 @@ class BusinessTableSeeder extends Seeder
     {
         \Illuminate\Support\Facades\DB::table('businesses')->truncate();
         $businesses = [
+      
           
             [
-                "name" => "Cakes and Bakes",
-                "user_id" => "1", 
-                "latitude" => 31.57015746226406, 
-                 "longitude" => 74.413482053698,
-                "phone" => "+233201660218",
-                "url" => "null",
-                "address" => "null",
-                "zipcode" => "00001",
-                "phone" => "null",
-                'address' => "null",
-                'business_email' => "null",
-                'city' => 'null',
-                'state' => 'Punjab',
-               
-                
-            ],
-            [
-                "name" => "Fazal Sweets & Bakers",
-                "user_id" => "1", 
-                "latitude" => 31.542122232874252, 
-                "longitude" =>74.31827325979195,
-                "phone" => "+233201660218",
-                "address" => "null",
-                "zipcode" => "00001",
-                "phone" => "null",
-                'address' => "null",
-                'business_email' => "null",
-                'city' => 'null',
-                'state' => 'Punjab',
+                "name" => "Food Truck",
+                "user_id" => "2", 
+                "latitude" => 31.421724,
+                "longitude" =>74.285716,
 
-            ],
-            [
-                "name" => "Chandni Chowk Restaurant",
-                "user_id" => "1", 
-                "latitude" => 31.504879933985713, 
-                 "longitude" =>74.35726815469847,
-                 "phone" => "+233201660218",
-                "address" => "null",
-                "zipcode" => "00001",
-                "phone" => "null",
-                'address' => "null",
-                'business_email' => "null",
-                'city' => 'null',
-                'state' => 'Punjab',
-            ],
-           
-            [
-                "name" => "Turkish Restaurant",
-                "user_id" => "1", 
-                "latitude" => 31.51188454319372,
-                "longitude" =>74.35120940198539,
                 "phone" => "+233201660218",
                 "url" => "null",
                 "address" => "null",
                 "zipcode" => "00001",
                 "phone" => "null",
-                'address' => "null",
+
+                'address' => "Military Accounts Chs, Lahore, Punjab......",
                 'business_email' => "null",
-                'city' => 'null',
-                'state' => 'Punjab',
+  
             ],
-           
-       
-           
+            
+
         ];
 
         foreach ($businesses as $business) {
@@ -95,5 +49,5 @@ class BusinessTableSeeder extends Seeder
             $categories -> category_id = rand(1, sizeof(Category::all()));
             $categories -> save();
         }
-    }
+    }   
 }

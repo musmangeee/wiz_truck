@@ -18,8 +18,21 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('business_id');
             $table->unsignedBigInteger('user_id');
             $table->string('order_date');
+            $table->string('order_type');
+            $table->string('address');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->string('description');
-            $table->string('status');
+            $table->float('total');
+            $table->string('status')->default("pending");
+            $table->string('payment_method');
+            $table->string('rider_earning');
+            $table->string('foodtruck_earning');
+            $table->string('service_charges');
+            $table->string('tip');
+            $table->string('tax_charges');
+            $table->string('payment_id')->nullable();
+            $table->integer('payment_status')->default(0);
             $table->timestamps();
         });
     }

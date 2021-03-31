@@ -21,8 +21,7 @@ class BusinessCategoryController extends Controller
      */
     public function index()
     {
-        $businessCategory = Category::all();
-
+        $businessCategory = Category::PAGINATE(10);
         return view('admin.category.index', compact('businessCategory'));
     }
 
@@ -44,7 +43,6 @@ class BusinessCategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         $businessCategory = new Category();
 
         $validator = validator::make($request->all(), [

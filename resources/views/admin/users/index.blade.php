@@ -42,6 +42,9 @@
                                     Name
                                 </th>
                                 <th>
+                                    Device Token
+                                </th>
+                                <th>
                                     Email
                                 </th>
                                 <th>
@@ -63,6 +66,7 @@
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->device_token }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @if(!empty($user->getRoleNames()))
@@ -79,13 +83,14 @@
                                               method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn social-btn btn-danger btn-xs">
-                                                <i class="mdi mdi-delete-empty"></i>
+                                            <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
                                             </button>
                                         </form>
-                                        <a href="{{ route('users.edit',$user->id) }}" class="btn social-btn btn-warning btn-xs">
-                                            <i class="mdi mdi-pencil"></i>
-                                        </a>
+                                      
+                                        <a href="{{ route('users.edit',$user->id) }}"
+                                            class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
+
+                                         
 
                                     </td>
                                 </tr>

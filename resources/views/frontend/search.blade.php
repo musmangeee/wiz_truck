@@ -6,14 +6,7 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-md-7">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('search') . '?location=' .$data['pref_location'] }}">{{ $data['pref_location'] }}</a></li>
-                        @if($data['keywords'] != '')
-                        <li class="breadcrumb-item active" aria-current="page">{{ $data['keywords'] }}</li>
-                        @endif
-                    </ol>
-                </nav>
+            
                 @foreach ($data['search_results'] as $result)
                 <div class="card lift">
                     <div class="card-body">
@@ -50,7 +43,7 @@
                                 </p>
                                 <!-- Text -->
                                 <p class="small text-muted mb-1">
-                                    <span class="text-primary">Address: </span> {{$result->address}} Near {{$result->landmark}}, {{$result->town->name}}, {{$result->city->name}}
+                                    <span class="text-primary">Address: </span> {{$result->address}}
                                 </p>
                             </div>
 
@@ -61,7 +54,7 @@
                     
                 </div>
                 @endforeach
-                {{ $data['search_results']->appends(Request::all())->render() }}
+                {{-- {{ $data['search_results']->appends(Request::all())->render() }} --}}
             </div>
             
             <div class="col-md-5 p-0 ">

@@ -10,7 +10,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('frontend/img/logos/logo-2.png') }}" alt="">
                 </a>
-                <ul class="navbar-nav mr-auto ml-5">
+                <ul class="navbar-nav mr-auto ml-6">
                     @guest
                     <div class="row d-lg-none">
                         <a href="{{route('login')}}" class="nav-link">Login</a>
@@ -23,13 +23,13 @@
 
                         <a class="nav-link dropdown-toggle  text-white" href="#" id="navbarDropdownMenuLink5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                            <div class="avatar avatar-sm  mr-2">
+                            {{-- <div class="avatar avatar-sm  mr-2">
                                 @if(auth()->user()->avatar)
                                 <img src=" {{ auth()->user()->avatar }}" alt="avatar-img rounded-circle" width="32" height="32" style="margin-right: 8px;; border-radius: 50%">
                                 @else
                                 <span class="avatar-title rounded-circle">@php echo explode(" ", Auth::user()->name)[0][0] . explode(" ", Auth::user()->name)[1][0]; @endphp</span>
                                 @endif
-                            </div>
+                            </div> --}}
 
 
                             {{ explode(' ', auth()->user()->name, 2)[0] }} <span class="caret"></span>
@@ -79,13 +79,13 @@
 
                             <a class="nav-link dropdown-toggle  text-white" href="#" id="navbarDropdownMenuLink5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                <div class="avatar avatar-sm  mr-2">
+                                {{-- <div class="avatar avatar-sm  mr-2">
                                     @if(auth()->user()->avatar)
                                     <img src=" {{ auth()->user()->avatar }}" alt="avatar-img rounded-circle" width="32" height="32" style="margin-right: 8px;; border-radius: 50%">
                                     @else
                                     <span class="avatar-title rounded-circle">@php echo explode(" ", Auth::user()->name)[0][0] . explode(" ", Auth::user()->name)[1][0]; @endphp</span>
                                     @endif
-                                </div>
+                                </div> --}}
 
 
                                 {{ explode(' ', auth()->user()->name, 2)[0] }} <span class="caret"></span>
@@ -117,11 +117,16 @@
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <form action="{{route('search')}}" method="GET" class="col-12">
-                    <div class="input-group mb-3 mt-5">
-                        
-                        <input type="text" id="location" class="autocomplete_locations form-control" name="location" placeholder="Enter Your Address" autocomplete="off" >
-                        
+                   
+                   
+                    <div class="input-group mb-3 mt-5"  id="locator-input-section">
+                        <input type="text" id="autocomplete" class="autocomplete_locations form-control" name="location" placeholder="Enter Your Address" autocomplete="off">
+                       
+                        <input type="hidden" id="longitude" name="longitude">
+                        <input type="hidden" id="latitude" name="latitude">
+
                         <div class="input-group-prepend">
+                            <i aria-hidden="true" class="dot circle outline link icon" id="locator-button" style="margin-top:10%"></i>
                             <button class="btn btn-primary rounded-right" type="submit"><i class="fe fe-search mx-3"></i></button>
                         </div>
                     </div>
@@ -139,7 +144,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active text-white" href="#">
-                                Get the App You’ll love it!
+                                
                             </a>
                         </li>
                     </ul>

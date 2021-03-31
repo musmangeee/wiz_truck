@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Business;
-use App\BusinessCategory;
-use App\City;
-use App\Http\Controllers\Helper\HelperController;
-use App\Mail\VerifyEmail;
+use App\Order;
 use App\Review;
-use App\Town;
-use GuzzleHttp\Psr7\Request;
+use App\Business;
+use App\Ridderlogs;
+use App\BusinessCategory;
+use App\Mail\VerifyEmail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Helper\HelperController;
 
 class HomeController extends Controller
 {
@@ -30,13 +30,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $helper = new HelperController();
-        $data = [];
-       
-        return view('business.dashboard');
-    }
+        $user = Auth::user()->id;
+      //  $ridderlogs = Ridderlogs::where('user_id', $user)->first();
+        $business = Business::where('user_id', $user)->first();
+        $orders = Order::where('business_id', $business->id)->get()->count();
+        $completed_order = Order::where('status', 1)->get()->count();
+        $pending_order =  Order::where('status', 0)->get()->count();
+        $total = Order::where('status', '=', 1)->sum('total');
 
-     
+        return view('business.dashboard', compact('orders', 'completed_order', 'pending_order', 'total'));
+    }
 }

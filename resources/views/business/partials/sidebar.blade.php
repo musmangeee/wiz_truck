@@ -57,6 +57,8 @@
             </form>
 
 
+
+
             <!-- Navigation -->
             <ul class="navbar-nav mb-3">
 
@@ -65,19 +67,22 @@
                         <i class="fe fe-home"></i> Dashboard
                     </a>
                 </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('products.index') }}">
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('business_products') }}">
                         <i class="fe fe-briefcase"></i> Products
                     </a>
                 </li>
+
+
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('menu.index') }}">
                         <i class="fe fe-star"></i> Menu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('busines.reviews')}}">
                         <i class="fe fe-star"></i> My Reviews
                     </a>
                 </li>

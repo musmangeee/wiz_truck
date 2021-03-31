@@ -107,6 +107,6 @@ class MenuController extends Controller
     public function destroy($id)
     {
         Menu::find($id)->delete();
-        return redirect()->back()->with('success', 'Menu deleted successfully');
+        // return redirect()->back()->with('success', 'Menu deleted successfully');
     }
 }

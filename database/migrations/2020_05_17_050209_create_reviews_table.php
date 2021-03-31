@@ -15,7 +15,8 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedInteger('ridderlog_id')->nullable();
             $table->unsignedInteger('business_id')->nullable();
             $table->string('stars')->nullable();
             $table->text('text')->nullable();
@@ -26,6 +27,8 @@ class CreateReviewsTable extends Migration
             $table->string('checked_in')->nullable();
             $table->string('compliment')->nullable();
             $table->timestamps();
+
+           
         });
     }
 

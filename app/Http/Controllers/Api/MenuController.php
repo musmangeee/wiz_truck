@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Menu;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class MenuController extends Controller
 {
@@ -36,12 +38,20 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-        ];
-
-        $this->validate($request, $rules);
+            'business_id'=>'required',
+        ]);
+       if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+        if(Menu::where(['business_id' => $request->business_id ,'name'=>$request->name])->first())
+        {
+            return response()->json(['error' => 'menu already exists']);
+        }
         $data = $request->all();
+        $data['name'] = Str::upper($data['name']);
+       
         $menus = Menu::create($data);
         return response()->json($menus, 201);
     }
@@ -55,7 +65,7 @@ class MenuController extends Controller
     public function show(Menu $menu)
     {
         return response()->json($menu);
-    }
+        }
 
     /**
      * Update the specified resource in storage.
@@ -64,16 +74,28 @@ class MenuController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, $id)
     {
-        $menu->fill($request->only([
-            'name',
-        ]));
-        if ($menu->isClean()) {
-            return response()->json(['error' => 'You need to specify any different value to update'], 422);
+        
+        $menu = Menu::findOrFail($id);
+        
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            
+        ]);
+       if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
         }
+       
+        
+        $menu['name'] = Str::upper($request['name']);
         $menu->save();
-        return response()->json($menu);
+        return response()->json([
+            'status' => 200,
+            'message' => 'menu updated successfully',
+            'data' => $menu,
+  
+        ]);
     }
 
     /**
@@ -83,7 +105,7 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Menu $menu)
-    {
+    {   
         $menu->delete();
         return response()->json($menu);
     }

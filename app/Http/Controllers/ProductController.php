@@ -7,7 +7,7 @@ use App\Menu;
 use App\Product;
 use Auth;
 use Illuminate\Http\Request;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
 {
@@ -73,9 +73,13 @@ class ProductController extends Controller
        
         
         if ($file = $request->file('image')) {
-
+            
             $name = time() . $file->getClientOriginalName();
-            $file->move('public\business_product', $name);
+
+            $image_resize = Image::make($file->getRealPath());              
+            $image_resize->resize(300, 300);
+            $image_resize->save(public_path('business_product/' .$name));
+            // $file->move('public\business_product', $name);
             $input['image'] = $name;
         }
 
@@ -100,7 +104,7 @@ class ProductController extends Controller
 //         $products = Product::create($input , 
 //         ['image' => 'uploads/products/' . $feature_new_name]);
 
-        return redirect()->route('products.index')
+        return redirect()->route('business_products.index')
             ->with('success', 'Product created successfully');
     }
 
@@ -136,6 +140,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+    
+    
         $input = $request->all();
 
         $this->validate($request, [
@@ -152,8 +158,7 @@ class ProductController extends Controller
              $product = Product::find($id);
              $product->update($input);
         
-        return redirect()->back()
-            ->with('success', 'Product updated successfully');
+        return redirect()->back();
     }
    
 

@@ -5,7 +5,7 @@
   <!-- HEADER -->
   <div class="header">
       <div class="container-fluid">
-
+    
           <!-- Body -->
           <div class="header-body">
               <div class="row align-items-end">
@@ -40,7 +40,19 @@
   <!-- / .header -->
 
   <!-- CARDS -->
-  <div class="container-fluid">
+  <div class="container-fluid"> 
+    @if(isset(Auth::user()->business->business_document->w9_form_status ))
+    <div class="alert alert-warning" role="alert">
+        Your request is currently under review. we will notify you soon.
+    </div>
+
+    @elseif(Auth::user()->business->status == 0)
+    <div class="alert alert-warning" role="alert">
+        kindly submit all the nesscery legal to make your foodtruck business live.
+        <a href="{{route('business_document')}}">Submit Here.</a>
+    </div>
+@endif
+ 
       <div class="row">
           <div class="col-12 col-lg-6 col-xl">
 
@@ -52,12 +64,12 @@
 
                               <!-- Title -->
                               <h6 class="text-uppercase text-muted mb-2">
-                                  Total Reviews
+                                  Order
                               </h6>
 
                               <!-- Heading -->
                               <span class="h2 mb-0">
-                                  0
+                                {{$orders}} 
                               </span>
 
                           </div>
@@ -80,15 +92,15 @@
                   <div class="card-body">
                       <div class="row align-items-center">
                           <div class="col">
-
+                            
                               <!-- Title -->
                               <h6 class="text-uppercase text-muted mb-2">
-                                  Total Photos
+                                  Completed Order 
                               </h6>
 
                               <!-- Heading -->
                               <span class="h2 mb-0">
-                                  0
+                                 {{$completed_order}}
                               </span>
 
                           </div>
@@ -114,12 +126,12 @@
 
                               <!-- Title -->
                               <h6 class="text-uppercase text-muted mb-2">
-                                  Exit %
+                                  Pending Order
                               </h6>
 
                               <!-- Heading -->
                               <span class="h2 mb-0">
-                                  35.5%
+                                  {{$pending_order}}
                               </span>
 
                           </div>
@@ -147,12 +159,12 @@
 
                               <!-- Title -->
                               <h6 class="text-uppercase text-muted mb-2">
-                                  Avg. Time
+                                  Net Income
                               </h6>
 
                               <!-- Heading -->
                               <span class="h2 mb-0">
-                                  2:37
+                                 {{$total}}
                               </span>
 
                           </div>

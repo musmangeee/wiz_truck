@@ -19,159 +19,74 @@
 
                         <!-- Title -->
                         <h1 class="header-title">
-                            {{ Auth::user()->business->name }}
+                            Business Review
                         </h1>
 
                     </div>
-                    <div class="col-auto">
-
-                        <!-- Button -->
-                        <a href="#!" class="btn btn-primary lift">
-                            Write a Review
-                        </a>
-
-                    </div>
-                </div>
-                <!-- / .row -->
-            </div>
-            <!-- / .header-body -->
+                    
+                </div> <!-- / .row -->
+            </div> <!-- / .header-body -->
 
         </div>
     </div>
-    <!-- / .header -->
 
     <!-- CARDS -->
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-6 col-xl">
+    <div class="container-fluid">
+        {{-- @if(Session::has('success'))
+            <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
+        @endif
+        @if(Session::has('error'))
+            <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
+        @endif --}}
 
-                <!-- Value  -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-sm table-nowrap">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Business</th>
+                        <th scope="col">Review</th>
+                        <th scope="col">Rate</th>
+                        <th scope="col">Updated</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Action</th>
+                       
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($review as $r)
+                        <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <th>{{ $r->user->name ??"" }}</th> 
+                            <th> {{ $r->business->name ??"" }}</th>
+                            <th><span  class="text-wrap">{{ $r->text }}</span>
+                                </th> 
+                            <th>{{ $r->stars }}</th> 
+                            <th>{{ $r->updated_at }}</th> 
+                            <td>{{  \Carbon\Carbon::parse($r->created_at)->diffForhumans()  }}</td>
 
-                                <!-- Title -->
-                                <h6 class="text-uppercase text-muted mb-2">
-                                    Total Reviews
-                                </h6>
+                            <td>
+                                <a href="{{route('businessreview.edit', $r->id)}}"
+                                   class="btn btn-warning btn-sm lift"><i class="fe fe-edit"></i></a>
+                                <form action="{{ route('dltReviews', $r->id)}}" method="post"
+                                      class="d-inline-block">
+                                    @csrf
+                                   
+                                    <button class="btn btn-danger btn-sm lift   " type="submit"><i class="fe fe-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            </tr>
 
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                  {{ count(Auth::user()->business->reviews) }}
-                              </span>
-
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Icon -->
-                                <span class="h2 fe fe-star text-muted mb-0"></span>
-
-                            </div>
-                        </div>
-                        <!-- / .row -->
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-12 col-lg-6 col-xl">
-
-                <!-- Hours -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="text-uppercase text-muted mb-2">
-                                    Total Photos
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                  0
-                              </span>
-
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Icon -->
-                                <span class="h2 fe fe-image text-muted mb-0"></span>
-
-                            </div>
-                        </div>
-                        <!-- / .row -->
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-12 col-lg-6 col-xl">
-
-                <!-- Exit -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="text-uppercase text-muted mb-2">
-                                    Exit %
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                  35.5%
-                              </span>
-
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Chart -->
-                                <div class="chart chart-sparkline">
-                                    <canvas class="chart-canvas" id="sparklineChart"></canvas>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- / .row -->
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-12 col-lg-6 col-xl">
-
-                <!-- Time -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="text-uppercase text-muted mb-2">
-                                    Avg. Time
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                  2:37
-                              </span>
-
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Icon -->
-                                <span class="h2 fe fe-clock text-muted mb-0"></span>
-
-                            </div>
-                        </div>
-                        <!-- / .row -->
-                    </div>
-                </div>
-
+                            
+                    @endforeach
+                    </tbody>
+                </table>
+                 {{ $review->links() }}
             </div>
         </div>
-        <!-- / .row -->
-
     </div>
 
 

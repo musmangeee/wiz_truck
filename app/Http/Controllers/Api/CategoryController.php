@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CategoryController extends Controller
 {
@@ -14,10 +17,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
       
-      $category = Category::all();
+       $category = Category::all();
     
         return response()->json($category, 200);
     }
@@ -38,28 +41,49 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $rules = [
+    { 
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-        ];
-
-        $this->validate($request, $rules);
-
-        $categories = new Category();
-        $categories->name = $request->name;
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $key => $value) {
-                $cover = $value;
-                $extension = $cover->getClientOriginalExtension();
-                $imagename = 'category_' . strtolower($request->name) . '.' . $extension;
-                \Illuminate\Support\Facades\Storage::disk('public', 'categories')->put($imagename, File::get($cover));
-                $categories->image = $imagename;
-            }
+            'image'=>'required',
+        ]);
+       
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
         }
-        $categories->save();
+    
+        $input = $request->all();
+       
 
-        return response()->json($categories, 201);
+        if ($file = $request->file('image')) {
+            
+            $name = time() . $file->getClientOriginalName();
+
+            $image_resize = Image::make($file->getRealPath());              
+            $image_resize->resize(300, 300);
+            $image_resize->save(public_path('business_category/' .$name));
+            // $file->move('public\business_product', $name);
+            $input['image'] = $name;
+        }
+
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $key => $value) {
+        //         $cover = $value;
+        //         $extension = $cover->getClientOriginalExtension();
+        //         $imagename = 'category_' . strtolower($request->name) . '.' . $extension;
+        //         \Illuminate\Support\Facades\Storage::disk('public', 'categories')->put($imagename, File::get($cover));
+        //         $categories->image = $imagename;
+        //     }
+        // }
+        $categories = Category::create($input);
+        // $categories->save($input);
+
+        return response()->json([
+            'status' =>true,
+            'message' => 'Categories updated Successfully',
+            'profile' =>$categories,
+       
+     ]);
     }
 
     /**
@@ -84,11 +108,14 @@ class CategoryController extends Controller
     {
 
     
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-        ];
+        ]);
+       
         
-        $this->validate($request, $rules);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
         
         $category->name = $request->name;
 

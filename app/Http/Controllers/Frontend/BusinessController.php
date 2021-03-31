@@ -2,31 +2,30 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Business;
-use App\BusinessCategory;
 use App\City;
 use App\Menu;
+use App\Review;
+use App\Package;
 use App\Product;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helper\HelperController;
+use App\Business;
+use App\BusinessCategory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Helper\HelperController;
 
 class BusinessController extends Controller
 {
     public function index($slug, Request $request)
-    {
-
-       
-       
-       
+    { 
         $helper = new HelperController();
         $data = [];
-        $business = Business::where('id', $slug)->with('images')->first();
-       
+        $business = Business::where('id', $slug)->with('images','reviews')->first();
+        $standard_packages = Package::where('event_id',1)->get();
+        $vip_packages = Package::where('event_id',2)->get();
         $menus = Menu::where('business_id',$business->id)->with('products')->get(); 
-        
+      
         $products = [];
         foreach($menus as $menu)    {
             foreach(Product::where('menu_id', $menu->id)->get() as $p)    {
@@ -34,7 +33,7 @@ class BusinessController extends Controller
          }
         }
       
-        return view('frontend.business', compact('business','data', 'menus','products'));
+        return view('frontend.business', compact('business','data', 'menus','products','standard_packages','vip_packages'));
 
     }
 

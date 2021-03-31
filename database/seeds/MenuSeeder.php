@@ -17,50 +17,7 @@ class MenuSeeder extends Seeder
                 'name' => 'SANDWICHES',
                 'business_id' => '1'
             ],
-            [
-                'name' => 'BIRYANI',
-                'business_id' => '1'
-            ],
-            [
-                'name' => 'PALAO',
-                'business_id' => '1'
-            ],
-            [
-                'name' => 'SHAWARMA',
-                'business_id' => '1'
-            ],
-            [
-                'name' => 'ZINGER BURGERS',
-                'business_id' => '2'
-            ],
-            [
-                'name' => 'SANDWICHES',
-                'business_id' => '2'
-            ],
-            [
-                'name' => 'BURGERS',
-                'business_id' => '2'
-            ],
-            [
-                'name' => 'COLD COKE',
-                'business_id' => '2'
-            ],
-            [
-                'name' => 'BOTTLE',
-                'business_id' => '3'
-            ],
-            [
-                'name' => 'SANDWICH',
-                'business_id' => '3'
-            ],
-            [
-                'name' => 'CHICKEN',
-                'business_id' => '4'
-            ],
-            [
-                'name' => 'BURGERS',
-                'business_id' => '4'
-            ],
+           
            
             
         ];
