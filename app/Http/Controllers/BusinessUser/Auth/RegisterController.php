@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\BusinessUser\Auth;
 
-use App\Business;
-use App\BusinessCategory;
-use App\BusinessImage;
-use App\Http\Controllers\Controller;
-use App\Image;
-use App\User;
 use Auth;
 use File;
 use Hash;
-use Illuminate\Http\Request;
+use App\User;
 use Redirect;
 use Validator;
+use App\Business;
+use App\BusinessImage;
+use App\Image as MImage;
+use App\BusinessCategory;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
 {
@@ -96,7 +97,7 @@ class RegisterController extends Controller
                 $name = time() . $file->getClientOriginalName();
                 $file->move('public\business_images', $name);
 
-                $image = Image::create([
+                $image = MImage::create([
                     'name' => $name,
                 ]);
 
