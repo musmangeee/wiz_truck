@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
+use App\Http\Controllers\Controller;
+use App\Image;
+use App\User;
 use DB;
 use Hash;
-use App\User;
-use Throwable;
-use App\Exports\UsersExport;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -28,7 +27,6 @@ class UserController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +37,6 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'name')->all();
         return view('admin.users.create', compact('roles'));
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -53,16 +50,25 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
         ]);
 
-
         $input = $request->all();
-        
+
         $input['password'] = Hash::make($input['password']);
 
         try {
 
+            if ($file = $request->file('image')) {
+
+                $name = time() . $file->getClientOriginalName();
+
+                $image_resize = Image::make($file->getRealPath());
+                $image_resize->resize(300, 300);
+                $image_resize->save(public_path('user/' . $name));
+                // $file->move('public\business_product', $name);
+                $input['image'] = $name;
+            }
             $user = User::create($input);
             $user->assignRole($request->input('roles'));
             return redirect()->route('users.index')->with('success', 'User created successfully');
@@ -82,7 +88,6 @@ class UserController extends Controller
         return view('admin.users.show', compact('user'));
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -95,10 +100,8 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
 
-
         return view('admin.users.edit', compact('user', 'roles', 'userRole'));
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -113,9 +116,8 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
         ]);
-
 
         $user = User::find($id);
         $input = $request->all();
@@ -125,19 +127,14 @@ class UserController extends Controller
             $input['password'] = $user->password;
         }
 
-
-
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
-
         $user->assignRole($request->input('roles'));
-
 
         return redirect()->back()
             ->with('success', 'User updated successfully');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -157,19 +154,18 @@ class UserController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 
-
     public function profile()
     {
 
         $user = Auth::user();
         $words = explode(' ', $user->name);
         $initials = '';
-        foreach ($words as $word)
-            $initials .=  $word[0];
+        foreach ($words as $word) {
+            $initials .= $word[0];
+        }
 
         return view('admin.profile.index', compact('user', 'initials'));
     }
-
 
     public function changePassword(Request $request)
     {
@@ -192,24 +188,22 @@ class UserController extends Controller
         return redirect()->back()->with("success", "Password changed successfully !");
     }
 
-
     public function update_name(Request $request)
     {
         User::findOrFail(Auth::user()->id)->update(
             [
-                'name' => $request->name
+                'name' => $request->name,
             ]
         );
 
         return redirect()->back();
     }
 
-
     public function save_restore_id(Request $request)
     {
         User::findOrFail($request->user_id)->update(
             [
-                'restore_id' => $request->restore_id
+                'restore_id' => $request->restore_id,
             ]
         );
 

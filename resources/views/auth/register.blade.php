@@ -25,7 +25,7 @@
                 </p>
 
                 <!-- Form -->
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
                      <div class="form-group">
 
@@ -105,6 +105,18 @@
                             <!-- Icon -->
                             
 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label>
+                            Upload Image
+                        </label>
+                        <!-- Input group -->
+                        <div class="">
+                            <!-- Input -->
+                           <input type="file" class="form-control" name="image" >
+                            <!-- Icon -->
                         </div>
                     </div>
 

@@ -168,7 +168,7 @@
                             </label> --}}
 
                             <!-- Input -->
-                            <select name="categories[]" id="" class="form-control" data-toggle="select" required multiple autocomplete="false" placeholder="Category">
+                            <select name="categories[]" id="" class="form-control" data-toggle="select" required multiple autocomplete="false" >
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
@@ -435,7 +435,9 @@
                 <input type="password" class="form-control" name="confirm-password"  required placeholder="Confirm">
             </div>
 
-              
+            <div class="form-group">
+                <input type="file" class="form-control" name="image">
+            </div>
                
 
               </div> <!-- / .row -->

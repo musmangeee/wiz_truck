@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\User;
-use App\Order;
-use Validator;
 use App\Business;
-use App\Location;
-use App\Ridderlogs;
-use App\ProductOrder;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\Notification\NotificationController;
+use App\Http\Controllers\Controller;
+use App\Location;
+use App\Order;
+use App\ProductOrder;
+use App\Ridderlogs;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class ProductOrderController extends Controller
 {
@@ -24,7 +24,7 @@ class ProductOrderController extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        $order = Order::where('user_id', $user->id)->whereNotIn('status', ['deliver','cancel'])->with('restaurant')->first();
+        $order = Order::where('user_id', $user->id)->whereNotIn('status', ['deliver', 'cancel'])->with('restaurant', 'ridder')->first();
         return response()->json([
             'status' => true,
             'message' => 'Order get Successfully',
@@ -33,25 +33,23 @@ class ProductOrderController extends Controller
         ]);
     }
 
-    
     public function create_order(Request $request)
-
     {
-    
+
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
 
-        if (Order::where('user_id' , $input['user_id'] )->whereIn('status', ['pending','pickup','accept'])->exists()) {
+        if (Order::where('user_id', $input['user_id'])->whereIn('status', ['pending', 'pickup', 'accept'])->exists()) {
             return response()->json([
 
-                'message' => 'order is already in exist'
+                'message' => 'order is already in exist',
 
             ]);
         }
-        
+
         $order = array();
 
-        $validator =  Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'description' => 'required',
             'address' => 'required',
             'longitude' => 'required',
@@ -69,7 +67,6 @@ class ProductOrderController extends Controller
         ]);
 
         $user = $request->user();
-
 
         $order = Order::create([
             'order_id' => $request->order_id,
@@ -108,7 +105,7 @@ class ProductOrderController extends Controller
         $order['products'] = ProductOrder::where('order_id', $order->id)->get();
 
         if ($pc->save()) {
-            $business =  Business::where('id', $request->business_id)->first();
+            $business = Business::where('id', $request->business_id)->first();
             $token = $business->user->device_token;
 
             $notification = new NotificationController();
@@ -146,29 +143,29 @@ class ProductOrderController extends Controller
                 $status = true;
                 $order->save();
 
-                if (Order::where(['business_id' => $business->id, 'id' => $request->order_id,'status' => 'deliver'])->first()) {
-                     // ! Sending push notification
-                     
-                $notification = new NotificationController();
-                $notification->sendNotification('Order Accepted', $order->user->device_token);
-                $notification->sendNotification('Order Accepted', $business->user->device_token);
-               
+                if (Order::where(['business_id' => $business->id, 'id' => $request->order_id, 'status' => 'deliver'])->first()) {
+                    // ! Sending push notification
+
+                    $notification = new NotificationController();
+                    $notification->sendNotification('Order Accepted', $order->user->device_token);
+                    $notification->sendNotification('Order Accepted', $business->user->device_token);
+
                 }
                 $message = "The order have been accepted";
 
-                $latitude  = $business->latitude;
-                $longitude =  $business->longitude;
+                $latitude = $business->latitude;
+                $longitude = $business->longitude;
 
                 // ! Get nearby Riders & there distance
-              $loc = Location::selectRaw('user_id,longitude,latitude, ( 6367 * acos( cos( radians( ? ) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians( ? ) ) + sin( radians( ? ) ) * sin( radians( latitude ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
-                ->having('distance', '<', $radius)
-                ->orderBy('distance')
-                ->get();
+                $loc = Location::selectRaw('user_id,longitude,latitude, ( 6367 * acos( cos( radians( ? ) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians( ? ) ) + sin( radians( ? ) ) * sin( radians( latitude ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
+                    ->having('distance', '<', $radius)
+                    ->orderBy('distance')
+                    ->get();
                 // ! Commission
                 $comission = ($order->total * 12.5 / 100);
                 // ! Get nearby riders
                 foreach ($loc as $location) {
-                    $distance = number_format((float)$location->distance, 1, '.', '');
+                    $distance = number_format((float) $location->distance, 1, '.', '');
                     // dump($distance);
                     $device_token = User::where('id', $location->user_id)->value('device_token');
                     $notification = new NotificationController();
@@ -176,7 +173,7 @@ class ProductOrderController extends Controller
                         $device_token,
                         'Order Accepted',
                         'Order accepted successfully',
-                        Null,
+                        null,
                         $latitude,
                         $longitude,
                         $location->latitude,
@@ -192,9 +189,9 @@ class ProductOrderController extends Controller
         }
 
         return response()->json([
-            'status'  => $status,
+            'status' => $status,
             'message' => $message,
-            'order'   => $order,
+            'order' => $order,
         ]);
     }
 
@@ -241,14 +238,14 @@ class ProductOrderController extends Controller
             $message = "You have no business account associated with your email.";
         } else {
             $order = Order::where(['business_id' => $business->id, 'id' => $request->order_id])->first();
-           
+
             if ($order != null) {
                 $order->status = "deliver";
                 $status = true;
                 $order->save();
                 // ! Sending push notification
                 $notification = new NotificationController();
-                
+
                 $notification->sendNotification('Order Deliver', $order->user->device_token);
                 $notification->sendNotification('Order Deliver', $business->user->device_token);
 
@@ -292,10 +289,10 @@ class ProductOrderController extends Controller
     public function pickup_order(Request $request)
     {
         $user = Auth::guard('api')->user();
-    
-        $rider = Ridderlogs::where(['user_id'=> $user->id,'order_id'=>$request->order_id])->first();
-         $order = Order::find($request->order_id);
-        $order->status='pickup';
+
+        $rider = Ridderlogs::where(['user_id' => $user->id, 'order_id' => $request->order_id])->first();
+        $order = Order::find($request->order_id);
+        $order->status = 'pickup';
         $order->save();
         $rider->status = "pickup";
         $rider->save();
@@ -306,8 +303,6 @@ class ProductOrderController extends Controller
             'rider' => $rider,
         ]);
     }
-    
-
 
     /**
      * Show the form for creating a new resource.
@@ -362,7 +357,7 @@ class ProductOrderController extends Controller
     {
 
         $input = $request->all();
-        $validator =  Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'description' => 'required',
             'address' => 'required',
             'longitude' => 'required',
@@ -401,5 +396,5 @@ class ProductOrderController extends Controller
             'order' => $order,
         ]);
     }
-    
+
 }
