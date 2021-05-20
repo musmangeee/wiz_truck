@@ -33,42 +33,43 @@ Route::group([
     Route::group([
         'middleware' => 'auth:api'
     ], function () {
-    Route::get('logout', 'Api\AuthController@logout');
-    Route::get('user', 'Api\AuthController@user');
-    Route::apiResource('restaurant_menu', 'Api\Restaurant\RestaurantMenuController');
-    Route::apiResource('owner_restaurant', 'Api\Restaurant\OwnerRestaurantController');
-    Route::get('business_review/{id}', 'Api\Reviews\ReviewController@index');
-    Route::post('post_review', 'Api\Reviews\ReviewController@store');
-    Route::post('get_order', 'Api\ProductOrderController@create_order');
-    Route::get('check_order', 'Api\ProductOrderController@index');
-    Route::get('update_order/{id}', 'Api\ProductOrderController@update');
-    Route::get('delete_order/{id}', 'Api\ProductOrderController@destroy');
-    Route::post('accept_order', 'Api\ProductOrderController@accept_order');
-    Route::post('cancel_order', 'Api\ProductOrderController@cancel_order');
-    Route::post('deliver_order', 'Api\ProductOrderController@deliver_order');
-    // Route::post('pickup_order', 'Api\ProductOrderController@pickup_order');
-    Route::post('completed_order', 'Api\ProductOrderController@completed_order');
-    Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update'); //
-    Route::post('order_exists', 'Api\Restaurant\OrderManagementController@order_exists');
-    Route::get('pending_order_rider', 'Api\Rider\RiderController@TodaysPendingOrders');
-    Route::get('all_orders', 'Api\Rider\RiderController@AllOrders');
-    Route::post('rider_status', 'Api\Rider\RiderController@status');
-    Route::get('order_details', 'Api\UserOrderController@get_details');
-    Route::post('booking_create', 'Api\BookingController@store');
-    Route::get('booking_list', 'Api\BookingController@index');
-    Route::post('booking_update/{id}', 'Api\BookingController@update');
-    Route::post('booking_destroy/{id}', 'Api\BookingController@destroy');
-    Route::post('check_booking', 'Api\BookingController@check_booking');
-    Route::get('specific_booking', 'Api\BookingController@specific_booking');
-    Route::post('business_booking', 'Api\BusinessBookingController@store');
-    Route::post('rider_review', 'Api\Rider\RiderReviewController@store');
-    Route::get('rider_review_list', 'Api\Rider\RiderReviewController@index');
-    
-    Route::post('specific_business', 'Api\BookingController@specific_business');
-    Route::post('accept_event', 'Api\BookingController@accept_event');
-    Route::get('pending_event', 'Api\BookingController@pending_event');
-    Route::get('accepted_event_list', 'Api\BookingController@accepted_event_list');
-    Route::post('cancelled_event', 'Api\BookingController@cancelled_event');
+        Route::get('logout', 'Api\AuthController@logout');
+        Route::get('user', 'Api\AuthController@user');
+        Route::apiResource('restaurant_menu', 'Api\Restaurant\RestaurantMenuController');
+        Route::apiResource('owner_restaurant', 'Api\Restaurant\OwnerRestaurantController');
+        Route::get('business_review/{id}', 'Api\Reviews\ReviewController@index');
+        Route::post('post_review', 'Api\Reviews\ReviewController@store');
+        Route::post('get_order', 'Api\ProductOrderController@create_order');
+        Route::get('check_order', 'Api\ProductOrderController@index');
+        Route::get('update_order/{id}', 'Api\ProductOrderController@update');
+        Route::get('delete_order/{id}', 'Api\ProductOrderController@destroy');
+        Route::post('accept_order', 'Api\ProductOrderController@accept_order');
+        Route::post('cancel_order', 'Api\ProductOrderController@cancel_order');
+        Route::post('deliver_order', 'Api\ProductOrderController@deliver_order');
+        // Route::post('pickup_order', 'Api\ProductOrderController@pickup_order');
+        Route::post('completed_order', 'Api\ProductOrderController@completed_order');
+        Route::post('update_profile/{id}', 'Api\Profile\ProfileController@update'); //
+        Route::post('order_exists', 'Api\Restaurant\OrderManagementController@order_exists');
+        Route::get('pending_order_rider', 'Api\Rider\RiderController@TodaysPendingOrders');
+        Route::get('all_orders', 'Api\Rider\RiderController@AllOrders');
+        Route::post('rider_status', 'Api\Rider\RiderController@status');
+        Route::get('order_details', 'Api\UserOrderController@get_details');
+        Route::post('booking_create', 'Api\BookingController@store');
+        Route::get('booking_list', 'Api\BookingController@index');
+        Route::post('booking_update/{id}', 'Api\BookingController@update');
+        Route::post('booking_destroy/{id}', 'Api\BookingController@destroy');
+        Route::post('check_booking', 'Api\BookingController@check_booking');
+        Route::get('specific_booking', 'Api\BookingController@specific_booking');
+        Route::post('business_booking', 'Api\BusinessBookingController@store');
+        Route::post('rider_review', 'Api\Rider\RiderReviewController@store');
+        Route::get('rider_review_list', 'Api\Rider\RiderReviewController@index');
+        
+        Route::post('specific_business', 'Api\BookingController@specific_business');
+        Route::post('accept_event', 'Api\BookingController@accept_event');
+        Route::get('pending_event', 'Api\BookingController@pending_event');
+        Route::get('accepted_event_list', 'Api\BookingController@accepted_event_list');
+        Route::post('cancelled_event', 'Api\BookingController@cancelled_event');
+
 
     });
 });
@@ -91,14 +92,12 @@ Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
 Route::post('/mobileAuthRegister', 'Auth\LoginController@mobileAuthRegister');
 
 
-// TODO Updated profile //
-
-// !  Business Registration
+// ! Auth API Response
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
-// !  Rider Registration 
+// !Rider Routes
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
 
-// TODO //
+
 
 // !Coupon
 Route::apiResource('coupon', 'Api\Coupon\CouponController');
@@ -121,6 +120,7 @@ Route::prefix('rider')->group(function () {
     Route::get('riderEarning', 'Api\Rider\RiderLocationController@riderEarning');
     Route::post('pickup_order', 'Api\Rider\RiderLocationController@pickup_order');
     Route::post('deliver_order', 'Api\Rider\RiderLocationController@deliver_order');
+    Route::get('rider_info', 'Api\RidderController@rider_info');
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -153,5 +153,6 @@ Route::get('list_package', 'Api\PackageController@index');
 Route::delete('dlt', 'Api\Rider\RiderLocationController@dltrider');
 Route::get('userOrderHistory', 'Api\UserOrderController@userOrderHistory');
 Route::get('businessOrderHistory', 'Api\Business\OrderAPIController@businessOrderHistory');
+
 Route::get('userOrderHistory', 'Api\UserOrderController@userOrderHistory');
 Route::get('businessOrderHistory', 'Api\Business\OrderAPIController@businessOrderHistory');

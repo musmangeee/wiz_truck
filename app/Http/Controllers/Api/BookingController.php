@@ -171,7 +171,7 @@ class BookingController extends Controller
         $message = "";
         $status = false;
         $business = Business::where('user_id', $user->id)->first();
-        
+         
         if ($business == null) {
 
             $message = "You have no business account associated with your email.";

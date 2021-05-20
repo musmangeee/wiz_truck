@@ -142,11 +142,7 @@
                                 Book Event
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" href="#">
-                                
-                            </a>
-                        </li>
+                       
                     </ul>
                     <ul class="nav justify-content-center mt-4">
                         <li class="nav-item">

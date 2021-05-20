@@ -717,12 +717,8 @@
                                     </div>
                                     <div>  
                                    </div>                       
-                            
-                                    
-                                <div>  
-                               </div>                
-                                </div> 
                                 
+                                </div> 
                                  {{-- card2 --}}
                                  <div class="card">
                                     <div class="card-header" style="
@@ -730,7 +726,7 @@
                                       <h3 class="text-center">VIP</h3>
                                     </div>
                                      <div class="card-body">
-                           
+                                        <input type="hidden" name="" value="">
                                       <h5 class="card-title text-center mt-1">Packages</h5>
                                       @foreach ($vip_packages as $key => $v_package)
                                       <div class="mt-5">
@@ -739,14 +735,9 @@
                                     </div>    
                                     @endforeach   
                                     </div>
-                                </div>                                
+                                </div>
                                </div>
-                               <div class="row">
-                                <textarea class="ml-5" disabled name="" id="" cols="30" rows="7">Our standard event packages come with wiztruck advertisement (flyer, email, social media outreach)</textarea>                                
-                                <textarea class="ml-5" disabled name="" id="" cols="30" rows="7">Our VIP event packages come with wiztruck advertisement (flyer, email, social media outreach) and offer an exclusive experience for customers as their orders get delivered to them directly</textarea>                                    
-                            </div>      
-                            </div>     
-                                                 
+                            </div> 
                         </div>
                          <!-- / .row -->
                         <!-- Divider -->

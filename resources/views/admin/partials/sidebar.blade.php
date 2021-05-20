@@ -67,11 +67,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('ridderlogs.index') }}">
-                        <i class="fe fe-bell"></i>Ridder logs
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('business.index') }}">
                         <i class="fe fe-shopping-cart"></i> Food Truck
                     </a>

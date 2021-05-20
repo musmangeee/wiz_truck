@@ -78,7 +78,6 @@ class MenuController extends Controller
     {
         
         $menu = Menu::findOrFail($id);
-        
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             

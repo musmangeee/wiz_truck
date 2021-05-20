@@ -2,13 +2,16 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+
+
+class User extends Authenticatable 
 {
     use Notifiable;
     use HasRoles;
@@ -21,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'address', 'town_id', 'dob', 'device_token', 'image',
+        'name', 'email','phone', 'password', 'address', 'town_id', 'dob', 'device_token','license','social_security_number','registration_file',
     ];
 
     /**
@@ -41,6 +44,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 
     public function business()
     {
@@ -68,5 +72,10 @@ class User extends Authenticatable
     public function AuthAccessToken()
     {
         return $this->hasMany('\App\OauthAccessToken');
+    }
+
+    public function rider_docs()
+    {
+        return $this->hasMany(RiderDocs::class , 'user_id');
     }
 }

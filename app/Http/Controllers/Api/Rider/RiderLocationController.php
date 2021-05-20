@@ -75,7 +75,7 @@ class RiderLocationController extends Controller
         } else {
             $rider =   new Ridderlogs();
             $commision = Order::find($order_id)->total;
-          
+            // dd($commision);
             $commision = ($commision * 12.5 / 100);
             $rider->commision = $commision;
             $rider->user_id = $user;
@@ -173,12 +173,19 @@ class RiderLocationController extends Controller
         ];
         return response()->json($res);
     }
-    public function riderEarning()
+   
+     public function riderEarning()
     {
         $id = auth::guard('api')->user()->id;
          // ! Rider Total sum
         $rider_total = Ridderlogs::where('user_id',$id)->where('status' , 'null')->sum('commision');
         $rider = Ridderlogs::where('user_id',$id)->where('status' , 'null')->get();
+        
+        // $rider_sum=[];
+        // foreach($rider as $r)
+        // {
+        //     $rider_sum = $rider->sum('commision');
+        // }
         // ! Rider Today sum
         $rider_now = Ridderlogs::where('user_id',$id)->where('status' , 'null')->whereDate('created_at', Carbon::today())->get();
         $rider_sum_now = [];
@@ -209,4 +216,7 @@ class RiderLocationController extends Controller
 
        return response()->json($res);
     }
+
+
+    
 }

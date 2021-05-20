@@ -168,7 +168,7 @@
                             </label> --}}
 
                             <!-- Input -->
-                            <select name="categories[]" id="" class="form-control" data-toggle="select" required multiple autocomplete="false" >
+                            <select name="categories[]" id="" class="form-control" data-toggle="select" required multiple autocomplete="false" placeholder="Category">
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
@@ -434,9 +434,6 @@
              <div class="form-group">
                 <input type="password" class="form-control" name="confirm-password"  required placeholder="Confirm">
             </div>
-            <div class="form-group">
-                <input type="file" class="form-control" name="image">
-            </div>
 
               
                
@@ -493,7 +490,10 @@
 
     <script>
         $(document).ready(function () {
-           
+            $('.input-images').imageUploader();
+            var options = {
+        types: ['(regions)']
+    }
         google.maps.event.addDomListener(window, 'load', function() {
         var places = new google.maps.places.Autocomplete(document
             .getElementById('location'),options);
