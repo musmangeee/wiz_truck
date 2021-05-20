@@ -44,15 +44,23 @@ class AuthController extends Controller
         $user = User::create($input);
         $success['token'] = $user->createToken('MyApp')->accessToken;
         $success['name'] = $user->name;
+        // if ($file = $request->file('image')) {
+
+        //     $name = time() . $file->getClientOriginalName();
+
+        //     $image_resize = Image::make($file->getRealPath());
+        //     $image_resize->resize(300, 300);
+        //     $image_resize->save(public_path('user/' . $name));
+        //     // $file->move('public\business_product', $name);
+        //     $input['image'] = $name;
+        // }
+
         if ($file = $request->file('image')) {
 
             $name = time() . $file->getClientOriginalName();
-
-            $image_resize = Image::make($file->getRealPath());
-            $image_resize->resize(300, 300);
-            $image_resize->save(public_path('user/' . $name));
-            // $file->move('public\business_product', $name);
+            $file->move('Profile', $name);
             $input['image'] = $name;
+        
         }
 
         if ($request->role) {

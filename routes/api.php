@@ -89,10 +89,17 @@ Route::get('category_restaurant/{id}', 'Api\CategoryRestaurantController@get_cat
 // ! Google&Facebook Json response
 Route::post('/mobileres', 'Auth\LoginController@mobileResponse');
 Route::post('/mobileAuthRegister', 'Auth\LoginController@mobileAuthRegister');
-// ! Auth API Response
+
+
+// TODO Updated profile //
+
+// !  Business Registration
 Route::post('apiregister', 'Api\BusinessController@ApiRegister');
-// !Rider Routes
+// !  Rider Registration 
 Route::post('ridderregister', 'Api\RidderController@ridderRegister');
+
+// TODO //
+
 // !Coupon
 Route::apiResource('coupon', 'Api\Coupon\CouponController');
 // !Location

@@ -36,6 +36,14 @@ class RidderController extends Controller
 
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         
+        if ($file = $request->file('image')) {
+
+            $name = time() . $file->getClientOriginalName();
+            $file->move('Profile/rider', $name);
+            $input['image'] = $name;
+        
+        }
+
 
         $response = [
             "status" => "200",

@@ -20,15 +20,17 @@ class LocationSeeder extends Seeder
         ]);
       
         Location::create([
-        'user_id' => '4',
+       
+            'user_id' => '4',
         'latitude' => 31.542096277164795, 
         'longitude' => 74.31837473651262
+       
         ]);
 
         Location::create([
-                'user_id' => '4',
-                'latitude' => 31.539664041491292, 
-                'longitude' => 74.31887641132089
+            'user_id' => '4',
+            'latitude' => 31.539664041491292, 
+            'longitude' => 74.31887641132089
         ]);
     }
 }
